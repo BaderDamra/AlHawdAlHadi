@@ -14,7 +14,7 @@
 
 <br/>
 
-![Al Hawd Al Hadi Real Estate Platform](Luxury%20Arabic%20Real%20Estate%20Showcase.png)
+![Al Hawd Al Hadi Real Estate Platform](preview.png)
 
 </div>
 
