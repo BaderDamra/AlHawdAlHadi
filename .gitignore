@@ -1,0 +1,40 @@
+# Archives
+*.zip
+*.tar.gz
+*.rar
+AlHawdAlHadi_Complete_Project.zip
+
+# Visual Studio & IDEs
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+Debug/
+Release/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# OS generated
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Logs & temp
+*.log
+*.tmp
+scratch/

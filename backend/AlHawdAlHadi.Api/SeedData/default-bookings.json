@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bk-101",
+    "name": "المهندس طارق المجالي",
+    "phone": "+962 79 554 1200",
+    "email": "tareq.majali@example.com",
+    "project": "مشروع الهدوء 2",
+    "unit": "شقة - A (الطابق 4)",
+    "preferredDate": "2026-10-24",
+    "preferredTime": "04:00 م",
+    "notes": "أرغب بمعاينة الشقة الأمامية 165 م² والاطلاع على خيارات الدفع.",
+    "status": "confirmed",
+    "createdAt": "2026-10-21T10:30:00Z"
+  },
+  {
+    "id": "bk-102",
+    "name": "د. رانيا العبدلات",
+    "phone": "+962 77 812 9900",
+    "email": "rania.abdallat@example.com",
+    "project": "مشروع الهدوء 3",
+    "unit": "شقة - B (الطابق 5)",
+    "preferredDate": "2026-10-25",
+    "preferredTime": "12:30 م",
+    "notes": "مهتمة بمشروع دابوق الجديد وأود زيارة المكتب.",
+    "status": "new",
+    "createdAt": "2026-10-21T13:15:00Z"
+  }
+]
