@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-cms-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نظام إدارة المحتوى (CMS) | الحوض الهادي للإسكان</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <link rel="stylesheet" href="/libs/leaflet/leaflet.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       SIDEBAR NAVIGATION (Categorized + Custom SVG Icons + Live Badges)
+       ===================================================================== -->
+  <aside class="cms-sidebar" id="cmsSidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo-box">
+        <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+          <path d="M34 6L50 15V56H34V6Z" fill="#E5C287"/>
+          <path d="M34 6L18 16V56H34V6Z" fill="#C69D59"/>
+          <path d="M12 28L24 21V56H12V28Z" fill="#9E7636"/>
+          <line x1="6" y1="56" x2="58" y2="56" stroke="#E5C287" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand-meta">
+        <h1>الحوض الهادي للإسكان</h1>
+        <span>WORKSPACE & CMS v2.0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-scroll">
+      <!-- Group 1: Overview & CRM -->
+      <div class="nav-group-label">القيادة والمتابعة</div>
+      <nav class="nav-group">
+        <button type="button" class="nav-item active" data-panel="panel-overview" data-title="لوحة القيادة الرئيسية" data-sub="نظرة شاملة على إحصائيات الموقع والتحكم السريع بالأقسام">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>
+            </svg>
+            <span>لوحة القيادة الرئيسية</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-bookings" data-title="إدارة حجوزات المواعيد والعملاء" data-sub="متابعة طلبات المعاينة الميدانية والرد المباشر عبر الهاتف أو واتساب">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>طلبات حجز المواعيد</span>
+          </span>
+          <span class="nav-badge" id="navBookingsBadge">0</span>
+        </button>
+      </nav>
+
+      <!-- Group 2: Website Sections -->
+      <div class="nav-group-label">أقسام الصفحة الرئيسية</div>
+      <nav class="nav-group">
+        <button type="button" class="nav-item" data-panel="panel-general" data-title="الهوية والقائمة العلوية" data-sub="تخصيص اسم العلامة التجارية، المظهر الافتراضي، وروابط الهيدر">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span>الهوية والقائمة العلوية</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-hero" data-title="الواجهة الرئيسية (Hero Slider)" data-sub="تحرير العنوان الترحيبي، النصوص، وشرائح العرض النهارية والليلية">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <span>الواجهة الرئيسية (Hero)</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-projects" data-title="المشاريع السكنية" data-sub="إدارة بطاقات المشاريع، حالات التوفر، المواقع، والصور المزدوجة">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="9" y1="9" x2="9" y2="9.01"/><line x1="9" y1="13" x2="9" y2="13.01"/><line x1="9" y1="17" x2="9" y2="17.01"/>
+            </svg>
+            <span>المشاريع السكنية</span>
+          </span>
+          <span class="nav-badge subtle" id="navProjectsBadge">3</span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-explorer" data-title="مستكشف الوحدات والشقق التفاعلي" data-sub="تخصيص المبنى التفاعلي، المخطط الهندسي، مواصفات الشقق، والمعرض الداخلي">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+            </svg>
+            <span>مستكشف الوحدات والشقق</span>
+          </span>
+          <span class="nav-badge subtle" id="navUnitsBadge">3</span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-lifestyle" data-title="أسلوب الحياة والمرافق" data-sub="إدارة بانر المجتمع السكني المتكامل والمرافق الستة">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22v-7"/><path d="M9 15c-3 0-5-2.5-5-5.5S6.5 3 12 3s8 3.5 8 6.5-2 5.5-5 5.5H9z"/>
+            </svg>
+            <span>أسلوب الحياة والمرافق</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-about" data-title="عن الشركة والإحصائيات" data-sub="تحرير الرسالة التعريفية للشركة والأرقام والإنجازات">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <span>عن الشركة والإحصائيات</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-location" data-title="الموقع الاستراتيجي والخريطة التفاعلية" data-sub="تحديد مواقع الدبابيس التفاعلية على الخريطة والمسافات الزمنية">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>الموقع الاستراتيجي والخريطة</span>
+          </span>
+        </button>
+
+        <button type="button" class="nav-item" data-panel="panel-footer" data-title="بانر الحجز السفلي والفوتر" data-sub="إدارة دعوة الحجز النهائية، قنوات التواصل المباشر، وروابط الفوتر">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>بانر الحجز والفوتر</span>
+          </span>
+        </button>
+      </nav>
+
+      <!-- Group 3: Media & Backup -->
+      <div class="nav-group-label">الوسائط والنظام</div>
+      <nav class="nav-group">
+        <button type="button" class="nav-item" data-panel="panel-media" data-title="مكتبة الوسائط المزدوجة (Light & Dark)" data-sub="استعراض المشاهد العشرة المتطابقة ورفع صور جديدة للموقع">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>مكتبة الصور (Light & Dark)</span>
+          </span>
+          <span class="nav-badge subtle">10 أزواج</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-row">
+        <a href="/" target="_blank" class="btn btn-outline btn-sm" style="flex:1;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>فتح الموقع</span>
+        </a>
+        <button type="button" class="btn btn-outline btn-sm" id="cmsThemeToggleBtn" title="تغيير مظهر الداشبورد">
+          <span id="cmsThemeIcon">☀️</span>
+        </button>
+      </div>
+      <button type="button" class="btn btn-danger-ghost btn-sm" id="resetDefaultBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        <span>استعادة الضبط الافتراضي</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       MAIN WORKSPACE & SPLIT-SCREEN LIVE PREVIEW
+       ===================================================================== -->
+  <div class="cms-workspace" id="cmsWorkspace">
+    <!-- Sticky Top Header -->
+    <header class="cms-topbar">
+      <div class="topbar-right">
+        <div class="topbar-breadcrumb">نظام إدارة المحتوى <span>/</span> <strong id="breadcrumbCurrent">لوحة القيادة الرئيسية</strong></div>
+        <h2 class="topbar-title" id="activePanelTitle">لوحة القيادة الرئيسية</h2>
+        <p class="topbar-subtitle" id="activePanelSub">نظرة شاملة على إحصائيات الموقع والتحكم السريع بالأقسام</p>
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Sync / Unsaved Changes Indicator -->
+        <div class="sync-status-pill synced" id="syncStatusPill">
+          <span class="sync-dot"></span>
+          <span id="syncStatusText">كافة التعديلات محفوظة</span>
+        </div>
+
+        <!-- Live Preview Split-Screen Toggle -->
+        <button type="button" class="btn btn-secondary" id="toggleLivePreviewBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>معاينة حية للموقع</span>
+        </button>
+
+        <!-- Primary Save Button -->
+        <button type="button" class="btn btn-primary" id="saveAllBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+          </svg>
+          <span>حفظ التعديلات</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Split Container (Editor + Optional Live Iframe Preview) -->
+    <div class="cms-body-split" id="cmsBodySplit">
+      <div class="cms-editor-pane">
+
+        <!-- ===============================================================
+             PANEL 0: EXECUTIVE OVERVIEW DASHBOARD
+             =============================================================== -->
+        <section class="cms-panel active" id="panel-overview">
+          <!-- KPI Stat Cards Row -->
+          <div class="kpi-grid" id="overviewKpiGrid"></div>
+
+          <div class="grid-overview-main">
+            <!-- Visual Section Architecture & Visibility Manager -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">هيكلة أقسام الموقع والتحكم بالظهور</h3>
+                  <p class="card-desc">قم بتفعيل أو إخفاء أي قسم في الصفحة الرئيسية، أو انتقل مباشرة لتحرير محتواه.</p>
+                </div>
+              </div>
+              <div class="section-manager-list" id="overviewSectionManager"></div>
+            </div>
+
+            <!-- Right Side Column: Recent Bookings + Quick Backup -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">أحدث طلبات حجز المواعيد</h3>
+                    <p class="card-desc">آخر طلبات المعاينة الواردة من العملاء</p>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm" data-goto-panel="panel-bookings">عرض الكل ←</button>
+                </div>
+                <div id="overviewRecentBookings"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">النسخ الاحتياطي وتصدير البيانات</h3>
+                    <p class="card-desc">تصدير أو استيراد ملف إعدادات الموقع بصيغة JSON</p>
+                  </div>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button type="button" class="btn btn-secondary btn-sm" id="exportJsonBtn" style="flex:1;">
+                    ⬇️ تصدير نسخة احتياطية (JSON)
+                  </button>
+                  <label class="btn btn-outline btn-sm" style="flex:1; cursor:pointer;">
+                    ⬆️ استيراد ملف JSON
+                    <input type="file" id="importJsonInput" accept=".json" style="display:none;" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 1: BRANDING, GENERAL SETTINGS & NAVIGATION
+             =============================================================== -->
+        <section class="cms-panel" id="panel-general">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">الهوية المؤسسية والمظهر الافتراضي</h3>
+                <p class="card-desc">تظهر هذه البيانات في الهيدر، الفوتر، وبيانات التواصل الرسمية للشركة.</p>
+              </div>
+            </div>
+            <div class="grid-2" id="generalSettingsForm"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">روابط القائمة العلوية (Header Navigation)</h3>
+                <p class="card-desc">تحكم بعناوين الروابط والأقسام التي تشير إليها في أعلى الموقع.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addNavBtn">+ إضافة رابط جديد</button>
+            </div>
+            <div id="navLinksEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 2: HERO SECTION & SLIDER
+             =============================================================== -->
+        <section class="cms-panel" id="panel-hero">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">النصوص والعناوين الترحيبية في الواجهة الرئيسية</h3>
+                <p class="card-desc">النصوص التي تظهر فوق صورة الهيرو الرئيسية على الجانب الأيمن.</p>
+              </div>
+            </div>
+            <div id="heroTextsEditor"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">شرائح العرض الخلفية (Hero Slides 01 – 04)</h3>
+                <p class="card-desc">لكل شريحة صورة نهارية (Light Mode) وصورة ليلية (Dark Mode) تتبدل تلقائياً.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addHeroSlideBtn">+ إضافة شريحة عرض</button>
+            </div>
+            <div id="heroSlidesEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 3: FEATURED PROJECTS (Tabbed Selector for Clean UX)
+             =============================================================== -->
+        <section class="cms-panel" id="panel-projects">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">عناوين قسم المشاريع السكنية</h3>
+                <p class="card-desc">الترويسة العلوية لقسم المشاريع في الصفحة الرئيسية.</p>
+              </div>
+            </div>
+            <div id="projectsHeaderEditor"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">إدارة المشاريع السكنية</h3>
+                <p class="card-desc">اختر المشروع من الشريط أدناه لتحرير بياناته وصوره في الوضعين النهاري والليلي.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addProjectBtn">+ إضافة مشروع سكني</button>
+            </div>
+
+            <!-- Visual Sub-Tabs for Projects -->
+            <div class="subtabs-bar" id="projectsSubtabs"></div>
+
+            <!-- Single Active Project Editor -->
+            <div id="projectsListEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 4: INTERACTIVE UNIT SHOWCASE (استكشف وحدتك السكنية)
+             =============================================================== -->
+        <section class="cms-panel" id="panel-explorer">
+          <!-- Card 1: Main Header & CTA -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">نصوص وعناوين قسم استعراض الوحدات السكنية</h3>
+                <p class="card-desc">تحكم بالعنوان الفرعي، العنوان الرئيسي، النص التوضيحي، وزر استعراض الوحدات.</p>
+              </div>
+            </div>
+            <div id="explorerHeaderEditor"></div>
+          </div>
+
+          <!-- Card 2: 4 Summary Metrics -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">المؤشرات الأربعة الملخصة (المساحة، الغرف، الإطلالة، التشطيب)</h3>
+                <p class="card-desc">القيم والمسميات التي تظهر في شريط الملخص أسفل العناوين بجانب زر الاستعراض.</p>
+              </div>
+            </div>
+            <div id="explorerMetricsEditor"></div>
+          </div>
+
+          <!-- Card 3: Categories & Tabs -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">فئات الوحدات السكنية (تبويبات التصفية)</h3>
+                <p class="card-desc">مثل: شقق، دوبلكس، بنتهاوس — مع إمكانية إضافة أو تعديل أو حذف أي فئة بحرية.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="addExpCategoryBtn">+ إضافة فئة جديدة</button>
+            </div>
+            <div id="explorerCategoriesEditor"></div>
+          </div>
+
+          <!-- Card 4: Showcase Unit Cards & Floorplans -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">إدارة نماذج وبطاقات استعراض الوحدات السكنية (السكشن العلوي)</h3>
+                <p class="card-desc">إدارة البطاقات الثلاث (شقة A، دوبلكس، بنتهاوس) مع المخطط الهندسي، المساحة، عدد الغرف، وسم الميزة، وصورة المعاينة المعمارية.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addShowcaseUnitBtn">+ إضافة وحدة سكنية جديدة</button>
+            </div>
+
+            <!-- Visual Sub-Tabs for Showcase Units -->
+            <div class="subtabs-bar" id="showcaseUnitsSubtabs"></div>
+
+            <!-- Active Showcase Unit Editor -->
+            <div id="showcaseUnitsEditor"></div>
+          </div>
+
+          <!-- Card 5: Apartment Specifications & Full Interior Gallery (السكشن التفصيلي) -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">تفاصيل الشقة والمعرض الداخلي والمواصفات (السكشن التفصيلي)</h3>
+                <p class="card-desc">تحكم بالمواصفات الأربع (المساحة، الطابق، غرف النوم، الاتجاه)، أزرار المزايا، ومعرض الصور الداخلية مع تكبير ملء الشاشة.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="addApartmentBtn">+ إضافة نموذج شقة جديد</button>
+            </div>
+
+            <!-- Visual Sub-Tabs for Detailed Apartments (A, B, C) -->
+            <div class="subtabs-bar" id="apartmentsSubtabs"></div>
+
+            <!-- Active Apartment Details Editor -->
+            <div id="apartmentsEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 5: LIFESTYLE & AMENITIES
+             =============================================================== -->
+        <section class="cms-panel" id="panel-lifestyle">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">بانر أسلوب الحياة المتكامل</h3>
+                <p class="card-desc">تخصيص العنوان والوصف وصورة المسبح والحدائق النهارية والليلية.</p>
+              </div>
+            </div>
+            <div id="lifestyleHeaderEditor"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">المرافق والخدمات السكنية وإدارة الفئات</h3>
+                <p class="card-desc">تحكم كامل بالمرافق مع إمكانية إضافة وإنشاء فئات وأيقونات جديدة مخصصة بحرية تامة دون قيود.</p>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-secondary btn-sm" id="openAddCategoryBtn">✨ إضافة فئة مخصصة</button>
+                <button type="button" class="btn btn-primary btn-sm" id="addAmenityBtn">+ إضافة مرفق جديد</button>
+              </div>
+            </div>
+            <!-- Custom Categories Management Bar -->
+            <div id="customCategoriesBar" style="margin-bottom:14px;"></div>
+            <!-- Amenities Repeater Editor -->
+            <div class="grid-2" id="amenitiesListEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 6: ABOUT COMPANY & STATS
+             =============================================================== -->
+        <section class="cms-panel" id="panel-about">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">قسم عن الشركة (نبني مساحات تليق بتطلعاتك)</h3>
+                <p class="card-desc">الرسالة التعريفية وصورة المدخل المعماري الفاخر.</p>
+              </div>
+            </div>
+            <div id="aboutHeaderEditor"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">الأرقام والإحصائيات الرئيسية</h3>
+                <p class="card-desc">مثل: 3 مشاريع قائمة، +1,000 وحدة سكنية، +10 سنوات خبرة.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addStatBtn">+ إضافة إحصائية</button>
+            </div>
+            <div id="statsListEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 7: STRATEGIC LOCATION & INTERACTIVE MAP
+             =============================================================== -->
+        <section class="cms-panel" id="panel-location">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">عناوين الموقع الاستراتيجي والدبوس الرئيسي</h3>
+                <p class="card-desc">تحرير نصوص القسم وبطاقة المشروع الرئيسية على الخريطة.</p>
+              </div>
+            </div>
+            <div id="locationHeaderEditor"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">قائمة المسافات الزمنية</h3>
+                  <p class="card-desc">المدارس، المولات، المستشفيات...</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="addProximityBtn">+ إضافة مسافة</button>
+              </div>
+              <div id="proximitiesEditor"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">دبابيس المعالم على الخريطة</h3>
+                  <p class="card-desc">تعديل أسماء ومواقع الدبابيس (X% و Y%)</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="addMapPinBtn">+ إضافة دبوس</button>
+              </div>
+              <div id="mapPinsEditor"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 8: CTA BANNER & FOOTER
+             =============================================================== -->
+        <section class="cms-panel" id="panel-footer">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">بانر الحجز السفلي (منزلك القادم أقرب مما تتخيل)</h3>
+                <p class="card-desc">تحرير العنوان، زر الحجز، روابط التواصل السريع، وصورة التراس البانورامي.</p>
+              </div>
+            </div>
+            <div id="ctaBannerEditor"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">الفوتر ومعلومات الاتصال والروابط السفلية</h3>
+                <p class="card-desc">تحديث بيانات الاتصال، الخدمات، الروابط السريعة، وحقوق الملكية.</p>
+              </div>
+            </div>
+            <div id="footerEditor"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 9: MEDIA LIBRARY (LIGHTMOOD & DARKMOOD PAIRS + UPLOAD)
+             =============================================================== -->
+        <section class="cms-panel" id="panel-media">
+          <div class="card upload-dropzone-card">
+            <div class="upload-dropzone" id="uploadDropzone">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--cms-gold); margin-bottom:8px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <h4>ارفع صوراً جديدة إلى مكتبة الموقع</h4>
+              <p>اختر صورة بصيغة PNG أو JPG أو WebP — يتم ضغط الحجم تلقائياً بتقنية WebP الذكية مع الحفاظ على 100% من الجودة والأبعاد</p>
+              <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:14px;">
+                <input type="file" id="mediaUploadInput" accept="image/*" class="input" style="max-width:320px;" />
+                <button type="button" class="btn btn-primary" id="uploadMediaBtn">⬆️ رفع الصورة الآن</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">المشاهد المعمارية والداخلية المزدوجة (LightMood & DarkMood)</h3>
+                <p class="card-desc">10 مشاهد متطابقة للوضع النهاري والليلي جاهزة للاستخدام في أي قسم من أقسام الموقع.</p>
+              </div>
+            </div>
+            <div class="scene-pair-grid" id="mediaPairsShowcase"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">الصور المرفوعة المخصصة</h3>
+                <p class="card-desc">الصور التي قمت برفعها من جهازك</p>
+              </div>
+            </div>
+            <div class="grid-4" id="customUploadsShowcase"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             PANEL 10: CUSTOMER BOOKINGS CRM
+             =============================================================== -->
+        <section class="cms-panel" id="panel-bookings">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">سجل طلبات حجز المواعيد والعملاء</h3>
+                <p class="card-desc">إدارة طلبات المعاينة الواردة من الموقع وتحديث حالة المتابعة لكل عميل.</p>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <input type="search" id="bookingSearchInput" class="input" placeholder="ابحث باسم العميل أو الهاتف..." style="width:240px;" />
+                <button type="button" class="btn btn-secondary btn-sm" id="refreshBookingsBtn">🔄 تحديث</button>
+              </div>
+            </div>
+
+            <!-- Booking Filter Pills -->
+            <div class="subtabs-bar" id="bookingFilterBar" style="margin-bottom:18px;">
+              <button type="button" class="subtab-pill active" data-bk-filter="all">الكل</button>
+              <button type="button" class="subtab-pill" data-bk-filter="new">طلب جديد</button>
+              <button type="button" class="subtab-pill" data-bk-filter="contacted">تم التواصل</button>
+              <button type="button" class="subtab-pill" data-bk-filter="confirmed">مؤكد</button>
+              <button type="button" class="subtab-pill" data-bk-filter="cancelled">ملغى</button>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table class="cms-table">
+                <thead>
+                  <tr>
+                    <th>العميل</th>
+                    <th>التواصل المباشر</th>
+                    <th>المشروع والوحدة</th>
+                    <th>الموعد المفضل</th>
+                    <th>الملاحظات</th>
+                    <th>حالة الطلب</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- LIVE INTERACTIVE WEBSITE PREVIEW PANE (Split-Screen Dock) -->
+      <aside class="cms-preview-pane" id="cmsPreviewPane">
+        <div class="preview-pane-toolbar">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="live-pulse"></span>
+            <strong style="font-size:0.86rem;">المعاينة الحية للموقع</strong>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button type="button" class="btn btn-secondary btn-xs" id="previewLightBtn" title="معاينة الوضع النهاري">☀️ نهاري</button>
+            <button type="button" class="btn btn-secondary btn-xs" id="previewDarkBtn" title="معاينة الوضع الليلي">🌙 ليلي</button>
+            <button type="button" class="btn btn-secondary btn-xs" id="refreshPreviewBtn" title="تحديث المعاينة">🔄</button>
+            <button type="button" class="btn btn-secondary btn-xs" id="closePreviewPaneBtn" title="إغلاق المعاينة">✕</button>
+          </div>
+        </div>
+        <div class="preview-iframe-wrap">
+          <iframe id="livePreviewIframe" src="/?theme=light" title="معاينة الموقع"></iframe>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MEDIA PICKER MODAL (LightMood / DarkMood Pair Selector)
+       ===================================================================== -->
+  <div class="picker-backdrop" id="mediaPickerModal">
+    <div class="picker-modal">
+      <div class="card-header" style="padding:18px 24px; margin:0;">
+        <div>
+          <h3 class="card-title">مكتبة الوسائط المزدوجة (LightMood & DarkMood)</h3>
+          <p class="card-desc">اختر زوج الصور المتطابق (نهاري + ليلي) بضغطة واحدة أو ارفع صورة مخصصة من جهازك</p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="closePickerModal">إغلاق ✕</button>
+      </div>
+      <div class="picker-body">
+        <div class="quick-upload-bar">
+          <input type="file" id="modalQuickUpload" accept="image/*" class="input" style="max-width:340px;" />
+          <button type="button" class="btn btn-primary btn-sm" id="modalUploadBtn">⬆️ رفع واختيار فوري</button>
+        </div>
+        <div class="scene-pair-grid" id="pickerPairsGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       CUSTOM CATEGORY CREATOR MODAL (Formal Architectural Line Icons)
+       ===================================================================== -->
+  <div class="picker-backdrop" id="customCategoryModal">
+    <div class="picker-modal" style="max-width:620px;">
+      <div class="card-header" style="padding:18px 24px; margin:0;">
+        <div>
+          <h3 class="card-title">🏛️ إضافة فئة سكنية جديدة (أيقونة هندسية فاخرة)</h3>
+          <p class="card-desc">اختر أيقونة معمارية خطية رسمية وفخمة (Line Vector) تعكس الهوية الراقية للمشروع</p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="closeCategoryModal">إغلاق ✕</button>
+      </div>
+      <div class="picker-body" style="padding:20px 24px;">
+        <div class="field" style="margin-bottom:16px;">
+          <label style="font-weight:600; color:var(--cms-gold); display:block; margin-bottom:6px;">اسم الفئة أو المرفق</label>
+          <input type="text" class="input" id="newCategoryLabelInput" placeholder="مثال: مسبح داخلي مدفأ، ملاعب بادل، لاونج خاص، مصاعد ذكية..." style="width:100%; font-size:0.95rem;" />
+        </div>
+
+        <div class="field" style="margin-bottom:16px;">
+          <label style="font-weight:600; color:var(--cms-gold); display:block; margin-bottom:6px;">الأيقونة المعمارية المختارة</label>
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:14px; background:var(--cms-surface-alt); padding:10px 14px; border-radius:10px; border:1px solid var(--cms-border);">
+            <div id="newCategoryIconPreview" style="width:46px; height:46px; border-radius:50%; background:rgba(212,175,55,0.12); border:1.5px solid var(--cms-gold); display:flex; align-items:center; justify-content:center; color:var(--cms-gold); flex-shrink:0;">
+              <!-- Preview SVG -->
+            </div>
+            <div style="flex:1;">
+              <div id="newCategoryIconName" style="font-size:0.88rem; font-weight:600; color:var(--cms-text-primary);">مسبح ومرافق مائية</div>
+              <div style="font-size:0.74rem; color:var(--cms-text-muted);">أيقونة خطية ذهبية متطابقة مع التصميم المعماري</div>
+            </div>
+            <input type="hidden" id="newCategoryIconInput" value="pool" />
+          </div>
+
+          <label style="font-size:0.8rem; color:var(--cms-text-muted); display:block; margin-bottom:8px;">مكتبة الرموز المعمارية الفاخرة (اضغط للاختيار):</label>
+          <div id="formalIconGrid" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; max-height:240px; overflow-y:auto; background:var(--cms-surface-alt); padding:10px; border-radius:10px; border:1px solid var(--cms-border);">
+            <!-- Populated dynamically with formal SVGs via JS -->
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:22px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="cancelCategoryBtn">إلغاء</button>
+          <button type="button" class="btn btn-primary btn-sm" id="saveCategoryBtn">💾 حفظ الفئة بالأيقونة المعمارية</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-bar" id="cmsToast">تم حفظ التعديلات بنجاح!</div>
+
+  <!-- Leaflet Map Engine & CMS Logic -->
+  <script src="/libs/leaflet/leaflet.js"></script>
+  <script src="/js/admin.js?v=20261026_7"></script>
+</body>
+</html>

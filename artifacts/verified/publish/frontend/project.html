@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">تفاصيل المشروع | الحوض الهادي للإسكان</title>
+  <meta name="description" content="استكشف تفاصيل المشروع السكني، المواصفات، المخططات، الوحدات المتوفرة، والمرافق في الحوض الهادي للإسكان." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/project.css" />
+  <link rel="stylesheet" href="/components/components.css" />
+  <link rel="stylesheet" href="/libs/leaflet/leaflet.css" />
+</head>
+<body class="project-page">
+
+  <!-- =====================================================================
+       SITE HEADER COMPONENT (<site-header>)
+       ===================================================================== -->
+  <site-header page="project"></site-header>
+
+  <!-- =====================================================================
+       MAIN PROJECT DETAIL CONTENT
+       ===================================================================== -->
+  <main class="project-detail-container container">
+
+    <!-- Breadcrumbs -->
+    <nav class="project-breadcrumbs" aria-label="مسار التصفح">
+      <a href="/">الرئيسية</a>
+      <span class="breadcrumb-separator">›</span>
+      <a href="/#projects">المشاريع</a>
+      <span class="breadcrumb-separator">›</span>
+      <span class="current-crumb" id="breadcrumbProjectTitle">مشروع الهدوء 2</span>
+    </nav>
+
+    <!-- Project Hero Showcase: Gallery Component + Summary Box -->
+    <section class="project-hero-showcase">
+      <!-- Right/Main: Interactive Media Gallery Component (<gallery-viewer>) -->
+      <gallery-viewer></gallery-viewer>
+
+      <!-- Left: Executive Summary Card -->
+      <div class="project-summary-card">
+        <div class="summary-card-header">
+          <span class="project-badge-pill" id="projectStatusBadge">متاح الآن</span>
+          <h1 class="project-main-title" id="projectMainTitle">مشروع الهدوء 2</h1>
+          <div class="project-location-row" id="projectLocationRow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span id="projectLocationText">عمان - دير غبار</span>
+          </div>
+          <p class="project-summary-desc" id="projectSummaryDesc">
+            مجتمع سكني متكامل يجمع بين الفخامة والراحة في واحدة من أرقى مناطق عمان، حيث التصميم العصري والمساحات الخضراء الواسعة.
+          </p>
+        </div>
+
+        <!-- Metric Specs 4-Box Grid -->
+        <div class="project-specs-grid">
+          <div class="spec-stat-card">
+            <div class="spec-stat-val" id="specFloorsVal">6</div>
+            <div class="spec-stat-lbl">طوابق</div>
+            <div class="spec-stat-icon">🏢</div>
+          </div>
+          <div class="spec-stat-card">
+            <div class="spec-stat-val" id="specUnitsVal">48</div>
+            <div class="spec-stat-lbl">شقة سكنية</div>
+            <div class="spec-stat-icon">🏠</div>
+          </div>
+          <div class="spec-stat-card">
+            <div class="spec-stat-val" id="specAreaVal">120 م²</div>
+            <div class="spec-stat-lbl">المساحة الابتدائية</div>
+            <div class="spec-stat-icon">📐</div>
+          </div>
+          <div class="spec-stat-card">
+            <div class="spec-stat-val" id="specStatusVal">جاهز للسكن</div>
+            <div class="spec-stat-lbl">حالة المشروع</div>
+            <div class="spec-stat-icon">🔑</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="summary-actions-row">
+          <button type="button" class="btn btn-primary btn-gold-solid" onclick="document.querySelector('booking-modal')?.openModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>احجز موعد مشاهدة</span>
+          </button>
+          <a href="https://wa.me/962790000000" target="_blank" rel="noopener" class="btn btn-secondary btn-outline-clean">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>تواصل معنا</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-Page Sticky Anchor Navigation Bar -->
+    <nav class="project-section-tabs-bar" id="sectionTabsBar">
+      <div class="tabs-bar-inner">
+        <a href="#tab-overview" class="section-tab-item active">نظرة عامة</a>
+        <a href="#tab-amenities" class="section-tab-item">المميزات والمرافق</a>
+        <a href="#tab-units" class="section-tab-item">الشقق المتاحة</a>
+        <a href="#tab-floorplans" class="section-tab-item">المخططات والرسومات</a>
+        <a href="#tab-location" class="section-tab-item">الموقع والمعالم</a>
+      </div>
+    </nav>
+
+    <!-- SECTION 1: OVERVIEW -->
+    <section class="project-detail-section" id="tab-overview">
+      <div class="overview-grid">
+        <div class="overview-text-side">
+          <span class="section-gold-eyebrow" id="overviewBadge">نظرة عامة</span>
+          <h2 class="section-heading-lg" id="overviewTitle">حياة استثنائية في قلب دير غبار</h2>
+          <p class="overview-lead-paragraph" id="overviewText">
+            مشروع الهدوء 2 هو امتداد لنجاحنا في تقديم مجتمعات سكنية حديثة تلبي أسلوب الحياة العصري. يتميز المشروع بتصميم معماري أنيق وتشطيبات عالية الجودة، ويوفر مساحات متنوعة تلائم احتياجات جميع السكان، ضمن بيئة متكاملة تجمع بين الراحة والخصوصية وقربه من أهم المرافق الحيوية.
+          </p>
+
+          <div class="overview-highlights-list" id="overviewHighlightsList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="overview-image-side">
+          <div class="overview-image-card">
+            <img src="/images/projects/09_living_room_overview.png" alt="نظرة عامة على المشروع" id="overviewImg" class="overview-img" />
+            <span class="overview-caption-badge" id="overviewCaptionBadge">تصميم داخلي نموذجي</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: AMENITIES COMPONENT (<amenities-grid>) -->
+    <amenities-grid></amenities-grid>
+
+    <!-- SECTION 3: AVAILABLE UNITS COMPONENT (<available-units-table>) -->
+    <available-units-table></available-units-table>
+
+    <!-- SECTION 4: FLOORPLANS COMPONENT (<floorplan-viewer>) -->
+    <floorplan-viewer></floorplan-viewer>
+
+    <!-- SECTION 5: REAL INTERACTIVE MAP COMPONENT (<interactive-map>) -->
+    <interactive-map></interactive-map>
+
+    <!-- SECTION 6: CTA BANNER COMPONENT (<booking-banner>) -->
+    <booking-banner></booking-banner>
+
+  </main>
+
+  <!-- =====================================================================
+       SITE FOOTER COMPONENT (<site-footer>)
+       ===================================================================== -->
+  <site-footer variant="compact"></site-footer>
+
+  <!-- =====================================================================
+       BOOKING MODAL COMPONENT (<booking-modal>)
+       ===================================================================== -->
+  <booking-modal></booking-modal>
+
+  <!-- Floating CMS Link Pill -->
+  <a href="/admin" class="floating-cms-pill" title="لوحة التحكم CMS">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+    <span>لوحة التحكم CMS</span>
+  </a>
+
+  <!-- =====================================================================
+       NATIVE WEB COMPONENTS & APP SCRIPTS
+       ===================================================================== -->
+  <script src="/libs/leaflet/leaflet.js"></script>
+  <script src="/components/theme-toggle.js"></script>
+  <script src="/components/site-header.js"></script>
+  <script src="/components/site-footer.js"></script>
+  <script src="/components/project-card.js"></script>
+  <script src="/components/interactive-map.js"></script>
+  <script src="/components/gallery-viewer.js"></script>
+  <script src="/components/floorplan-viewer.js"></script>
+  <script src="/components/amenities-grid.js"></script>
+  <script src="/components/available-units-table.js"></script>
+  <script src="/components/booking-banner.js"></script>
+  <script src="/components/booking-modal.js"></script>
+  <script src="/js/project.js"></script>
+</body>
+</html>

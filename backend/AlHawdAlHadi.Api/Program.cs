@@ -57,6 +57,7 @@ builder.WebHost.ConfigureKestrel(k => k.Limits.MaxRequestBodySize = 30 * 1024 * 
 
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
+builder.Services.AddAdminAccess(builder.Configuration, builder.Environment);
 
 builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
 {
@@ -91,6 +92,7 @@ else
 }
 
 app.UseCors("Frontend");
+app.UseAdminAccess();
 
 var fileProvider = new PhysicalFileProvider(frontendRoot);
 app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = fileProvider });

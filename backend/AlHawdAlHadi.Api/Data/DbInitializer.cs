@@ -53,7 +53,7 @@ public static class DbInitializer
             await db.SaveChangesAsync(ct);
         }
 
-        if (!await db.Bookings.AnyAsync(ct))
+        if (env.IsDevelopment() && !await db.Bookings.AnyAsync(ct))
         {
             var path = Path.Combine(env.ContentRootPath, "SeedData", "default-bookings.json");
             if (File.Exists(path))

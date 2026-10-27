@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الحوض الهادي للإسكان | AL HAWD AL HADI HOUSING</title>
+  <meta name="description" content="الحوض الهادي للإسكان - مشاريع سكنية بتصاميم مدروسة، ومساحات تمنح حياتك معنى مختلفاً في أرقى مناطق عمان - الأردن." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/components/components.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       SITE HEADER COMPONENT (<site-header>)
+       ===================================================================== -->
+  <site-header page="home"></site-header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-slider" id="heroBgSlider"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-container">
+      <div class="hero-main-row">
+        <!-- Right-aligned RTL Hero Content -->
+        <div class="hero-content">
+          <p class="hero-eyebrow" id="heroEyebrow">حيث تبدأ حكاية منزلك</p>
+          <h1 class="hero-title">
+            <span id="heroTitle1">منزل يستحق</span><br />
+            <span id="heroTitle2">أن تعيش تفاصيله.</span>
+          </h1>
+          <p class="hero-subtitle" id="heroSubtitle">
+            مشاريع سكنية بتصاميم مدروسة، ومساحات تمنح حياتك معنى مختلفاً.
+          </p>
+          <a href="#projects" class="btn-gold hero-cta-btn" id="heroCtaBtn">
+            <span id="heroCtaText">استكشف مشاريعنا</span>
+            <span class="btn-arrow-anim">←</span>
+          </a>
+        </div>
+
+        <!-- Left Edge Vertical Slide Numbers (01, 02, 03, 04) -->
+        <div class="hero-slider-nums" id="heroSliderNums">
+          <button type="button" class="hero-num-btn active" data-index="0">01</button>
+          <button type="button" class="hero-num-btn" data-index="1">02</button>
+          <button type="button" class="hero-num-btn" data-index="2">03</button>
+          <button type="button" class="hero-num-btn" data-index="3">04</button>
+        </div>
+      </div>
+
+      <!-- Hero Bottom Bar -->
+      <div class="hero-bottom-bar">
+        <a href="#projects" class="scroll-down-trigger">
+          <span class="scroll-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+            </svg>
+          </span>
+          <span id="heroScrollText">مرر للأسفل</span>
+        </a>
+
+        <div class="hero-location-meta">
+          <div class="hero-tagline-small">
+            <div id="heroBottomTag1">مجتمعات سكنية متكاملة</div>
+            <div id="heroBottomTag2">بمستقبل أكثر هدوءاً</div>
+          </div>
+          <div class="hero-loc-badge">
+            <span id="heroBottomLoc">عمان - الأردن</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E2C088" stroke-width="2.2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 2: FEATURED RESIDENTIAL PROJECTS (مشاريعنا السكنية)
+       ===================================================================== -->
+  <section class="projects-section reveal-section" id="projects">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <span class="eyebrow-gold" id="projEyebrow">مشاريعنا السكنية</span>
+          <h2 class="section-title" id="projTitle">مساحات مصممة لطموحاتك</h2>
+          <p class="section-subtitle" id="projSubtitle">نطور مجتمعات سكنية عصرية تجمع بين جودة الحياة والموقع المميز</p>
+        </div>
+        <a href="/project?id=proj-2" class="view-all-link" id="projViewAllLink">
+          <span id="projViewAll">عرض جميع المشاريع</span>
+          <span>←</span>
+        </a>
+      </div>
+
+      <div class="projects-carousel-wrap">
+        <button type="button" class="carousel-nav-btn prev-btn" id="projPrevBtn" aria-label="السابق">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <button type="button" class="carousel-nav-btn next-btn" id="projNextBtn" aria-label="التالي">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="carousel-dots" id="projectsDots">
+        <button type="button" class="carousel-dot active" data-dot="0" aria-label="1"></button>
+        <button type="button" class="carousel-dot" data-dot="1" aria-label="2"></button>
+        <button type="button" class="carousel-dot" data-dot="2" aria-label="3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 3A: INTERACTIVE UNIT EXPLORER (استكشف وحدتك السكنية)
+       ===================================================================== -->
+  <section class="explorer-section reveal-section" id="explorer">
+    <div class="container">
+      <!-- Top Row: Right = Headings & Tabs, Left = Featured Living Preview -->
+      <div class="exp-showcase-top">
+        <div class="exp-header-col">
+          <div class="exp-eyebrow-wrap">
+            <span class="exp-eyebrow-text" id="expEyebrow">وحدات متنوعة</span>
+            <span class="exp-eyebrow-arrow">←</span>
+          </div>
+          <h2 class="exp-title" id="expTitle">خيارات سكنية تناسب أسلوب حياتك</h2>
+          <p class="exp-subtitle" id="expSubtitle">
+            اختر نوع الوحدة التي تناسب احتياجاتك من حيث المساحة وعدد الغرف والإطلالة، واستمتع بتصميمات عصرية تلبي تطلعاتك.
+          </p>
+          <div class="exp-category-tabs" id="expCategoryTabs">
+            <!-- Tabs rendered dynamically: شقق (active), دوبلكس, بنتهاوس -->
+          </div>
+        </div>
+
+        <div class="exp-preview-col">
+          <div class="exp-preview-frame">
+            <img src="/images/light/scene-2.png" alt="معاينة الوحدة السكنية" class="exp-preview-img" id="expMainImage" />
+            <div class="exp-caption-badge" id="expCaptionBadge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
+              <span id="expImageCaption">تصميم عصري ومساحات رحبة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Right = Summary Metrics & CTA, Left = Unit Floorplan Cards -->
+      <div class="exp-showcase-bottom">
+        <div class="exp-metrics-col">
+          <div class="exp-metrics-grid" id="expMetricsGrid">
+            <!-- Rendered dynamically: المساحة, عدد الغرف, الإطلالة, التشطيب -->
+          </div>
+          <div class="exp-cta-box">
+            <a href="#booking" class="btn btn-gold exp-cta-btn" id="expCtaBtn">
+              <span id="expCtaText">استعرض الوحدات المتاحة</span>
+              <span class="exp-btn-arrow">←</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="exp-cards-col">
+          <div class="exp-cards-grid" id="expCardsGrid">
+            <!-- Unit Cards rendered dynamically: شقة A, دوبلكس, بنتهاوس -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 3B: SELECTED APARTMENT DETAILS & GALLERY (شقة - A)
+       ===================================================================== -->
+  <section class="unit-details-section reveal-section" id="unitDetails">
+    <div class="container">
+      <!-- Apartment Model Selector Pills Bar (شقة A، شقة B، شقة C) -->
+      <div class="unit-selector-bar" id="unitSelectorBar"></div>
+
+      <div class="unit-details-grid">
+        <!-- Right Column in RTL: Specifications & Actions -->
+        <div class="unit-specs-col">
+          <div class="unit-header-row">
+            <span class="unit-status-pill" id="unitStatusBadge">متاحة</span>
+            <h3 class="unit-name-heading" id="unitTitleHeading">شقة - A</h3>
+          </div>
+
+          <!-- 4 Key Metrics -->
+          <div class="unit-metrics-row">
+            <div class="unit-metric-box">
+              <span class="unit-metric-label">المساحة</span>
+              <span class="unit-metric-value" id="unitAreaVal">165 م²</span>
+            </div>
+            <div class="unit-metric-box">
+              <span class="unit-metric-label">الطابق</span>
+              <span class="unit-metric-value" id="unitFloorVal">4</span>
+            </div>
+            <div class="unit-metric-box">
+              <span class="unit-metric-label">غرف النوم</span>
+              <span class="unit-metric-value" id="unitBedroomsVal">3</span>
+            </div>
+            <div class="unit-metric-box">
+              <span class="unit-metric-label">الاتجاه</span>
+              <span class="unit-metric-value" id="unitDirectionVal">أمامية</span>
+            </div>
+          </div>
+
+          <!-- 4 Feature Icons -->
+          <div class="unit-features-row" id="unitFeaturesRow"></div>
+
+          <!-- Action Buttons -->
+          <div class="unit-cta-row">
+            <button type="button" class="btn-gold" id="unitBookViewingBtn">
+              <span id="unitBookBtnText">احجز موعد مشاهدة</span>
+              <span>←</span>
+            </button>
+            <button type="button" class="btn-outline" id="unitDownloadPlanBtn">
+              <span id="unitDownloadBtnText">تحميل المخطط</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Left Column in RTL: Interior Gallery Carousel -->
+        <div class="unit-gallery-col">
+          <div class="unit-main-photo theme-img-wrap" id="unitMainPhotoWrap" title="اضغط لتكبير الصورة بملء الشاشة">
+            <img src="/images/light/scene-2.png" alt="التصميم الداخلي" class="img-light" id="unitMainImgLight" />
+            <img src="/images/dark/scene-2.png" alt="التصميم الداخلي" class="img-dark" id="unitMainImgDark" />
+            <button type="button" class="gallery-zoom-btn" id="openLightboxBtn" aria-label="تكبير الصورة">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+              </svg>
+            </button>
+            <span class="unit-photo-caption" id="unitPhotoCaption">الصالة الرئيسية وغرفة المعيشة</span>
+          </div>
+
+          <div class="unit-thumbs-bar">
+            <button type="button" class="thumb-arrow-btn" id="unitGalleryPrev" aria-label="الصورة السابقة">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+
+            <div class="unit-thumbs-list" id="unitThumbsList"></div>
+
+            <button type="button" class="thumb-arrow-btn" id="unitGalleryNext" aria-label="الصورة التالية">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 4: INTEGRATED LIFESTYLE BANNER (أسلوب حياة متكامل)
+       ===================================================================== -->
+  <section class="lifestyle-section reveal-section" id="lifestyle">
+    <div class="lifestyle-bg-media theme-img-wrap">
+      <img src="/images/light/scene-3.png" alt="أسلوب حياة متكامل" class="img-light" id="lifeImgLight" />
+      <img src="/images/dark/scene-3.png" alt="أسلوب حياة متكامل" class="img-dark" id="lifeImgDark" />
+    </div>
+    <div class="lifestyle-gradient-mask"></div>
+
+    <div class="container lifestyle-container">
+      <div class="lifestyle-content-box">
+        <h2 class="lifestyle-title" id="lifeTitle">أسلوب حياة متكامل</h2>
+        <p class="lifestyle-subtitle" id="lifeSubtitle">كل ما تحتاجه لحياة مريحة ضمن مجتمع سكني متكامل</p>
+        <div class="amenities-row" id="amenitiesRow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 5: ABOUT THE COMPANY & STATISTICS (نبني مساحات تليق بتطلعاتك)
+       ===================================================================== -->
+  <section class="about-section reveal-section" id="about">
+    <div class="about-split">
+      <!-- Right Column in RTL: About Text & Stats -->
+      <div class="about-text-col">
+        <h2 class="about-title" id="aboutTitle">نبني مساحات تليق بتطلعاتك.</h2>
+        <p class="about-desc" id="aboutDesc">
+          في الحوض الهادي للإسكان، نؤمن أن المنزل أكثر من مجرد مكان للسكن، بل هو أساس لحياة أفضل. نطور مشاريعنا لنقدم بيئة سكنية وفق أعلى معايير الجودة وبمواقع مختارة بعناية.
+        </p>
+
+        <div class="about-stats-row" id="aboutStatsRow"></div>
+
+        <div>
+          <a href="#cta-banner" class="btn-gold" id="aboutCtaBtn">
+            <span id="aboutCtaText">تعرف على الشركة</span>
+            <span>←</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Left Column in RTL: Architectural Close-Up Photo -->
+      <div class="about-media-col theme-img-wrap">
+        <img src="/images/light/scene-7.png" alt="الحوض الهادي للإسكان" class="img-light" id="aboutImgLight" />
+        <img src="/images/dark/scene-7.png" alt="الحوض الهادي للإسكان" class="img-dark" id="aboutImgDark" />
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 6: STRATEGIC LOCATION & INTERACTIVE MAP (موقع استراتيجي)
+       Note: In RTL, First Child = Right Column (Info), Second Child = Left Column (Map)
+       Matching Reference Mockups 100%!
+       ===================================================================== -->
+  <section class="location-section reveal-section" id="location">
+    <div class="location-split">
+      <!-- Right Column in RTL (First Child): Strategic Location Info & Proximity List -->
+      <div class="location-info-col">
+        <span class="eyebrow-gold" id="locEyebrow">موقع استراتيجي</span>
+        <h2 class="section-title" id="locTitle">قريب من كل ما يهمك</h2>
+        <p class="section-subtitle" id="locSubtitle">
+          مشاريعنا في مواقع مميزة قريبة من الخدمات الأساسية والمرافق والمراكز التجارية.
+        </p>
+
+        <div class="proximity-list" id="proximityList"></div>
+
+        <div>
+          <button type="button" class="btn-gold" id="locExploreBtn">
+            <span id="locCtaText">استعرض الموقع الكامل</span>
+            <span>←</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Left Column in RTL (Second Child): Stylized Interactive Amman Map -->
+      <div class="location-map-col">
+        <div class="stylized-map-stage" id="stylizedMapStage">
+          <svg class="stylized-map-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="500" class="map-bg-fill" fill="#EFECE6"/>
+            <style>
+              [data-theme="dark"] .map-bg-fill { fill: #121B20; }
+              [data-theme="dark"] .map-block { fill: #172329; stroke: #223139; }
+              [data-theme="dark"] .map-park { fill: #192E23; }
+              [data-theme="dark"] .map-water { stroke: #1D3542; }
+              [data-theme="dark"] .map-road-minor { stroke: #25343C; }
+              [data-theme="dark"] .map-road-major { stroke: #4D493E; }
+              [data-theme="dark"] .map-road-gold { stroke: #C8A265; stroke-opacity: 0.65; }
+            </style>
+            <!-- City Blocks & Neighborhood Texture -->
+            <g class="map-block" fill="#F7F5F0" stroke="#E4E0D8" stroke-width="1.5">
+              <path d="M0,0 L220,0 L180,160 L0,140 Z"/>
+              <path d="M235,0 L480,0 L440,150 L195,155 Z"/>
+              <path d="M495,0 L800,0 L800,175 L455,155 Z"/>
+              <path d="M0,155 L175,175 L145,350 L0,330 Z"/>
+              <path d="M190,175 L435,165 L405,345 L160,350 Z"/>
+              <path d="M450,170 L800,190 L800,360 L420,345 Z"/>
+              <path d="M0,345 L140,365 L110,500 L0,500 Z"/>
+              <path d="M155,365 L400,360 L375,500 L125,500 Z"/>
+              <path d="M415,360 L800,375 L800,500 L390,500 Z"/>
+            </g>
+            <!-- Green Parks -->
+            <g class="map-park" fill="#D5E8D4" opacity="0.85">
+              <polygon points="88,118 135,128 118,175 72,162"/>
+              <polygon points="620,25 715,15 735,75 635,82"/>
+              <rect x="182" y="348" width="44" height="118" rx="12"/>
+              <polygon points="590,365 695,345 718,415 612,425"/>
+            </g>
+            <!-- Curved Neighborhood Roads -->
+            <g class="map-road-minor" fill="none" stroke="#FFFFFF" stroke-width="3.5" opacity="0.85">
+              <circle cx="445" cy="185" r="55"/>
+              <circle cx="445" cy="185" r="95"/>
+              <circle cx="445" cy="185" r="140"/>
+              <circle cx="445" cy="185" r="190"/>
+              <path d="M445,185 L680,40"/>
+              <path d="M445,185 L760,210"/>
+              <path d="M445,185 L660,460"/>
+              <path d="M445,185 L220,440"/>
+              <path d="M445,185 L120,240"/>
+              <path d="M445,185 L210,30"/>
+            </g>
+            <!-- Waterway -->
+            <path class="map-water" d="M310,0 Q260,180 230,360 T195,500" fill="none" stroke="#B7D9E8" stroke-width="4.5"/>
+            <!-- Major Golden Arteries -->
+            <g class="map-road-major" fill="none" stroke="#F5E1B9" stroke-width="9" stroke-linecap="round">
+              <path class="map-road-gold" d="M195,0 L25,495"/>
+              <path class="map-road-gold" d="M485,0 L390,500"/>
+              <path class="map-road-gold" d="M450,85 L795,295"/>
+              <path class="map-road-gold" d="M0,125 Q390,145 800,65"/>
+            </g>
+            <!-- Roundabout Circles -->
+            <circle cx="515" cy="95" r="14" fill="#E2C088" stroke="#FFFFFF" stroke-width="4"/>
+            <circle cx="285" cy="140" r="10" fill="#D1CEC7" stroke="#FFFFFF" stroke-width="3"/>
+
+            <!-- Dynamic Interactive Route Line connecting Main Pin to Hovered POI -->
+            <line id="mapActiveRouteLine" x1="448" y1="180" x2="448" y2="180" stroke="#C89D54" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" />
+          </svg>
+
+          <!-- Main Project Callout Card on Map -->
+          <div class="map-main-callout" id="mapMainCallout" style="left: 56%; top: 36%;">
+            <div class="callout-pin-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="callout-title" id="mapMainTitle">مشروع الهدوء 2</div>
+              <div class="callout-sub" id="mapMainSub">عمان - دير غبار</div>
+            </div>
+          </div>
+
+          <!-- Dynamic POI Pins Container -->
+          <div id="mapPinsContainer"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 7: PRE-FOOTER CALL-TO-ACTION BANNER (منزلك القادم أقرب مما تتخيل)
+       ===================================================================== -->
+  <section class="cta-banner-section reveal-section" id="cta-banner">
+    <div class="cta-banner-split">
+      <!-- Right Column in RTL: Headline & Direct Channels -->
+      <div class="cta-banner-text-col">
+        <h2 class="cta-banner-title" id="ctaTitle">منزلك القادم أقرب مما تتخيل.</h2>
+        <p class="cta-banner-sub" id="ctaSub">
+          اختر الشقة المناسبة لك وفريقنا سيساعدك في كل التفاصيل وترتيب موعد لمشاهدة.
+        </p>
+
+        <div class="quick-contacts-row" id="quickContactsRow"></div>
+      </div>
+
+      <!-- Left Column in RTL: Panoramic Terrace Photo + Overlapping CTA Button -->
+      <div class="cta-banner-media-col theme-img-wrap">
+        <img src="/images/light/scene-8.png" alt="احجز موعد مشاهدة" class="img-light" id="ctaImgLight" />
+        <img src="/images/dark/scene-8.png" alt="احجز موعد مشاهدة" class="img-dark" id="ctaImgDark" />
+
+        <button type="button" class="btn-gold cta-overlapping-btn" id="ctaBannerBookBtn">
+          <span id="ctaButtonText">احجز موعد مشاهدة</span>
+          <span>←</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 8: SITE FOOTER COMPONENT (<site-footer>)
+       ===================================================================== -->
+  <site-footer variant="full"></site-footer>
+
+  <!-- =====================================================================
+       COLLAPSIBLE FLOATING QUICK-ACCESS CMS & THEME DOCK
+       ===================================================================== -->
+  <div class="floating-cms-dock" id="floatingCmsDock">
+    <a href="/admin" class="cms-go-btn" title="فتح لوحة التحكم الكاملة CMS">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      <span>لوحة التحكم CMS</span>
+    </a>
+  </div>
+
+  <!-- =====================================================================
+       QUICK SEARCH MODAL (بحث سريع في المشاريع والشقق)
+       ===================================================================== -->
+  <div class="modal-backdrop" id="searchModal">
+    <div class="modal-card" style="max-width: 600px;">
+      <button type="button" class="modal-close-btn" id="closeSearchModal" aria-label="إغلاق">✕</button>
+      <span class="eyebrow-gold">البحث الذكي</span>
+      <h3 style="font-size: 1.45rem; font-weight: 800; margin-bottom: 14px;">ابحث عن مشروعك أو وحدتك السكنية</h3>
+      <input type="search" id="quickSearchInput" class="form-control" placeholder="ابحث بالمنطقة (الشميساني، عبدون، دابوق) أو المساحة (165 م²)..." style="margin-bottom: 16px;" />
+      <div id="quickSearchResults" style="display:flex; flex-direction:column; gap:10px; max-height:320px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       PROJECT QUICK-VIEW MODAL (تفاصيل المشروع السكني)
+       ===================================================================== -->
+  <div class="modal-backdrop" id="projectDetailModal">
+    <div class="modal-card" style="max-width: 640px;">
+      <button type="button" class="modal-close-btn" id="closeProjectModal" aria-label="إغلاق">✕</button>
+      <div style="height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 18px; position:relative;">
+        <img id="projModalImg" src="/images/light/scene-10.png" alt="المشروع" style="width:100%; height:100%; object-fit:cover;" />
+        <span id="projModalStatus" class="project-status-badge available">متاح الآن</span>
+      </div>
+      <span class="eyebrow-gold" id="projModalLoc">عمان - دير غبار</span>
+      <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 10px;" id="projModalTitle">مشروع الهدوء 2</h3>
+      <p style="font-size: 0.96rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.75;" id="projModalDesc"></p>
+      <div style="display:flex; gap:18px; margin-bottom:24px; padding:12px 16px; border-radius:10px; background:var(--gold-soft);">
+        <div><small style="color:var(--text-secondary); display:block;">إجمالي الوحدات</small><strong id="projModalUnits">48 شقة</strong></div>
+        <div style="border-right:1px solid var(--border-card); padding-right:18px;"><small style="color:var(--text-secondary); display:block;">عدد الطوابق</small><strong id="projModalFloors">6 طوابق</strong></div>
+      </div>
+      <div style="display:flex; gap:12px;">
+        <button type="button" class="btn-gold" style="flex:1;" id="projModalBookBtn">احجز موعد معاينة للمشروع ←</button>
+        <button type="button" class="btn-outline" style="flex:1;" id="projModalExploreBtn">استعرض الشقق المتوفرة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       INTERIOR GALLERY FULL-SCREEN LIGHTBOX MODAL
+       ===================================================================== -->
+  <div class="modal-backdrop" id="lightboxModal">
+    <div class="lightbox-container">
+      <button type="button" class="modal-close-btn" id="closeLightboxModal" style="top:18px; left:18px; z-index:10; background:rgba(0,0,0,0.65); color:#fff;">✕</button>
+      <div class="lightbox-img-stage">
+        <img id="lightboxImg" src="/images/light/scene-2.png" alt="معاينة كاملة" />
+      </div>
+      <div class="lightbox-bar">
+        <button type="button" class="thumb-arrow-btn" id="lightboxPrevBtn">❮</button>
+        <span id="lightboxCaption" style="font-weight:700; color:#fff;">الصالة الرئيسية</span>
+        <button type="button" class="thumb-arrow-btn" id="lightboxNextBtn">❯</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       BOOKING MODAL COMPONENT (<booking-modal>)
+       ===================================================================== -->
+  <booking-modal></booking-modal>
+
+  <!-- =====================================================================
+       FLOOR PLAN SPECIFICATION MODAL (تحميل المخطط المعماري)
+       ===================================================================== -->
+  <div class="modal-backdrop" id="floorplanModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <button type="button" class="modal-close-btn" id="closeFloorplanModal" aria-label="إغلاق">✕</button>
+      <span class="eyebrow-gold">المخطط الهندسي المعتمد</span>
+      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 12px;" id="fpModalTitle">مخطط شقة - A (165 م²)</h3>
+      <div style="background: #F4F1EA; border-radius: 12px; padding: 18px; margin-bottom: 18px; text-align: center;">
+        <img src="/images/ui/floorplan-3d-light.png" alt="مخطط الشقة" style="max-height: 240px; margin: 0 auto; border-radius: 8px;" />
+      </div>
+      <div id="fpModalSpecs" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; text-align: center;"></div>
+      <div style="display: flex; gap: 12px;">
+        <button type="button" class="btn-gold" style="flex: 1;" onclick="window.print()">طباعة / حفظ كملف PDF</button>
+        <button type="button" class="btn-outline" style="flex: 1;" id="fpModalBookBtn">احجز معاينة لهذه الوحدة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       NATIVE WEB COMPONENTS & APP SCRIPTS
+       ===================================================================== -->
+  <script src="/components/theme-toggle.js?v=20261023_3"></script>
+  <script src="/components/site-header.js?v=20261023_3"></script>
+  <script src="/components/site-footer.js?v=20261023_3"></script>
+  <script src="/components/project-card.js?v=20261023_3"></script>
+  <script src="/components/interactive-map.js?v=20261023_3"></script>
+  <script src="/components/gallery-viewer.js?v=20261023_3"></script>
+  <script src="/components/floorplan-viewer.js?v=20261023_3"></script>
+  <script src="/components/amenities-grid.js?v=20261023_3"></script>
+  <script src="/components/available-units-table.js?v=20261023_3"></script>
+  <script src="/components/booking-banner.js?v=20261023_3"></script>
+  <script src="/components/booking-modal.js?v=20261023_3"></script>
+  <script src="/js/app.js?v=20261023_3"></script>
+</body>
+</html>
+

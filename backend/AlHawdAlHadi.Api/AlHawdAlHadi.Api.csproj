@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <None Update="SeedData\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\frontend\**\*" Link="frontend\%(RecursiveDir)%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

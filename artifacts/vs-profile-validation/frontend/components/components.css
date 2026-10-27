@@ -1,0 +1,237 @@
+/**
+ * Al Hawd Al Hadi - Components Design System CSS
+ * Self-contained styles for Native Web Components
+ */
+
+/* ==========================================================================
+   1. WEB COMPONENTS DISPLAY BASICS
+   ========================================================================== */
+site-header,
+site-footer,
+project-card,
+gallery-viewer,
+floorplan-viewer,
+amenities-grid,
+available-units-table,
+interactive-map,
+booking-banner {
+  display: block;
+}
+
+theme-toggle {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+booking-modal {
+  display: contents;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface, #FFFFFF);
+  border: 1px solid var(--border-card, #E2E8F0);
+  color: var(--text-primary, #1A1E24);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--gold-primary, #D4AF37);
+  color: var(--gold-deep, #B88E4A);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.theme-toggle-btn.compact {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.theme-toggle-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   2. CTA BANNER ACTIONS ROW (<booking-banner>)
+   ========================================================================== */
+.cta-banner-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-gold-solid {
+  background: var(--gold-primary, #D4AF37) !important;
+  color: #1A1E24 !important;
+  border: 1.5px solid var(--gold-primary, #D4AF37) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+}
+
+.btn-gold-solid:hover {
+  background: #E5C287 !important;
+  border-color: #E5C287 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.btn-outline-clean {
+  background: transparent !important;
+  color: var(--text-primary, #1A1E24) !important;
+  border: 1.5px solid var(--border-card, #E2E8F0) !important;
+  font-weight: 700 !important;
+}
+
+.btn-outline-clean:hover {
+  border-color: var(--gold-primary, #D4AF37) !important;
+  color: var(--gold-deep, #B88E4A) !important;
+  background: var(--gold-soft, rgba(212, 175, 55, 0.08)) !important;
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .btn-outline-clean {
+  color: #F3F4F6 !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ==========================================================================
+   3. BOOKING MODAL COMPONENT (<booking-modal>)
+   ========================================================================== */
+booking-modal {
+  display: contents;
+}
+
+.booking-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(10, 14, 20, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.booking-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.booking-modal-card {
+  background: var(--bg-surface, #FFFFFF);
+  border: 1.5px solid var(--border-card, #E2E8F0);
+  border-radius: 16px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  transform: scale(0.94) translateY(12px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.booking-modal-backdrop.open .booking-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+[data-theme="dark"] .booking-modal-card {
+  background: #151A21;
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.booking-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle, #E2E8F0);
+}
+
+.booking-modal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary, #1A1E24);
+  margin-top: 4px;
+}
+
+.booking-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--text-muted, #94A3B8);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.booking-modal-close:hover {
+  color: var(--gold-primary, #D4AF37);
+}
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.booking-modal-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-modal-form label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary, #475569);
+}
+
+.booking-modal-form .req {
+  color: #DC4E4E;
+}
+
+.select-luxury {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2394A3B8%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  padding-left: 36px;
+}
+
+.modal-submit-row {
+  margin-top: 20px;
+}
+
+.modal-submit-row .btn {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .modal-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .booking-modal-card {
+    padding: 20px;
+  }
+}
