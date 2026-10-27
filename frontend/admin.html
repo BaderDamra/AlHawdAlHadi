@@ -133,8 +133,8 @@
         </button>
       </nav>
 
-      <!-- Group 3: Media & Backup -->
-      <div class="nav-group-label">الوسائط والنظام</div>
+      <!-- Group 3: Media, Users & System -->
+      <div class="nav-group-label">الوسائط والموظفين والنظام</div>
       <nav class="nav-group">
         <button type="button" class="nav-item" data-panel="panel-media" data-title="مكتبة الوسائط المزدوجة (Light & Dark)" data-sub="استعراض المشاهد العشرة المتطابقة ورفع صور جديدة للموقع">
           <span class="nav-item-right">
@@ -145,10 +145,32 @@
           </span>
           <span class="nav-badge subtle">10 أزواج</span>
         </button>
+
+        <button type="button" class="nav-item" data-panel="panel-users" data-title="إدارة الموظفين والمستخدمين وكلمات المرور" data-sub="إضافة حسابات الموظفين، تحديد الصلاحيات، وتغيير كلمات المرور للداشبورد">
+          <span class="nav-item-right">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span>الموظفين وكلمات المرور</span>
+          </span>
+          <span class="nav-badge subtle" id="navUsersBadge">1</span>
+        </button>
       </nav>
     </div>
 
     <div class="sidebar-footer">
+      <div id="sidebarCurrentUserBox" style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; margin-bottom:8px; border-radius:10px; background:var(--cms-surface-alt); border:1px solid var(--cms-border);">
+        <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+          <div style="width:30px; height:30px; border-radius:8px; background:rgba(212,175,55,0.14); border:1px solid var(--cms-gold); color:var(--cms-gold); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div style="min-width:0;">
+            <div id="sidebarUserName" style="font-size:0.8rem; font-weight:700; color:var(--cms-text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">المدير العام</div>
+            <div id="sidebarUserRole" style="font-size:0.7rem; color:var(--cms-text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">admin</div>
+          </div>
+        </div>
+        <a href="/admin/logout" class="btn btn-secondary btn-xs" title="تسجيل الخروج من اللوحة" style="text-decoration:none; flex-shrink:0;">خروج</a>
+      </div>
       <div class="sidebar-footer-row">
         <a href="/" target="_blank" class="btn btn-outline btn-sm" style="flex:1;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -620,6 +642,134 @@
           </div>
         </section>
 
+        <!-- ===============================================================
+             PANEL 11: EMPLOYEES, USERS & PASSWORD MANAGEMENT
+             =============================================================== -->
+        <section class="cms-panel" id="panel-users">
+          <div class="grid-2" style="align-items:start;">
+            <!-- Card 1: Add New Employee / User -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title" style="display:flex; align-items:center; gap:8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cms-gold)" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                    <span>إضافة موظف / مستخدم جديد</span>
+                  </h3>
+                  <p class="card-desc">أنشئ حساب دخول مستقل لأي موظف في الشركة مع تحديد مسماه الوظيفي وصلاحياته.</p>
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label>الاسم الكامل للموظف</label>
+                  <input type="text" class="input" id="newUserDisplayName" placeholder="مثال: أحمد العلي" />
+                </div>
+                <div class="field">
+                  <label>اسم المستخدم للدخول (Username)</label>
+                  <input type="text" class="input" id="newUserUsername" dir="ltr" placeholder="مثال: ahmad" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label>الصلاحية / المسمى الوظيفي</label>
+                  <select class="select" id="newUserRole">
+                    <option value="sales">موظف مبيعات وحجوزات</option>
+                    <option value="editor">محرر محتوى ومشاريع</option>
+                    <option value="admin">مدير النظام (صلاحيات كاملة)</option>
+                    <option value="viewer">مشرف متابعة واطلاع</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>كلمة المرور للموظف</span>
+                    <button type="button" class="btn btn-secondary btn-xs" id="genEmployeePwBtn" style="padding:2px 8px; font-size:0.72rem;">توليد تلقائي</button>
+                  </label>
+                  <div style="position:relative; display:flex; align-items:center;">
+                    <input type="password" class="input" id="newUserPassword" dir="ltr" placeholder="كلمة المرور (4 خانات فأكثر)" autocomplete="new-password" style="padding-left:64px;" />
+                    <button type="button" class="btn btn-secondary btn-xs" id="toggleNewUserPwBtn" style="position:absolute; left:6px; padding:4px 8px; font-size:0.75rem;">إظهار</button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                <button type="button" class="btn btn-primary" id="createNewUserBtn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span>إضافة الموظف وتفعيل الحساب</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 2: Change Password -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title" style="display:flex; align-items:center; gap:8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cms-gold)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <span>تغيير كلمة المرور</span>
+                  </h3>
+                  <p class="card-desc">قم بتحديث كلمة المرور الخاصة بحسابك الحالي أو تغيير كلمة السر لأي موظف بضغطة زر.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>اختر الحساب المراد تغيير كلمة مروره</label>
+                <select class="select" id="changePwTargetSelect"></select>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label>كلمة المرور الجديدة</label>
+                  <div style="position:relative; display:flex; align-items:center;">
+                    <input type="password" class="input" id="changePwNewInput" dir="ltr" placeholder="كلمة المرور الجديدة" autocomplete="new-password" style="padding-left:64px;" />
+                    <button type="button" class="btn btn-secondary btn-xs" id="toggleChangePwBtn" style="position:absolute; left:6px; padding:4px 8px; font-size:0.75rem;">إظهار</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>تأكيد كلمة المرور الجديدة</label>
+                  <input type="password" class="input" id="changePwConfirmInput" dir="ltr" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password" />
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                <button type="button" class="btn btn-primary" id="submitChangePwBtn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+                  <span>حفظ كلمة المرور الجديدة</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Employees & Users Directory Table -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">سجل حسابات الإدارة والموظفين</h3>
+                <p class="card-desc">جميع الحسابات المخولة بالدخول إلى لوحة التحكم مع إمكانية التعديل أو الإيقاف المؤقت أو تغيير كلمة السر.</p>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <button type="button" class="btn btn-secondary btn-sm" id="refreshUsersBtn">تحديث القائمة</button>
+              </div>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table class="cms-table">
+                <thead>
+                  <tr>
+                    <th>الموظف / الاسم الكامل</th>
+                    <th>اسم المستخدم (Username)</th>
+                    <th>الصلاحية / الدور</th>
+                    <th>حالة الحساب</th>
+                    <th>تاريخ الإضافة</th>
+                    <th>إجراءات التحكم</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
       </div>
 
       <!-- LIVE INTERACTIVE WEBSITE PREVIEW PANE (Split-Screen Dock) -->
@@ -710,11 +860,68 @@
     </div>
   </div>
 
+  <!-- =====================================================================
+       EDIT EMPLOYEE / QUICK PASSWORD CHANGE MODAL
+       ===================================================================== -->
+  <div class="picker-backdrop" id="editUserModal">
+    <div class="picker-modal" style="max-width:540px;">
+      <div class="card-header" style="padding:18px 24px; margin:0;">
+        <div>
+          <h3 class="card-title">تعديل بيانات الموظف وكلمة المرور</h3>
+          <p class="card-desc">قم بتحديث الاسم، الصلاحية، حالة الحساب، أو تعيين كلمة مرور جديدة</p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="closeEditUserModal">إغلاق ✕</button>
+      </div>
+      <div class="picker-body" style="padding:20px 24px;">
+        <input type="hidden" id="editUserIdInput" />
+        <div class="grid-2">
+          <div class="field">
+            <label>الاسم الكامل للموظف</label>
+            <input type="text" class="input" id="editUserDisplayName" />
+          </div>
+          <div class="field">
+            <label>اسم المستخدم (Username)</label>
+            <input type="text" class="input" id="editUserUsername" dir="ltr" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>الصلاحية / المسمى الوظيفي</label>
+            <select class="select" id="editUserRole">
+              <option value="sales">موظف مبيعات وحجوزات</option>
+              <option value="editor">محرر محتوى ومشاريع</option>
+              <option value="admin">مدير النظام (صلاحيات كاملة)</option>
+              <option value="viewer">مشرف متابعة واطلاع</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>حالة الحساب</label>
+            <select class="select" id="editUserActive">
+              <option value="true">نشط (مسموح له بالدخول)</option>
+              <option value="false">موقوف مؤقتاً</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-top:6px;">
+          <label>تعيين كلمة مرور جديدة (اختياري — اتركه فارغاً للإبقاء على كلمة السر الحالية)</label>
+          <div style="position:relative; display:flex; align-items:center;">
+            <input type="password" class="input" id="editUserNewPassword" dir="ltr" placeholder="اكتب كلمة المرور الجديدة هنا لتغييرها..." autocomplete="new-password" style="padding-left:64px;" />
+            <button type="button" class="btn btn-secondary btn-xs" id="toggleEditUserPwBtn" style="position:absolute; left:6px; padding:4px 8px; font-size:0.75rem;">إظهار</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:22px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="cancelEditUserBtn">إلغاء</button>
+          <button type="button" class="btn btn-primary btn-sm" id="saveEditUserBtn">حفظ التعديلات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION -->
   <div class="toast-bar" id="cmsToast">تم حفظ التعديلات بنجاح!</div>
 
   <!-- Leaflet Map Engine & CMS Logic -->
   <script src="/libs/leaflet/leaflet.js"></script>
-  <script src="/js/admin.js?v=20261026_7"></script>
+  <script src="/js/admin.js?v=20261027_1"></script>
 </body>
 </html>

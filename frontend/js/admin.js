@@ -7,6 +7,8 @@
   let cms = null;
   let mediaCatalog = { pairs: [], uploads: [] };
   let bookingsList = [];
+  let usersList = [];
+  let currentAdminUser = null;
   let activePickerCallback = null;
 
   // Sub-tab & Filter State
@@ -50,7 +52,7 @@
       switchToPanel(`panel-${params.get("tab")}`);
     }
 
-    await Promise.all([loadCmsData(), loadMediaCatalog()]);
+    await Promise.all([loadCmsData(), loadMediaCatalog(), loadAdminUsers()]);
     renderAllPanels();
     bindGlobalEvents();
 
@@ -92,6 +94,30 @@
     bookingsList = await res.json();
     const badge = document.getElementById("navBookingsBadge");
     if (badge) badge.textContent = String(bookingsList.length);
+  }
+
+  async function loadAdminUsers() {
+    try {
+      const [meRes, usersRes] = await Promise.all([
+        fetch("/api/admin/me"),
+        fetch("/api/admin/users")
+      ]);
+      if (meRes.ok) {
+        currentAdminUser = await meRes.json();
+        const nameEl = document.getElementById("sidebarUserName");
+        const roleEl = document.getElementById("sidebarUserRole");
+        if (nameEl && currentAdminUser.displayName) nameEl.textContent = currentAdminUser.displayName;
+        if (roleEl && currentAdminUser.username) roleEl.textContent = `${currentAdminUser.username} • ${currentAdminUser.roleLabel || ""}`;
+      }
+      if (usersRes.ok) {
+        const list = await usersRes.json();
+        if (Array.isArray(list)) usersList = list;
+      }
+      const uBadge = document.getElementById("navUsersBadge");
+      if (uBadge) uBadge.textContent = String(usersList.length || 1);
+    } catch (e) {
+      console.warn("Could not load admin users:", e);
+    }
   }
 
   function markDirty(isDirty = true) {
@@ -211,6 +237,7 @@
     renderFooterPanel();
     renderMediaPanel();
     renderBookingsPanel();
+    renderUsersPanel();
     bindDynamicInputs();
   }
 
@@ -2740,6 +2767,187 @@
   }
 
   // =========================================================================
+  // PANEL 11: EMPLOYEES, USERS & PASSWORD MANAGEMENT
+  // =========================================================================
+  function getRoleBadgeHtml(role, roleLabel) {
+    const colors = {
+      admin: { bg: "rgba(212, 175, 55, 0.16)", border: "rgba(212, 175, 55, 0.45)", text: "var(--cms-gold)" },
+      sales: { bg: "rgba(56, 158, 95, 0.16)", border: "rgba(56, 158, 95, 0.45)", text: "#5cd68d" },
+      editor: { bg: "rgba(59, 130, 246, 0.16)", border: "rgba(59, 130, 246, 0.45)", text: "#7ab3ff" },
+      viewer: { bg: "rgba(154, 176, 184, 0.15)", border: "rgba(154, 176, 184, 0.35)", text: "#b8c7ce" }
+    };
+    const st = colors[role] || colors.sales;
+    return `<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:999px; font-size:0.78rem; font-weight:600; background:${st.bg}; border:1px solid ${st.border}; color:${st.text};">${escapeHtml(roleLabel || role)}</span>`;
+  }
+
+  function openEditUserModal(user, focusPassword = false) {
+    const modal = document.getElementById("editUserModal");
+    if (!modal || !user) return;
+    document.getElementById("editUserIdInput").value = user.id || "";
+    document.getElementById("editUserDisplayName").value = user.displayName || "";
+    document.getElementById("editUserUsername").value = user.username || "";
+    document.getElementById("editUserRole").value = user.role || "sales";
+    document.getElementById("editUserActive").value = user.isActive !== false ? "true" : "false";
+    const pwInp = document.getElementById("editUserNewPassword");
+    if (pwInp) {
+      pwInp.value = "";
+      pwInp.type = "password";
+    }
+    const toggleBtn = document.getElementById("toggleEditUserPwBtn");
+    if (toggleBtn) toggleBtn.textContent = "إظهار";
+
+    modal.classList.add("open");
+    if (focusPassword && pwInp) {
+      setTimeout(() => pwInp.focus(), 80);
+    }
+  }
+
+  function renderUsersPanel() {
+    const uBadge = document.getElementById("navUsersBadge");
+    if (uBadge) uBadge.textContent = String(usersList.length || 1);
+
+    // 1. Populate Change Password Target Select
+    const targetSelect = document.getElementById("changePwTargetSelect");
+    if (targetSelect) {
+      const prevVal = targetSelect.value;
+      targetSelect.innerHTML = usersList
+        .map((u) => {
+          const isMe = currentAdminUser && u.username.toLowerCase() === currentAdminUser.username.toLowerCase();
+          return `<option value="${escapeHtml(u.id)}">${escapeHtml(u.displayName)} (${escapeHtml(u.username)}) ${isMe ? "— حسابك الحالي" : `— ${escapeHtml(u.roleLabel || "")}`}</option>`;
+        })
+        .join("");
+      if (prevVal && usersList.some((u) => u.id === prevVal)) {
+        targetSelect.value = prevVal;
+      } else if (currentAdminUser?.id) {
+        targetSelect.value = currentAdminUser.id;
+      }
+    }
+
+    // 2. Populate Users Table
+    const tbody = document.getElementById("usersTableBody");
+    if (!tbody) return;
+
+    if (!usersList.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--cms-text-muted);">لا يوجد مستخدمون مسجلون</td></tr>`;
+      return;
+    }
+
+    const activeAdminsCount = usersList.filter((u) => u.isActive !== false && u.role === "admin").length;
+
+    tbody.innerHTML = usersList
+      .map((u) => {
+        const isMe = currentAdminUser && u.username.toLowerCase() === currentAdminUser.username.toLowerCase();
+        const isLastAdmin = u.role === "admin" && u.isActive !== false && activeAdminsCount <= 1;
+        const dateStr = (u.createdAt || "").slice(0, 10) || "2026-10-27";
+
+        return `
+          <tr>
+            <td>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:34px; height:34px; border-radius:10px; background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.35); color:var(--cms-gold); display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">
+                  ${escapeHtml((u.displayName || u.username || "م").charAt(0).toUpperCase())}
+                </div>
+                <div>
+                  <strong style="font-size:0.92rem; color:var(--cms-text-primary);">${escapeHtml(u.displayName)}</strong>
+                  ${isMe ? `<span style="margin-right:6px; font-size:0.7rem; padding:2px 7px; border-radius:6px; background:rgba(212,175,55,0.2); color:var(--cms-gold);">حسابك الحالي</span>` : ""}
+                </div>
+              </div>
+            </td>
+            <td>
+              <code dir="ltr" style="background:var(--cms-surface-alt); border:1px solid var(--cms-border); padding:4px 10px; border-radius:6px; font-size:0.86rem; color:var(--cms-text-primary); font-weight:600;">${escapeHtml(u.username)}</code>
+            </td>
+            <td>${getRoleBadgeHtml(u.role, u.roleLabel)}</td>
+            <td>
+              ${
+                u.isActive !== false
+                  ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#5cd68d; font-size:0.82rem; font-weight:600;"><span style="width:8px; height:8px; border-radius:50%; background:#389E5F;"></span>نشط</span>`
+                  : `<span style="display:inline-flex; align-items:center; gap:6px; color:#ff8080; font-size:0.82rem; font-weight:600;"><span style="width:8px; height:8px; border-radius:50%; background:#DC4E4E;"></span>موقوف</span>`
+              }
+            </td>
+            <td dir="ltr" style="font-size:0.82rem; color:var(--cms-text-secondary);">${escapeHtml(dateStr)}</td>
+            <td>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-secondary btn-xs" data-pw-user="${escapeHtml(u.id)}" title="تغيير كلمة المرور لهذا الحساب">
+                  تغيير كلمة السر
+                </button>
+                <button type="button" class="btn btn-secondary btn-xs" data-edit-user="${escapeHtml(u.id)}" title="تعديل الاسم أو الصلاحية">
+                  تعديل
+                </button>
+                ${
+                  !isLastAdmin
+                    ? `<button type="button" class="btn btn-secondary btn-xs" data-toggle-user="${escapeHtml(u.id)}" title="${u.isActive !== false ? "إيقاف الحساب مؤقتاً" : "إعادة تفعيل الحساب"}">
+                        ${u.isActive !== false ? "إيقاف" : "تفعيل"}
+                      </button>
+                      <button type="button" class="btn btn-danger btn-xs" data-del-user="${escapeHtml(u.id)}" title="حذف الحساب نهائياً">
+                        حذف
+                      </button>`
+                    : `<span style="font-size:0.74rem; color:var(--cms-text-muted); align-self:center; padding:0 4px;">حساب رئيسي محمي</span>`
+                }
+              </div>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    // Attach table action listeners
+    tbody.querySelectorAll("[data-pw-user]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const u = usersList.find((x) => x.id === btn.dataset.pwUser);
+        if (!u) return;
+        const sel = document.getElementById("changePwTargetSelect");
+        if (sel) sel.value = u.id;
+        openEditUserModal(u, true);
+      });
+    });
+
+    tbody.querySelectorAll("[data-edit-user]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const u = usersList.find((x) => x.id === btn.dataset.editUser);
+        if (u) openEditUserModal(u, false);
+      });
+    });
+
+    tbody.querySelectorAll("[data-toggle-user]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const u = usersList.find((x) => x.id === btn.dataset.toggleUser);
+        if (!u) return;
+        const nextState = u.isActive === false;
+        const res = await fetch(`/api/admin/users/${encodeURIComponent(u.id)}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isActive: nextState })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          await loadAdminUsers();
+          renderUsersPanel();
+          showToast(nextState ? `تم تفعيل حساب (${u.displayName})` : `تم إيقاف حساب (${u.displayName}) مؤقتاً`);
+        } else {
+          showToast(data.error || "تعذر تحديث حالة الحساب", true);
+        }
+      });
+    });
+
+    tbody.querySelectorAll("[data-del-user]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const u = usersList.find((x) => x.id === btn.dataset.delUser);
+        if (!u) return;
+        if (!confirm(`هل أنت متأكد من حذف حساب الموظف "${u.displayName}" (${u.username}) نهائياً؟`)) return;
+        const res = await fetch(`/api/admin/users/${encodeURIComponent(u.id)}`, { method: "DELETE" });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          await loadAdminUsers();
+          renderUsersPanel();
+          showToast(`تم حذف حساب (${u.displayName}) بنجاح`);
+        } else {
+          showToast(data.error || "تعذر حذف الحساب", true);
+        }
+      });
+    });
+  }
+
+  // =========================================================================
   // DATA BINDING & MEDIA PICKER LOGIC
   // =========================================================================
   function setDeepValue(obj, pathStr, value) {
@@ -3210,6 +3418,12 @@
         mainImage: "/images/light/scene-2.png",
         caption: "تصميم عصري وتشطيبات فندقية راقية"
       });
+      selectedShowcaseUnitIdx = cms.explorerSection.units.length - 1;
+      markDirty(true);
+      renderExplorerPanel();
+      bindDynamicInputs();
+      showToast("تمت إضافة نموذج وحدة سكنية جديد!");
+    });
 
     document.getElementById("addApartmentBtn")?.addEventListener("click", () => {
       cms.explorerSection.apartments = cms.explorerSection.apartments || [];
@@ -3247,12 +3461,6 @@
       renderExplorerPanel();
       bindDynamicInputs();
       showToast("تمت إضافة نموذج شقة جديد بنجاح!");
-    });
-      selectedApartmentIdx = cms.explorerSection.units.length - 1;
-      markDirty(true);
-      renderExplorerPanel();
-      bindDynamicInputs();
-      showToast("تمت إضافة نموذج وحدة سكنية جديد!");
     });
 
     document.getElementById("addExpCategoryBtn")?.addEventListener("click", () => {
@@ -3390,6 +3598,206 @@
       renderBookingsPanel();
       renderOverviewPanel();
       showToast("تم تحديث قائمة الحجوزات");
+    });
+
+    // =====================================================================
+    // USER & EMPLOYEE MANAGEMENT + PASSWORD CHANGE EVENTS
+    // =====================================================================
+    document.getElementById("toggleNewUserPwBtn")?.addEventListener("click", (e) => {
+      const inp = document.getElementById("newUserPassword");
+      if (!inp) return;
+      inp.type = inp.type === "password" ? "text" : "password";
+      e.currentTarget.textContent = inp.type === "password" ? "إظهار" : "إخفاء";
+    });
+
+    document.getElementById("genEmployeePwBtn")?.addEventListener("click", () => {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+      let rand = "Hawd@";
+      for (let i = 0; i < 5; i++) {
+        rand += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      const inp = document.getElementById("newUserPassword");
+      const toggleBtn = document.getElementById("toggleNewUserPwBtn");
+      if (inp) {
+        inp.value = rand;
+        inp.type = "text";
+      }
+      if (toggleBtn) toggleBtn.textContent = "إخفاء";
+      showToast(`تم توليد كلمة مرور: ${rand}`);
+    });
+
+    document.getElementById("createNewUserBtn")?.addEventListener("click", async () => {
+      const displayNameEl = document.getElementById("newUserDisplayName");
+      const usernameEl = document.getElementById("newUserUsername");
+      const roleEl = document.getElementById("newUserRole");
+      const passwordEl = document.getElementById("newUserPassword");
+
+      const displayName = displayNameEl?.value.trim() || "";
+      const username = usernameEl?.value.trim() || "";
+      const role = roleEl?.value || "sales";
+      const password = passwordEl?.value || "";
+
+      if (!username || username.length < 2) {
+        showToast("يرجى إدخال اسم مستخدم صالح للدخول (حرفين على الأقل)", true);
+        usernameEl?.focus();
+        return;
+      }
+      if (!password || password.length < 4) {
+        showToast("يرجى إدخال كلمة مرور لا تقل عن 4 خانات", true);
+        passwordEl?.focus();
+        return;
+      }
+
+      const btn = document.getElementById("createNewUserBtn");
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch("/api/admin/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            displayName: displayName || username,
+            username,
+            role,
+            password
+          })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          if (displayNameEl) displayNameEl.value = "";
+          if (usernameEl) usernameEl.value = "";
+          if (passwordEl) passwordEl.value = "";
+          await loadAdminUsers();
+          renderUsersPanel();
+          showToast(`تمت إضافة الموظف (${data.user?.displayName || username}) وتفعيل حسابه بنجاح!`);
+        } else {
+          showToast(data.error || "تعذر إضافة المستخدم", true);
+        }
+      } catch (err) {
+        showToast("تعذر الاتصال بالخادم", true);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+
+    document.getElementById("toggleChangePwBtn")?.addEventListener("click", (e) => {
+      const inp1 = document.getElementById("changePwNewInput");
+      const inp2 = document.getElementById("changePwConfirmInput");
+      if (!inp1) return;
+      const nextType = inp1.type === "password" ? "text" : "password";
+      inp1.type = nextType;
+      if (inp2) inp2.type = nextType;
+      e.currentTarget.textContent = nextType === "password" ? "إظهار" : "إخفاء";
+    });
+
+    document.getElementById("submitChangePwBtn")?.addEventListener("click", async () => {
+      const targetSelect = document.getElementById("changePwTargetSelect");
+      const newInp = document.getElementById("changePwNewInput");
+      const confirmInp = document.getElementById("changePwConfirmInput");
+
+      const userId = targetSelect?.value || "";
+      const newPassword = newInp?.value || "";
+      const confirmPassword = confirmInp?.value || "";
+
+      if (!newPassword || newPassword.length < 4) {
+        showToast("كلمة المرور الجديدة يجب أن تتكون من 4 خانات على الأقل", true);
+        newInp?.focus();
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        showToast("كلمتا المرور غير متطابقتين، يرجى التأكد من التطابق", true);
+        confirmInp?.focus();
+        return;
+      }
+
+      const btn = document.getElementById("submitChangePwBtn");
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch("/api/admin/change-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, newPassword })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          if (newInp) newInp.value = "";
+          if (confirmInp) confirmInp.value = "";
+          await loadAdminUsers();
+          renderUsersPanel();
+          showToast(data.message || "تم تغيير كلمة المرور بنجاح!");
+        } else {
+          showToast(data.error || "حدث خطأ أثناء تغيير كلمة المرور", true);
+        }
+      } catch (err) {
+        showToast("تعذر الاتصال بالخادم", true);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+
+    document.getElementById("refreshUsersBtn")?.addEventListener("click", async () => {
+      await loadAdminUsers();
+      renderUsersPanel();
+      showToast("تم تحديث قائمة الموظفين والمستخدمين");
+    });
+
+    // Edit User Modal Events
+    const closeEditModal = () => document.getElementById("editUserModal")?.classList.remove("open");
+    document.getElementById("closeEditUserModal")?.addEventListener("click", closeEditModal);
+    document.getElementById("cancelEditUserBtn")?.addEventListener("click", closeEditModal);
+
+    document.getElementById("toggleEditUserPwBtn")?.addEventListener("click", (e) => {
+      const inp = document.getElementById("editUserNewPassword");
+      if (!inp) return;
+      inp.type = inp.type === "password" ? "text" : "password";
+      e.currentTarget.textContent = inp.type === "password" ? "إظهار" : "إخفاء";
+    });
+
+    document.getElementById("saveEditUserBtn")?.addEventListener("click", async () => {
+      const id = document.getElementById("editUserIdInput")?.value || "";
+      const displayName = document.getElementById("editUserDisplayName")?.value.trim() || "";
+      const username = document.getElementById("editUserUsername")?.value.trim() || "";
+      const role = document.getElementById("editUserRole")?.value || "sales";
+      const isActive = document.getElementById("editUserActive")?.value === "true";
+      const password = document.getElementById("editUserNewPassword")?.value || "";
+
+      if (!id) return;
+      if (!username || username.length < 2) {
+        showToast("اسم المستخدم يجب أن يتكون من حرفين على الأقل", true);
+        return;
+      }
+      if (password && password.length < 4) {
+        showToast("كلمة المرور الجديدة يجب أن تتكون من 4 خانات على الأقل", true);
+        return;
+      }
+
+      const btn = document.getElementById("saveEditUserBtn");
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(`/api/admin/users/${encodeURIComponent(id)}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            displayName: displayName || username,
+            username,
+            role,
+            isActive,
+            password: password || undefined
+          })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          closeEditModal();
+          await loadAdminUsers();
+          renderUsersPanel();
+          showToast(password ? "تم تحديث بيانات الموظف وكلمة المرور بنجاح!" : "تم تحديث بيانات الموظف بنجاح!");
+        } else {
+          showToast(data.error || "تعذر حفظ التعديلات", true);
+        }
+      } catch (err) {
+        showToast("تعذر الاتصال بالخادم", true);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
     });
   }
 

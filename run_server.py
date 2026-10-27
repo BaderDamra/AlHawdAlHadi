@@ -2,9 +2,15 @@ import os
 import sys
 import json
 import re
+import time
+import base64
+import hashlib
+import secrets
+import threading
 import subprocess
+from datetime import datetime, timezone
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, unquote
 
 PORT = 3000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,6 +18,11 @@ FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 UPLOADS_DIR = os.path.join(FRONTEND_DIR, "images", "uploads")
 SEED_CMS = os.path.join(BASE_DIR, "backend", "AlHawdAlHadi.Api", "SeedData", "default-cms.json")
 RUNTIME_CMS = os.path.join(BASE_DIR, "backend", "AlHawdAlHadi.Api", "SeedData", "runtime-cms.json")
+ADMIN_USERS_FILE = os.path.join(BASE_DIR, "backend", "AlHawdAlHadi.Api", "SeedData", "admin-users.json")
+CREDENTIALS_FILE = os.path.join(BASE_DIR, "deployment-secrets", "admin-credentials.json")
+
+FALLBACK_ADMIN_HASH = "210000:qS72XOKwOnW7lQxpmCcvrg==:fb6Zjlou94BhskQUwJboT/Am7eUOULUns4VKI6YIHM0="
+PBKDF2_ITERATIONS = 210000
 
 os.makedirs(UPLOADS_DIR, exist_ok=True)
 
@@ -24,6 +35,125 @@ if not os.path.exists(RUNTIME_CMS):
             f.write(data)
     except Exception as e:
         print(f"Error copying seed CMS: {e}")
+
+
+def hash_password(password: str) -> str:
+    salt = secrets.token_bytes(16)
+    dk = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, PBKDF2_ITERATIONS, 32)
+    return f"{PBKDF2_ITERATIONS}:{base64.b64encode(salt).decode('ascii')}:{base64.b64encode(dk).decode('ascii')}"
+
+
+def verify_password(password: str, encoded: str) -> bool:
+    try:
+        parts = encoded.split(":")
+        if len(parts) != 3 or len(password) > 256:
+            return False
+        iterations = int(parts[0])
+        if iterations < 100000 or iterations > 1000000:
+            return False
+        salt = base64.b64decode(parts[1])
+        expected = base64.b64decode(parts[2])
+        actual = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations, 32)
+        return secrets.compare_digest(actual, expected)
+    except Exception:
+        return False
+
+
+def normalize_role(role: str) -> str:
+    r = (role or "").strip().lower()
+    if r in ("admin", "sales", "editor", "viewer"):
+        return r
+    return "sales"
+
+
+def get_role_label(role: str) -> str:
+    labels = {
+        "admin": "مدير النظام (صلاحيات كاملة)",
+        "sales": "موظف مبيعات وحجوزات",
+        "editor": "محرر محتوى ومشاريع",
+        "viewer": "مشرف متابعة واطلاع"
+    }
+    return labels.get(role, "موظف")
+
+
+def to_safe_user_dto(u: dict) -> dict:
+    role = normalize_role(u.get("role", "admin"))
+    return {
+        "id": u.get("id", ""),
+        "username": u.get("username", ""),
+        "displayName": u.get("displayName", ""),
+        "role": role,
+        "roleLabel": get_role_label(role),
+        "isActive": bool(u.get("isActive", True)),
+        "createdAt": u.get("createdAt", "2026-10-27T12:00:00Z")
+    }
+
+
+def load_admin_users() -> list:
+    if os.path.exists(ADMIN_USERS_FILE):
+        try:
+            with open(ADMIN_USERS_FILE, "r", encoding="utf-8") as f:
+                users = json.load(f)
+                if isinstance(users, list) and len(users) > 0:
+                    return users
+        except Exception as e:
+            print("Error reading admin-users.json:", e)
+
+    default_users = [
+        {
+            "id": "usr-admin",
+            "username": "admin",
+            "displayName": "المدير العام (الإدارة)",
+            "role": "admin",
+            "isActive": True,
+            "passwordHash": FALLBACK_ADMIN_HASH,
+            "createdAt": "2026-10-27T12:00:00Z"
+        }
+    ]
+    save_admin_users(default_users)
+    return default_users
+
+
+def save_admin_users(users: list):
+    os.makedirs(os.path.dirname(ADMIN_USERS_FILE), exist_ok=True)
+    raw_json = json.dumps(users, ensure_ascii=False, indent=2)
+    with open(ADMIN_USERS_FILE, "w", encoding="utf-8") as f:
+        f.write(raw_json)
+
+    # Also sync to LocalDB AdminUsersStore in background thread so API responds instantaneously
+    def _sync_sql():
+        try:
+            escaped_json = raw_json.replace("'", "''")
+            q = f"""
+            SET NOCOUNT ON;
+            IF OBJECT_ID(N'dbo.AdminUsersStore', N'U') IS NULL
+                CREATE TABLE dbo.AdminUsersStore (Id INT NOT NULL PRIMARY KEY, JsonData NVARCHAR(MAX) NOT NULL, UpdatedAt DATETIME2 NOT NULL);
+            IF EXISTS (SELECT 1 FROM dbo.AdminUsersStore WHERE Id = 1)
+                UPDATE dbo.AdminUsersStore SET JsonData = N'{escaped_json}', UpdatedAt = SYSUTCDATETIME() WHERE Id = 1;
+            ELSE
+                INSERT INTO dbo.AdminUsersStore (Id, JsonData, UpdatedAt) VALUES (1, N'{escaped_json}', SYSUTCDATETIME());
+            """
+            run_sql(q)
+        except Exception:
+            pass
+
+    threading.Thread(target=_sync_sql, daemon=True).start()
+
+
+def update_credentials_file_if_admin(username: str, plain_password: str, password_hash: str):
+    if username.lower() != "admin":
+        return
+    try:
+        os.makedirs(os.path.dirname(CREDENTIALS_FILE), exist_ok=True)
+        with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:
+            json.dump({
+                "Username": username,
+                "Password": plain_password,
+                "PasswordHash": password_hash
+            }, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
 
 def run_sql(query):
     try:
@@ -38,6 +168,7 @@ def run_sql(query):
     except Exception as e:
         print("SQL Error:", e)
         return ""
+
 
 def get_bookings_from_sql():
     q = "SET NOCOUNT ON; SELECT Id, Name, Phone, Email, Project, Unit, PreferredDate, PreferredTime, Notes, Status, CONVERT(VARCHAR, CreatedAt, 126) FROM Bookings ORDER BY CreatedAt DESC;"
@@ -62,6 +193,7 @@ def get_bookings_from_sql():
                 })
     return bookings
 
+
 def get_cms_data():
     if os.path.exists(RUNTIME_CMS):
         with open(RUNTIME_CMS, "r", encoding="utf-8") as f:
@@ -71,16 +203,177 @@ def get_cms_data():
             return json.load(f)
     return {}
 
+
 def save_cms_data(data):
     with open(RUNTIME_CMS, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def render_login_html(error_code: str = "") -> bytes:
+    err_msg = ""
+    if error_code == "disabled":
+        err_msg = "هذا الحساب موقوف حالياً، يرجى مراجعة مدير النظام."
+    elif error_code == "1":
+        err_msg = "اسم المستخدم أو كلمة المرور غير صحيحة"
+
+    err_html = f'<div class="error-box">{err_msg}</div>' if err_msg else ""
+    html = f"""<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>تسجيل دخول الإدارة والموظفين | الحوض الهادي للإسكان</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #1b2d34 0%, #0d171a 100%);
+      color: #f3eee1;
+      font-family: 'IBM Plex Sans Arabic', Tahoma, sans-serif;
+      padding: 20px;
+    }}
+    main {{
+      width: min(420px, 100%);
+      padding: 36px 32px;
+      background: rgba(24, 38, 44, 0.95);
+      border: 1px solid rgba(219, 197, 152, 0.22);
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }}
+    .brand-head {{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }}
+    .brand-logo {{
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(219, 197, 152, 0.1);
+      border: 1px solid rgba(219, 197, 152, 0.3);
+      display: grid;
+      place-items: center;
+    }}
+    h1 {{ font-size: 1.4rem; margin: 0 0 4px; color: #f7f3eb; }}
+    .sub {{ margin: 0; font-size: 0.88rem; color: #9ab0b8; }}
+    label {{ display: block; margin: 18px 0 8px; font-size: 0.9rem; font-weight: 600; color: #dbc598; }}
+    .input-wrap {{ position: relative; }}
+    input {{
+      width: 100%;
+      padding: 13px 14px;
+      background: #101c20;
+      color: #fff;
+      border: 1px solid #354a52;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }}
+    input:focus {{ outline: none; border-color: #dbc598; }}
+    .toggle-pw {{
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #9ab0b8;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      width: auto;
+      margin: 0;
+    }}
+    button.submit-btn {{
+      margin-top: 26px;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #e5c287 0%, #c69d59 100%);
+      color: #101c20;
+      font: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }}
+    button.submit-btn:hover {{ filter: brightness(1.06); }}
+    .error-box {{
+      background: rgba(220, 78, 78, 0.15);
+      border: 1px solid rgba(220, 78, 78, 0.4);
+      color: #ffb8b8;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }}
+    .back-link {{
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #dbc598;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand-head">
+      <div class="brand-logo">
+        <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+          <path d="M34 6L50 15V56H34V6Z" fill="#E5C287"/>
+          <path d="M34 6L18 16V56H34V6Z" fill="#C69D59"/>
+          <path d="M12 28L24 21V56H12V28Z" fill="#9E7636"/>
+        </svg>
+      </div>
+      <div>
+        <h1>بوابة الإدارة والموظفين</h1>
+        <p class="sub">الحوض الهادي للإسكان — نظام إدارة المحتوى</p>
+      </div>
+    </div>
+    {err_html}
+    <form method="post" action="/admin/login">
+      <label for="username">اسم المستخدم</label>
+      <input id="username" name="username" dir="ltr" autocomplete="username" required maxlength="100" placeholder="admin">
+      <label for="password">كلمة المرور</label>
+      <div class="input-wrap">
+        <input id="password" name="password" dir="ltr" type="password" autocomplete="current-password" required maxlength="256" placeholder="••••••••">
+        <button type="button" class="toggle-pw" onclick="var p=document.getElementById('password');p.type=p.type==='password'?'text':'password';this.textContent=p.type==='password'?'إظهار':'إخفاء';">إظهار</button>
+      </div>
+      <button type="submit" class="submit-btn">تسجيل الدخول إلى اللوحة</button>
+    </form>
+    <a class="back-link" href="/">← العودة إلى الموقع الرئيسي</a>
+  </main>
+</body>
+</html>"""
+    return html.encode("utf-8")
+
 
 class AlHawdHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=FRONTEND_DIR, **kwargs)
 
+    def get_cookie_value(self, key: str) -> str:
+        cookie_hdr = self.headers.get("Cookie", "")
+        for part in cookie_hdr.split(";"):
+            part = part.strip()
+            if part.startswith(key + "="):
+                return unquote(part[len(key) + 1:])
+        return ""
+
+    def send_json(self, status_code: int, payload):
+        self.send_response(status_code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
+
     def end_headers(self):
-        # Set UTF-8 for HTML, CSS, JS and disable stale browser caching
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
@@ -96,9 +389,33 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        qs = parse_qs(parsed.query)
+
+        # GET /admin/login
+        if path == "/admin/login":
+            err = qs.get("error", [""])[0]
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(render_login_html(err))
+            return
+
+        # GET /admin/logout
+        if path == "/admin/logout":
+            self.send_response(302)
+            self.send_header("Set-Cookie", "AlHawd_User=logged_out; Path=/; HttpOnly; SameSite=Lax")
+            self.send_header("Location", "/admin/login")
+            self.end_headers()
+            return
 
         # SPA Routing for /admin
-        if path == "/admin" or path == "/admin/":
+        if path == "/admin" or path == "/admin/" or path == "/admin.html":
+            session_user = self.get_cookie_value("AlHawd_User")
+            if session_user == "logged_out":
+                self.send_response(302)
+                self.send_header("Location", "/admin/login")
+                self.end_headers()
+                return
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
@@ -115,29 +432,45 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
             return
 
+        # API: GET /api/admin/me
+        if path == "/api/admin/me":
+            users = load_admin_users()
+            session_user = self.get_cookie_value("AlHawd_User")
+            current = None
+            if session_user and session_user != "logged_out":
+                for u in users:
+                    if u.get("username", "").lower() == session_user.lower():
+                        current = u
+                        break
+            if not current:
+                current = users[0] if users else {
+                    "id": "usr-admin",
+                    "username": "admin",
+                    "displayName": "المدير العام",
+                    "role": "admin",
+                    "isActive": True
+                }
+            self.send_json(200, to_safe_user_dto(current))
+            return
+
+        # API: GET /api/admin/users
+        if path == "/api/admin/users":
+            users = load_admin_users()
+            self.send_json(200, [to_safe_user_dto(u) for u in users])
+            return
+
         # API: GET /api/cms
         if path == "/api/cms":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            data = get_cms_data()
-            self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+            self.send_json(200, get_cms_data())
             return
 
         # API: GET /api/bookings
         if path == "/api/bookings":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            bookings = get_bookings_from_sql()
-            self.wfile.write(json.dumps(bookings, ensure_ascii=False).encode("utf-8"))
+            self.send_json(200, get_bookings_from_sql())
             return
 
         # API: GET /api/media
         if path == "/api/media":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
             scenes = [
                 {"id": "scene-1", "title": "مشهد 1: الشارع الرئيسي للمجمع السكني", "category": "واجهات خارجية", "lightUrl": "/images/light/scene-1.png", "darkUrl": "/images/dark/scene-1.png"},
                 {"id": "scene-2", "title": "مشهد 2: الصالة الرئيسية البانورامية", "category": "تصميم داخلي", "lightUrl": "/images/light/scene-2.png", "darkUrl": "/images/dark/scene-2.png"},
@@ -160,8 +493,7 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                             "url": f"/images/uploads/{f}",
                             "sizeBytes": os.path.getsize(os.path.join(UPLOADS_DIR, f))
                         })
-            res = {"pairs": scenes, "uploads": uploads}
-            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+            self.send_json(200, {"pairs": scenes, "uploads": uploads})
             return
 
         # Default static file serving from frontend directory
@@ -172,6 +504,126 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(length).decode("utf-8", errors="replace") if length > 0 else ""
+
+        # POST /admin/login
+        if path == "/admin/login":
+            form_data = parse_qs(body)
+            username = (form_data.get("username", [""])[0]).strip()
+            password = form_data.get("password", [""])[0]
+
+            users = load_admin_users()
+            matched = None
+            for u in users:
+                if u.get("username", "").lower() == username.lower():
+                    matched = u
+                    break
+
+            if not matched or not verify_password(password, matched.get("passwordHash", "")):
+                self.send_response(302)
+                self.send_header("Location", "/admin/login?error=1")
+                self.end_headers()
+                return
+
+            if not matched.get("isActive", True):
+                self.send_response(302)
+                self.send_header("Location", "/admin/login?error=disabled")
+                self.end_headers()
+                return
+
+            self.send_response(302)
+            self.send_header("Set-Cookie", f"AlHawd_User={matched.get('username')}; Path=/; HttpOnly; SameSite=Lax")
+            self.send_header("Location", "/admin")
+            self.end_headers()
+            return
+
+        # POST /admin/logout
+        if path == "/admin/logout":
+            self.send_response(302)
+            self.send_header("Set-Cookie", "AlHawd_User=logged_out; Path=/; HttpOnly; SameSite=Lax")
+            self.send_header("Location", "/admin/login")
+            self.end_headers()
+            return
+
+        # API: POST /api/admin/users
+        if path == "/api/admin/users":
+            try:
+                data = json.loads(body) if body else {}
+                username = (data.get("username") or "").strip()
+                display_name = (data.get("displayName") or "").strip() or username
+                role = normalize_role(data.get("role", "sales"))
+                password = data.get("password") or ""
+
+                if len(username) < 2 or len(username) > 60:
+                    self.send_json(400, {"error": "اسم المستخدم يجب أن يكون بين حرفين و 60 حرفاً"})
+                    return
+                if len(password) < 4 or len(password) > 256:
+                    self.send_json(400, {"error": "كلمة المرور يجب أن تتكون من 4 خانات على الأقل"})
+                    return
+
+                users = load_admin_users()
+                for u in users:
+                    if u.get("username", "").lower() == username.lower():
+                        self.send_json(400, {"error": "اسم المستخدم هذا مسجل مسبقاً، يرجى اختيار اسم مستخدم آخر"})
+                        return
+
+                new_user = {
+                    "id": f"usr-{int(time.time() * 1000)}",
+                    "username": username,
+                    "displayName": display_name,
+                    "role": role,
+                    "isActive": True,
+                    "passwordHash": hash_password(password),
+                    "createdAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                }
+                users.append(new_user)
+                save_admin_users(users)
+                self.send_json(200, {"success": True, "user": to_safe_user_dto(new_user)})
+            except Exception as e:
+                self.send_json(500, {"error": str(e)})
+            return
+
+        # API: POST /api/admin/change-password
+        if path == "/api/admin/change-password":
+            try:
+                data = json.loads(body) if body else {}
+                user_id = (data.get("userId") or "").strip()
+                username = (data.get("username") or "").strip()
+                new_password = data.get("newPassword") or ""
+
+                if len(new_password) < 4 or len(new_password) > 256:
+                    self.send_json(400, {"error": "كلمة المرور الجديدة يجب أن تتكون من 4 خانات على الأقل"})
+                    return
+
+                users = load_admin_users()
+                target = None
+                if user_id:
+                    target = next((u for u in users if u.get("id", "").lower() == user_id.lower()), None)
+                if not target and username:
+                    target = next((u for u in users if u.get("username", "").lower() == username.lower()), None)
+                if not target:
+                    session_user = self.get_cookie_value("AlHawd_User")
+                    if session_user and session_user != "logged_out":
+                        target = next((u for u in users if u.get("username", "").lower() == session_user.lower()), None)
+                if not target and users:
+                    target = users[0]
+
+                if not target:
+                    self.send_json(404, {"error": "لم يتم العثور على الحساب المطلوب"})
+                    return
+
+                new_hash = hash_password(new_password)
+                target["passwordHash"] = new_hash
+                save_admin_users(users)
+                update_credentials_file_if_admin(target.get("username", ""), new_password, new_hash)
+
+                self.send_json(200, {
+                    "success": True,
+                    "message": f"تم تغيير كلمة المرور لحساب ({target.get('displayName')}) بنجاح",
+                    "user": to_safe_user_dto(target)
+                })
+            except Exception as e:
+                self.send_json(500, {"error": str(e)})
+            return
 
         # API: POST /api/bookings
         if path == "/api/bookings":
@@ -193,36 +645,30 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                 SELECT SCOPE_IDENTITY();
                 """
                 new_id = run_sql(q)
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.end_headers()
                 res = {"success": True, "booking": {"id": new_id, "name": name, "phone": phone, "project": project, "unit": unit, "status": "new"}}
-                self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+                self.send_json(200, res)
             except Exception as e:
-                self.send_response(500)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                self.send_json(500, {"error": str(e)})
             return
 
-        # API: POST /api/upload (Lossless / Zero-Quality-Loss Image Compression)
+        # API: POST /api/upload
         if path == "/api/upload":
             try:
-                import base64, time, io
+                import io
                 data = json.loads(body)
                 filename = data.get("filename", "upload.png")
                 data_url = data.get("dataUrl", "")
                 match = re.match(r"^data:image/([a-zA-Z0-9+.\-]+);base64,(.+)$", data_url)
                 if match:
                     ext = match.group(1).lower()
-                    if ext == "jpeg": ext = "jpg"
+                    if ext == "jpeg":
+                        ext = "jpg"
                     b64 = match.group(2)
                     raw_bytes = base64.b64decode(b64)
                     orig_bytes_len = int(data.get("originalSize") or len(raw_bytes))
                     final_bytes = raw_bytes
                     final_ext = ext
 
-                    # Compress without losing quality or resolution using Pillow
                     try:
                         from PIL import Image, ImageOps
                         img = Image.open(io.BytesIO(raw_bytes))
@@ -230,16 +676,13 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                         if not is_animated and ext in ("png", "jpg", "jpeg", "webp"):
                             img = ImageOps.exif_transpose(img)
                             buf_webp = io.BytesIO()
-                            # Save high-precision WebP (q=95, method=6, exact alpha preservation)
                             img.save(buf_webp, format="WEBP", quality=95, method=6, exact=True)
                             webp_bytes = buf_webp.getvalue()
 
-                            # Also test true mathematical lossless WebP if image is small/graphic
                             buf_lossless = io.BytesIO()
                             img.save(buf_lossless, format="WEBP", lossless=True, method=6)
                             lossless_bytes = buf_lossless.getvalue()
 
-                            # Pick best compressed representation that is smaller than raw_bytes
                             candidate_bytes = webp_bytes
                             if len(lossless_bytes) <= len(webp_bytes) * 1.15 and len(lossless_bytes) < len(raw_bytes):
                                 candidate_bytes = lossless_bytes
@@ -259,9 +702,6 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                     if orig_bytes_len > len(final_bytes):
                         saved_pct = round((1.0 - (len(final_bytes) / orig_bytes_len)) * 100, 1)
 
-                    self.send_response(200)
-                    self.send_header("Content-Type", "application/json; charset=utf-8")
-                    self.end_headers()
                     res = {
                         "success": True,
                         "url": f"/images/uploads/{clean_name}",
@@ -270,12 +710,10 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                         "compressedBytes": len(final_bytes),
                         "savedPercent": saved_pct
                     }
-                    self.wfile.write(json.dumps(res).encode("utf-8"))
+                    self.send_json(200, res)
                     return
             except Exception as e:
-                self.send_response(500)
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                self.send_json(500, {"error": str(e)})
                 return
 
         # API: POST /api/cms/reset
@@ -283,10 +721,7 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
             with open(SEED_CMS, "r", encoding="utf-8") as f:
                 seed = json.load(f)
             save_cms_data(seed)
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            self.wfile.write(json.dumps({"success": True, "data": seed}, ensure_ascii=False).encode("utf-8"))
+            self.send_json(200, {"success": True, "data": seed})
             return
 
         self.send_response(404)
@@ -298,18 +733,70 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(length).decode("utf-8", errors="replace") if length > 0 else ""
 
+        # API: PUT /api/admin/users/{id}
+        m_user = re.match(r"^/api/admin/users/([^/]+)$", path)
+        if m_user:
+            user_id = unquote(m_user.group(1))
+            try:
+                data = json.loads(body) if body else {}
+                users = load_admin_users()
+                target = next((u for u in users if u.get("id", "").lower() == user_id.lower()), None)
+                if not target:
+                    self.send_json(404, {"error": "المستخدم غير موجود"})
+                    return
+
+                if "username" in data and data["username"]:
+                    new_username = data["username"].strip()
+                    if len(new_username) < 2 or len(new_username) > 60:
+                        self.send_json(400, {"error": "اسم المستخدم يجب أن يكون بين حرفين و 60 حرفاً"})
+                        return
+                    for u in users:
+                        if u.get("id", "").lower() != target.get("id", "").lower() and u.get("username", "").lower() == new_username.lower():
+                            self.send_json(400, {"error": "اسم المستخدم مستخدم بالفعل لحساب آخر"})
+                            return
+                    target["username"] = new_username
+
+                if "displayName" in data and data["displayName"]:
+                    target["displayName"] = data["displayName"].strip()
+
+                next_role = normalize_role(data["role"]) if "role" in data and data["role"] else target.get("role", "admin")
+                next_active = bool(data["isActive"]) if "isActive" in data and data["isActive"] is not None else bool(target.get("isActive", True))
+
+                other_active_admins = sum(
+                    1 for u in users
+                    if u.get("id", "").lower() != target.get("id", "").lower()
+                    and u.get("isActive", True)
+                    and u.get("role", "").lower() == "admin"
+                )
+                if other_active_admins == 0 and (not next_active or next_role != "admin"):
+                    self.send_json(400, {"error": "لا يمكن إيقاف أو تخفيض صلاحية حساب مدير النظام الوحيد النشط"})
+                    return
+
+                target["role"] = next_role
+                target["isActive"] = next_active
+
+                if data.get("password"):
+                    pw = data["password"]
+                    if len(pw) < 4 or len(pw) > 256:
+                        self.send_json(400, {"error": "كلمة المرور يجب أن تتكون من 4 خانات على الأقل"})
+                        return
+                    new_hash = hash_password(pw)
+                    target["passwordHash"] = new_hash
+                    update_credentials_file_if_admin(target.get("username", ""), pw, new_hash)
+
+                save_admin_users(users)
+                self.send_json(200, {"success": True, "user": to_safe_user_dto(target)})
+            except Exception as e:
+                self.send_json(500, {"error": str(e)})
+            return
+
         if path == "/api/cms":
             try:
                 data = json.loads(body)
                 save_cms_data(data)
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True, "data": data}, ensure_ascii=False).encode("utf-8"))
+                self.send_json(200, {"success": True, "data": data})
             except Exception as e:
-                self.send_response(500)
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                self.send_json(500, {"error": str(e)})
             return
 
         self.send_response(404)
@@ -330,15 +817,10 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                 new_status = data.get("status", "new").replace("'", "''")
                 q = f"UPDATE Bookings SET Status = '{new_status}', UpdatedAt = GETUTCDATE() WHERE Id = {bk_id};"
                 run_sql(q)
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+                self.send_json(200, {"success": True})
                 return
             except Exception as e:
-                self.send_response(500)
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                self.send_json(500, {"error": str(e)})
                 return
 
         self.send_response(404)
@@ -348,21 +830,45 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
 
+        # DELETE /api/admin/users/{id}
+        m_user = re.match(r"^/api/admin/users/([^/]+)$", path)
+        if m_user:
+            user_id = unquote(m_user.group(1))
+            users = load_admin_users()
+            target = next((u for u in users if u.get("id", "").lower() == user_id.lower()), None)
+            if not target:
+                self.send_json(404, {"error": "المستخدم غير موجود"})
+                return
+
+            remaining_active_admins = sum(
+                1 for u in users
+                if u.get("id", "").lower() != target.get("id", "").lower()
+                and u.get("isActive", True)
+                and u.get("role", "").lower() == "admin"
+            )
+            if remaining_active_admins == 0:
+                self.send_json(400, {"error": "لا يمكن حذف حساب مدير النظام الرئيسي الوحيد"})
+                return
+
+            users = [u for u in users if u.get("id", "").lower() != target.get("id", "").lower()]
+            save_admin_users(users)
+            self.send_json(200, {"success": True})
+            return
+
         # DELETE /api/bookings/{id}
         m = re.match(r"^/api/bookings/(\d+)$", path)
         if m:
             bk_id = m.group(1)
             q = f"DELETE FROM Bookings WHERE Id = {bk_id};"
             run_sql(q)
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+            self.send_json(200, {"success": True})
             return
 
         self.send_response(404)
         self.end_headers()
 
-print(f"Starting server on http://localhost:{PORT}")
-httpd = HTTPServer(("", PORT), AlHawdHandler)
-httpd.serve_forever()
+
+if __name__ == "__main__":
+    print(f"Starting server on http://localhost:{PORT}")
+    httpd = HTTPServer(("", PORT), AlHawdHandler)
+    httpd.serve_forever()
