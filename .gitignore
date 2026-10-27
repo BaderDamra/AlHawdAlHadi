@@ -1,6 +1,5 @@
 # Visual Studio & IDEs
 .vs/
-*.user
 *.suo
 *.userosscache
 *.sln.docstates
@@ -24,4 +23,3 @@ Desktop.ini
 
 # Scratch
 scratch/
-

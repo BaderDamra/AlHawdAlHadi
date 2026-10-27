@@ -1,0 +1,11 @@
+[
+  {
+    "id": "usr-admin",
+    "username": "admin",
+    "displayName": "المدير العام (الإدارة)",
+    "role": "admin",
+    "isActive": true,
+    "passwordHash": "210000:qS72XOKwOnW7lQxpmCcvrg==:fb6Zjlou94BhskQUwJboT/Am7eUOULUns4VKI6YIHM0=",
+    "createdAt": "2026-10-27T12:00:00Z"
+  }
+]

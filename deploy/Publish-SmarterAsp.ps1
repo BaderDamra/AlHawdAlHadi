@@ -19,7 +19,7 @@ if (-not (Test-Path -LiteralPath $credentialsPath)) {
 }
 $credentials = Get-Content -LiteralPath $credentialsPath -Raw | ConvertFrom-Json
 $outputRoot = Join-Path $projectRoot "artifacts/$OutputName"
-if (Test-Path -LiteralPath $outputRoot) { throw "Output already exists: $outputRoot" }
+if (Test-Path -LiteralPath $outputRoot) { Remove-Item -LiteralPath $outputRoot -Recurse -Force }
 $publishRoot = Join-Path $outputRoot 'publish'
 dotnet publish (Join-Path $projectRoot 'backend/AlHawdAlHadi.Api') -c Release -o $publishRoot --nologo -p:UseAppHost=false -p:AspNetCoreHostingModel=OutOfProcess
 if ($LASTEXITCODE -ne 0) { throw 'dotnet publish failed' }
@@ -29,7 +29,10 @@ if ($LASTEXITCODE -ne 0) { throw 'dotnet publish failed' }
 # Current CMS edits are the initial production content. Do not ship sample bookings.
 $seedRoot = Join-Path $publishRoot 'SeedData'
 New-Item -ItemType Directory -Path $seedRoot -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $projectRoot 'backend/AlHawdAlHadi.Api/SeedData/runtime-cms.json') -Destination (Join-Path $seedRoot 'default-cms.json')
+Copy-Item -LiteralPath (Join-Path $projectRoot 'backend/AlHawdAlHadi.Api/SeedData/runtime-cms.json') -Destination (Join-Path $seedRoot 'default-cms.json') -Force
+if (Test-Path -LiteralPath (Join-Path $projectRoot 'backend/AlHawdAlHadi.Api/SeedData/admin-users.json')) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot 'backend/AlHawdAlHadi.Api/SeedData/admin-users.json') -Destination (Join-Path $seedRoot 'admin-users.json') -Force
+}
 foreach ($relative in @('appsettings.Development.json', 'SeedData/default-bookings.json', 'SeedData/runtime-cms.json')) {
     $targetFile = Join-Path $publishRoot $relative
     if (Test-Path -LiteralPath $targetFile) { Remove-Item -LiteralPath $targetFile }
@@ -46,7 +49,10 @@ if ($ConnectionFile) {
 $production | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $publishRoot 'appsettings.Production.json') -Encoding utf8
 if ($ConnectionFile) {
     Copy-Item -LiteralPath (Join-Path $publishRoot 'appsettings.Production.json') -Destination (Join-Path $secretRoot 'appsettings.SmarterASP.json') -Force
-    Compress-Archive -Path (Join-Path $publishRoot '*') -DestinationPath (Join-Path $outputRoot 'AlHawd-SmarterASP.zip')
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $zipPath = Join-Path $outputRoot 'AlHawd-SmarterASP.zip'
+    if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($publishRoot, $zipPath)
     Write-Output "Deployment archive: $outputRoot/AlHawd-SmarterASP.zip"
 } else {
     Write-Output "Prepared files: $publishRoot (database connection required before upload)"

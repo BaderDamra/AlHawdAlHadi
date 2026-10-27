@@ -54,6 +54,7 @@
 * **رفع الصور مع الضغط التلقائي السريع**: ضغط فوري للصور دون أي فقدان للجودة لضمان سرعة تحميل الموقع.
 * **إدارة وتخصيص الفئات والأيقونات**: إضافة فئات سكنية ومرافق جديدة واختيار أيقوناتها الهندسية بحرية.
 * **متابعة طلبات الحجز والمعاينة**: استقبال طلبات الزوار وحفظها وتصديرها.
+* **نظام إدارة الموظفين وكلمات المرور**: إضافة حسابات للموظفين بصلاحيات محددة (مدير النظام، موظف مبيعات وحجوزات، محرر محتوى، مشرف متابعة)، إيقاف/تفعيل الحسابات، وتغيير كلمات المرور المشفرة (`PBKDF2-SHA256`) مباشرة من الداشبورد.
 
 ---
 
@@ -146,21 +147,40 @@ dotnet run
 
 ---
 
-## ☁️ النشر والاستضافة (Deployment & Hosting)
+## ☁️ سحب المشروع والتعديل والنشر (GitHub CLI + Publish & Deploy)
 
-### 1. الاستضافة الثابتة (Static Web Hosting):
-المجلد `/frontend` مكتفٍ ذاتياً، ويمكن ربطه ونشره مباشرة عبر:
-* **Vercel**
-* **Netlify**
-* **GitHub Pages**
-* **cPanel (Shared Hosting)**
+المستودع يحتوي على **كافة ملفات المشروع وملفات النشر والإعدادات (`deploy/` و `deployment-secrets/` و `artifacts/smarterasp-final/` وملفات `SmarterASP.pubxml`)** جاهزة بالكامل لأي مطور يسحب المشروع.
 
-### 2. استضافة السيرفر الكامل مع الـ CMS (Full-Stack VPS):
-يمكن رفع المشروع على أي خادم سحابي (Ubuntu / Debian VPS) وتشغيله كخدمة عبر `PM2` أو `Systemd`:
+### 1. سحب المشروع عبر GitHub CLI (`gh`) أو `git`:
 ```bash
-# تثبيت وتشغيل كخدمة دائمة
-pm2 start run_server.py --name "alhawd-platform"
-pm2 save
+# عبر GitHub CLI
+gh repo clone BaderDamra/AlHawdAlHadi
+cd AlHawdAlHadi
+
+# أو عبر Git العادي
+git clone https://github.com/BaderDamra/AlHawdAlHadi.git
+cd AlHawdAlHadi
+```
+
+### 2. عمل Publish / Deploy بعد إجراء أي تعديلات:
+#### أ) عبر PowerShell (إنشاء حزمة النشر الجاهزة لـ IIS / SmarterASP):
+```powershell
+powershell -ExecutionPolicy Bypass -File ./deploy/Publish-SmarterAsp.ps1 -ConnectionFile ./deployment-secrets/sql-connection.txt -OutputName smarterasp-final
+```
+* يقوم هذا الأمر بترجمة مشروع `.NET 10` (`Release`)، ودمج أحدث تعديلات الواجهة (`frontend/`) ومحتوى الـ CMS (`runtime-cms.json`) وحسابات الموظفين (`admin-users.json`) وإعدادات قاعدة البيانات (`appsettings.Production.json`)، وإنتاج:
+  * مجلد النشر الجاهز: `artifacts/smarterasp-final/publish`
+  * الملف المضغوط الجاهز للرفع: `artifacts/smarterasp-final/AlHawd-SmarterASP.zip`
+
+#### ب) عبر Visual Studio (Web Deploy مباشر):
+* افتح المشروع `backend/AlHawdAlHadi.Api/AlHawdAlHadi.Api.csproj` في **Visual Studio**.
+* اضغط بزر الماوس الأيمن على المشروع واختر **Publish**.
+* ستجد ملف النشر **`SmarterASP`** (`Properties/PublishProfiles/SmarterASP.pubxml`) جاهزاً ومرتبطاً بـ `deployment-secrets/appsettings.SmarterASP.json` — اضغط **Publish** لرفع التعديلات مباشرة.
+
+#### ج) رفع التعديلات مجدداً إلى GitHub:
+```bash
+git add -A
+git commit -m "Update project and publish artifacts"
+git push origin main
 ```
 
 ---
