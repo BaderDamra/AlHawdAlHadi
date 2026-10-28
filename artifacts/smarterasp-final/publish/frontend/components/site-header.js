@@ -117,6 +117,12 @@ class SiteHeader extends HTMLElement {
     });
 
     const triggerBooking = () => {
+      const aptBookSec = document.getElementById("aptBookingSection");
+      if (aptBookSec) {
+        aptBookSec.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => document.getElementById("aptBookName")?.focus(), 450);
+        return;
+      }
       const modal = document.querySelector("booking-modal");
       if (modal && typeof modal.openModal === "function") {
         modal.openModal();

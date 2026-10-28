@@ -31,12 +31,20 @@
   };
 
   async function initApartmentPage() {
+    const savedTheme = localStorage.getItem("alhawd_theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
     try {
       const res = await fetch("/api/cms");
       cmsData = await res.json();
     } catch (e) {
       console.warn("Could not fetch CMS data, using local state:", e);
       cmsData = {};
+    }
+
+    const footerComp = document.querySelector("site-footer");
+    if (footerComp && typeof footerComp.setCMSData === "function") {
+      footerComp.setCMSData(cmsData);
     }
 
     const params = new URLSearchParams(window.location.search);
