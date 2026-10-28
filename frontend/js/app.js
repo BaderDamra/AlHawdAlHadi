@@ -551,20 +551,63 @@
   // =========================================================================
   // 3B. SELECTED APARTMENT DETAILS & INTERIOR GALLERY
   // =========================================================================
+  let selectedBuildingFilter = "all";
+
   function renderUnitDetails() {
     const exp = cmsData.explorerSection;
     if (!exp || !Array.isArray(exp.apartments)) return;
 
+    const allApts = exp.apartments;
+    const projects = cmsData?.projectsSection?.projects || [];
+    const projMap = {};
+    projects.forEach((p) => {
+      projMap[p.id] = p.title;
+    });
+
+    // Render Building Filter Bar
+    const bBar = document.getElementById("buildingFilterBar");
+    if (bBar && projects.length) {
+      bBar.innerHTML = [
+        `<button type="button" class="unit-selector-pill ${selectedBuildingFilter === "all" ? "active" : ""}" data-sel-bldg="all">🏢 جميع العمارات (${allApts.length})</button>`,
+        ...projects.map((p) => {
+          const count = allApts.filter((a) => (a.buildingId || "proj-1") === p.id).length;
+          return `<button type="button" class="unit-selector-pill ${selectedBuildingFilter === p.id ? "active" : ""}" data-sel-bldg="${p.id}">🏢 ${p.title} (${count} شقق)</button>`;
+        })
+      ].join("");
+
+      bBar.querySelectorAll("[data-sel-bldg]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selectedBuildingFilter = btn.dataset.selBldg;
+          const matching = selectedBuildingFilter === "all"
+            ? allApts
+            : allApts.filter((a) => (a.buildingId || "proj-1") === selectedBuildingFilter);
+          if (matching.length && !matching.find((a) => a.id === selectedUnitId)) {
+            selectedUnitId = matching[0].id;
+            selectedGalleryIdx = 0;
+          }
+          renderUnitDetails();
+        });
+      });
+    }
+
+    const apts = selectedBuildingFilter === "all"
+      ? allApts
+      : allApts.filter((a) => (a.buildingId || "proj-1") === selectedBuildingFilter);
+    const listToUse = apts.length ? apts : allApts;
+
+    if (!listToUse.find((a) => a.id === selectedUnitId) && listToUse.length) {
+      selectedUnitId = listToUse[0].id;
+    }
+
     // Render Apartment Selector Pills Bar so visitor can choose any apartment!
-    const apts = exp.apartments;
     const bar = document.getElementById("unitSelectorBar");
-    if (bar && apts.length) {
-      bar.innerHTML = apts
+    if (bar && listToUse.length) {
+      bar.innerHTML = listToUse
         .map(
           (a) => `
         <button type="button" class="unit-selector-pill ${a.id === selectedUnitId ? "active" : ""}" data-sel-apt="${a.id}">
           <span>🏠 ${a.title}</span>
-          <span class="pill-area">(${a.area})</span>
+          <span class="pill-area" style="color:var(--accent-gold); font-weight:700;">(${a.price || a.area})</span>
         </button>
       `
         )
@@ -577,7 +620,7 @@
       });
     }
 
-    const unit = exp.apartments.find((a) => a.id === selectedUnitId) || exp.apartments[0];
+    const unit = listToUse.find((a) => a.id === selectedUnitId) || listToUse[0];
     if (!unit) return;
 
     const statusBadge = document.getElementById("unitStatusBadge");
@@ -586,13 +629,25 @@
       statusBadge.className = `unit-status-pill ${unit.status || "available"}`;
     }
 
+    const bldgBadge = document.getElementById("unitBuildingBadge");
+    if (bldgBadge) {
+      bldgBadge.textContent = projMap[unit.buildingId] || unit.buildingName || "مشروع الهدوء 1";
+    }
+
     setText("unitTitleHeading", unit.title);
+    setText("unitPriceVal", unit.price || "عند الطلب");
+    setText("unitPriceNoteVal", unit.priceNote || "تشطيبات سوبر ديلوكس");
     setText("unitAreaVal", unit.area);
-    setText("unitFloorVal", String(selectedFloor));
+    setText("unitFloorVal", unit.floor || String(selectedFloor));
     setText("unitBedroomsVal", unit.bedrooms);
     setText("unitDirectionVal", unit.direction);
     setText("unitBookBtnText", unit.bookCtaText || "احجز موعد مشاهدة");
     setText("unitDownloadBtnText", unit.downloadPlanText || "تحميل المخطط");
+
+    const openPageBtn = document.getElementById("unitOpenFullPageBtn");
+    if (openPageBtn) {
+      openPageBtn.href = `/apartment?id=${encodeURIComponent(unit.id || unit.code)}&project=${encodeURIComponent(unit.buildingId || "proj-1")}`;
+    }
 
     const featRow = document.getElementById("unitFeaturesRow");
     if (featRow && Array.isArray(unit.features)) {

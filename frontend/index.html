@@ -178,15 +178,27 @@
        ===================================================================== -->
   <section class="unit-details-section reveal-section" id="unitDetails">
     <div class="container">
-      <!-- Apartment Model Selector Pills Bar (شقة A، شقة B، شقة C) -->
+      <!-- Building / Project Filter Bar -->
+      <div class="unit-selector-bar" id="buildingFilterBar" style="margin-bottom:10px;"></div>
+      <!-- Apartment Model Selector Pills Bar -->
       <div class="unit-selector-bar" id="unitSelectorBar"></div>
 
       <div class="unit-details-grid">
         <!-- Right Column in RTL: Specifications & Actions -->
         <div class="unit-specs-col">
-          <div class="unit-header-row">
+          <div class="unit-header-row" style="flex-wrap:wrap; gap:8px;">
+            <span class="unit-status-pill" id="unitBuildingBadge" style="background:rgba(201,165,106,0.16); color:var(--accent-gold); border:1px solid rgba(201,165,106,0.35);">مشروع الهدوء 1</span>
             <span class="unit-status-pill" id="unitStatusBadge">متاحة</span>
-            <h3 class="unit-name-heading" id="unitTitleHeading">شقة - A</h3>
+            <h3 class="unit-name-heading" id="unitTitleHeading" style="width:100%; margin-top:4px;">شقة A-101 الفاخرة</h3>
+          </div>
+
+          <!-- Highlighted Price Box -->
+          <div id="unitPriceBox" style="background:rgba(201,165,106,0.1); border:1px solid rgba(201,165,106,0.35); border-radius:12px; padding:12px 16px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span style="font-size:0.78rem; color:var(--text-secondary); display:block;">السعر الإجمالي للشقة</span>
+              <strong id="unitPriceVal" style="font-size:1.45rem; font-weight:800; color:var(--accent-gold); font-family:'Manrope','IBM Plex Sans Arabic',sans-serif;">145,000 د.أ</strong>
+            </div>
+            <span id="unitPriceNoteVal" style="font-size:0.8rem; color:var(--text-secondary); background:var(--bg-surface); padding:4px 10px; border-radius:99px; border:1px solid var(--border-subtle);">شامل رسوم التسجيل وموقف سيارة</span>
           </div>
 
           <!-- 4 Key Metrics -->
@@ -197,11 +209,11 @@
             </div>
             <div class="unit-metric-box">
               <span class="unit-metric-label">الطابق</span>
-              <span class="unit-metric-value" id="unitFloorVal">4</span>
+              <span class="unit-metric-value" id="unitFloorVal">الطابق الأرضي</span>
             </div>
             <div class="unit-metric-box">
               <span class="unit-metric-label">غرف النوم</span>
-              <span class="unit-metric-value" id="unitBedroomsVal">3</span>
+              <span class="unit-metric-value" id="unitBedroomsVal">3 غرف</span>
             </div>
             <div class="unit-metric-box">
               <span class="unit-metric-label">الاتجاه</span>
@@ -213,10 +225,13 @@
           <div class="unit-features-row" id="unitFeaturesRow"></div>
 
           <!-- Action Buttons -->
-          <div class="unit-cta-row">
-            <button type="button" class="btn-gold" id="unitBookViewingBtn">
-              <span id="unitBookBtnText">احجز موعد مشاهدة</span>
+          <div class="unit-cta-row" style="flex-wrap:wrap; gap:10px;">
+            <a href="/apartment?id=apt-101&project=proj-1" class="btn-gold" id="unitOpenFullPageBtn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; flex:1; min-width:200px;">
+              <span>استعراض صفحة الشقة الكاملة</span>
               <span>←</span>
+            </a>
+            <button type="button" class="btn-outline" id="unitBookViewingBtn" style="flex:1; min-width:150px;">
+              <span id="unitBookBtnText">احجز موعد مشاهدة</span>
             </button>
             <button type="button" class="btn-outline" id="unitDownloadPlanBtn">
               <span id="unitDownloadBtnText">تحميل المخطط</span>

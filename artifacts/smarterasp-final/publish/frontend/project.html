@@ -100,15 +100,18 @@
     <!-- In-Page Sticky Anchor Navigation Bar -->
     <nav class="project-section-tabs-bar" id="sectionTabsBar">
       <div class="tabs-bar-inner">
-        <a href="#tab-overview" class="section-tab-item active">نظرة عامة</a>
+        <a href="#tab-units" class="section-tab-item active">الشقق المتاحة والأسعار</a>
+        <a href="#tab-overview" class="section-tab-item">نظرة عامة عن العمارة</a>
         <a href="#tab-amenities" class="section-tab-item">المميزات والمرافق</a>
-        <a href="#tab-units" class="section-tab-item">الشقق المتاحة</a>
         <a href="#tab-floorplans" class="section-tab-item">المخططات والرسومات</a>
         <a href="#tab-location" class="section-tab-item">الموقع والمعالم</a>
       </div>
     </nav>
 
-    <!-- SECTION 1: OVERVIEW -->
+    <!-- SECTION 1: AVAILABLE UNITS COMPONENT (<available-units-table>) -->
+    <available-units-table></available-units-table>
+
+    <!-- SECTION 2: OVERVIEW -->
     <section class="project-detail-section" id="tab-overview">
       <div class="overview-grid">
         <div class="overview-text-side">
@@ -132,11 +135,8 @@
       </div>
     </section>
 
-    <!-- SECTION 2: AMENITIES COMPONENT (<amenities-grid>) -->
+    <!-- SECTION 3: AMENITIES COMPONENT (<amenities-grid>) -->
     <amenities-grid></amenities-grid>
-
-    <!-- SECTION 3: AVAILABLE UNITS COMPONENT (<available-units-table>) -->
-    <available-units-table></available-units-table>
 
     <!-- SECTION 4: FLOORPLANS COMPONENT (<floorplan-viewer>) -->
     <floorplan-viewer></floorplan-viewer>
