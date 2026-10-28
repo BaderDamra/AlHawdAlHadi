@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AL HAWD AL HADI HOUSING - SINGLE PROJECT DETAILS LOGIC
  * Loads dynamic project data from /api/cms with full Light/Dark support
  */

@@ -110,10 +110,40 @@
     const dirTextEl = document.getElementById("aptDirectionText");
     if (dirTextEl) dirTextEl.textContent = apt.direction || "إطلالة بانورامية";
 
+    const statusKey = (apt.status || "available").toLowerCase();
+    const statusLabel =
+      statusKey === "sold"
+        ? "🔴 مباعة بالكامل"
+        : statusKey === "reserved"
+          ? "🟡 محجوزة"
+          : "🟢 " + (apt.statusText && apt.statusText !== "مباعة" && apt.statusText !== "محجوزة" ? apt.statusText : "متاحة للبيع ✓");
+
     const statusPill = document.getElementById("aptStatusPill");
     if (statusPill) {
-      statusPill.className = `apt-status-pill ${apt.status || "available"}`;
-      statusPill.textContent = apt.statusText || (apt.status === "available" ? "متاحة للبيع ✓" : "محجوزة");
+      statusPill.className = `apt-status-pill ${statusKey}`;
+      statusPill.textContent = statusLabel;
+    }
+
+    const bookBarProject = document.getElementById("bookBarProject");
+    if (bookBarProject) bookBarProject.textContent = bld.title || apt.buildingName || "مشروع الهدوء";
+
+    const bookBarApt = document.getElementById("bookBarApt");
+    if (bookBarApt) bookBarApt.textContent = `${apt.code ? apt.code + " — " : ""}${apt.title || "شقة سكنية"}`;
+
+    const bookBarPrice = document.getElementById("bookBarPrice");
+    if (bookBarPrice) bookBarPrice.textContent = apt.price || "عند الطلب";
+
+    const bookBarStatus = document.getElementById("bookBarStatus");
+    if (bookBarStatus) {
+      bookBarStatus.className = `apt-status-pill ${statusKey}`;
+      bookBarStatus.textContent = statusLabel;
+    }
+
+    const dateInput = document.getElementById("aptBookDate");
+    if (dateInput && !dateInput.value) {
+      const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+      dateInput.value = tomorrow;
+      dateInput.min = new Date().toISOString().split("T")[0];
     }
 
     // 4. Golden Price Card
@@ -149,13 +179,17 @@
     renderFloorPlan();
 
     // 10. WhatsApp Button with dynamic pre-filled text
+    const waNumber = (cmsData?.settings?.whatsapp || "962790000000").replace(/\D/g, "");
+    const waText = encodeURIComponent(
+      `مرحباً، أود الاستفسار وحجز موعد معاينة للشقة (${apt.title || apt.code}) في (${bld.title}) بسعر (${apt.price}).`
+    );
+    const waUrl = `https://wa.me/${waNumber}?text=${waText}`;
+
     const waBtn = document.getElementById("whatsappInquiryBtn");
-    if (waBtn) {
-      const waText = encodeURIComponent(
-        `مرحباً، أود الاستفسار وحجز موعد معاينة للشقة (${apt.title || apt.code}) في (${bld.title}) بسعر (${apt.price}).`
-      );
-      waBtn.href = `https://wa.me/962790000000?text=${waText}`;
-    }
+    if (waBtn) waBtn.href = waUrl;
+
+    const waBottomBtn = document.getElementById("aptBookWhatsappBtn");
+    if (waBottomBtn) waBottomBtn.href = waUrl;
 
     // 11. Other units in this building
     renderOtherUnits();
@@ -340,16 +374,71 @@
   }
 
   function setupEvents() {
-    // Booking modal trigger
+    // Scroll to bottom booking section on top button click
     document.getElementById("bookViewingBtn")?.addEventListener("click", () => {
-      const modal = document.querySelector("booking-modal");
-      if (modal && typeof modal.openModal === "function") {
-        modal.openModal({
-          project: activeBuilding?.title || "مشروع الحوض الهادي",
-          unit: `${activeApartment?.code || "شقة"} - ${activeApartment?.title || ""}`
-        });
+      const bookSec = document.getElementById("aptBookingSection");
+      if (bookSec) {
+        bookSec.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => document.getElementById("aptBookName")?.focus(), 450);
       }
     });
+
+    // Direct booking form at the bottom of the apartment page
+    const bookingForm = document.getElementById("aptDirectBookingForm");
+    if (bookingForm) {
+      bookingForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById("aptBookSubmitBtn");
+        const feedbackEl = document.getElementById("aptBookFeedback");
+
+        const payload = {
+          name: document.getElementById("aptBookName")?.value.trim() || "",
+          phone: document.getElementById("aptBookPhone")?.value.trim() || "",
+          email: "",
+          project: activeBuilding?.title || activeApartment?.buildingName || "مشروع الحوض الهادي",
+          unit: `${activeApartment?.code || ""} - ${activeApartment?.title || "شقة"} (${activeApartment?.price || ""})`,
+          preferredDate: document.getElementById("aptBookDate")?.value || "",
+          preferredTime: document.getElementById("aptBookTime")?.value || "",
+          notes: document.getElementById("aptBookNotes")?.value.trim() || ""
+        };
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `<span>جاري إرسال طلب الحجز...</span>`;
+        }
+
+        try {
+          const res = await fetch("/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error("Booking failed");
+
+          if (feedbackEl) {
+            feedbackEl.style.display = "block";
+            feedbackEl.style.background = "rgba(34, 197, 94, 0.14)";
+            feedbackEl.style.border = "1px solid rgba(34, 197, 94, 0.45)";
+            feedbackEl.style.color = "#22c55e";
+            feedbackEl.textContent = "✅ تم استلام طلب حجز الموعد بنجاح! سيتواصل معك فريق المبيعات قريباً لتأكيد الزيارة.";
+          }
+          bookingForm.reset();
+        } catch (err) {
+          if (feedbackEl) {
+            feedbackEl.style.display = "block";
+            feedbackEl.style.background = "rgba(220, 38, 38, 0.14)";
+            feedbackEl.style.border = "1px solid rgba(220, 38, 38, 0.45)";
+            feedbackEl.style.color = "#ef4444";
+            feedbackEl.textContent = "حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى أو التواصل عبر واتساب.";
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>📅 تأكيد حجز موعد المعاينة</span>`;
+          }
+        }
+      });
+    }
 
     // Fullscreen lightbox for main viewer
     document.getElementById("aptFullscreenBtn")?.addEventListener("click", () => {

@@ -45,38 +45,48 @@ class ProjectCard extends HTMLElement {
     const targetUrl = `/project?id=${encodeURIComponent(projectId)}`;
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
     const loc = isDark ? d.locationDark || d.locationLight : d.locationLight;
-    const img = isDark ? d.imageDark || d.imageLight : d.imageLight;
+    const img = (isDark ? d.imageDark || d.imageLight : d.imageLight) || "/images/light/scene-1.webp";
     const floors = isDark ? d.floorsCountDark || d.floorsCountLight : d.floorsCountLight;
+    const desc = d.description || "مجمع سكني عصري متكامل الخدمات مصمم وفق أعلى المعايير الهندسية والمعمارية.";
 
     this.innerHTML = `
-      <article class="project-card" data-project-id="${projectId}" role="link" tabindex="0" aria-label="عرض تفاصيل ${d.title}" onclick="window.location.href='${targetUrl}'">
-        <div class="project-card-media theme-img-wrap">
-          <span class="project-status-badge ${d.statusType || 'available'}">${d.statusText}</span>
-          <img src="${img}" alt="${d.title}" class="project-card-img" loading="lazy" style="width:100%; height:100%; object-fit:cover;" />
+      <article class="project-card" data-project-id="${projectId}" role="link" tabindex="0" aria-label="عرض شقق ${d.title}" style="cursor:pointer; display:flex; flex-direction:column; height:100%;">
+        <div class="project-card-media theme-img-wrap" style="height:260px; position:relative; overflow:hidden;">
+          <span class="project-status-badge ${d.statusType || 'available'}">${d.statusText || 'متاح الآن'}</span>
+          <img src="${img}" alt="${d.title}" class="project-card-img" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;" />
         </div>
-        <div class="project-card-body">
-          <div class="project-card-info">
-            <h3 class="project-card-title">${d.title}</h3>
-            <p class="project-card-loc">${loc}</p>
-            <div class="project-card-meta">
-              <span class="project-meta-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="project-card-body" style="display:flex; flex-direction:column; justify-content:space-between; flex:1; gap:14px; padding:20px;">
+          <div class="project-card-info" style="width:100%;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+              <h3 class="project-card-title" style="margin:0; font-size:1.3rem;">${d.title}</h3>
+            </div>
+            <p class="project-card-loc" style="margin:6px 0 10px; display:flex; align-items:center; gap:6px; color:var(--accent-gold); font-weight:600; font-size:0.9rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>${loc}</span>
+            </p>
+            <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0 0 14px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+              ${desc}
+            </p>
+            <div class="project-card-meta" style="display:flex; gap:16px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border-subtle);">
+              <span class="project-meta-item" style="display:inline-flex; align-items:center; gap:6px; font-weight:600;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
                   <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="9.01" y2="6"/><line x1="15" y1="6" x2="15.01" y2="6"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/><line x1="9" y1="14" x2="9.01" y2="14"/><line x1="15" y1="14" x2="15.01" y2="14"/>
                 </svg>
-                <span>${d.unitsCount}</span>
+                <span>${d.unitsCount || 'شقق سكنية متنوعة'}</span>
               </span>
-              <span class="project-meta-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span class="project-meta-item" style="display:inline-flex; align-items:center; gap:6px; font-weight:600;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
                   <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
                 </svg>
                 <span>${floors || '6 طوابق'}</span>
               </span>
             </div>
           </div>
-          <a href="${targetUrl}" class="project-arrow-btn" title="استكشف تفاصيل المشروع" aria-label="استكشف تفاصيل المشروع">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
-            </svg>
+          <a href="${targetUrl}" class="btn-gold" style="width:100%; text-align:center; justify-content:center; padding:11px 16px; border-radius:10px; font-weight:700; font-size:0.92rem; text-decoration:none; display:inline-flex; align-items:center; gap:8px; margin-top:4px;">
+            <span>استعراض شقق المشروع</span>
+            <span>←</span>
           </a>
         </div>
       </article>

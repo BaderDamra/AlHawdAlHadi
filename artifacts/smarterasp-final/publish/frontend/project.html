@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -69,7 +69,7 @@
           </div>
           <div class="spec-stat-card">
             <div class="spec-stat-val" id="specAreaVal">120 م²</div>
-            <div class="spec-stat-lbl">المساحة الابتدائية</div>
+            <div class="spec-stat-lbl">الشقق المتاحة للبيع</div>
             <div class="spec-stat-icon">📐</div>
           </div>
           <div class="spec-stat-card">
@@ -81,11 +81,11 @@
 
         <!-- Action Buttons -->
         <div class="summary-actions-row">
-          <button type="button" class="btn btn-primary btn-gold-solid" onclick="document.querySelector('booking-modal')?.openModal()">
+          <button type="button" class="btn btn-primary btn-gold-solid" onclick="document.getElementById('tab-units')?.scrollIntoView({behavior:'smooth'})">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
-            <span>احجز موعد مشاهدة</span>
+            <span>استعرض شقق هذا المشروع ↓</span>
           </button>
           <a href="https://wa.me/962790000000" target="_blank" rel="noopener" class="btn btn-secondary btn-outline-clean">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -98,7 +98,7 @@
     </section>
 
     <!-- In-Page Sticky Anchor Navigation Bar -->
-    <nav class="project-section-tabs-bar" id="sectionTabsBar">
+    <nav class="project-section-tabs-bar" id="sectionTabsBar" style="display:none;">
       <div class="tabs-bar-inner">
         <a href="#tab-units" class="section-tab-item active">الشقق المتاحة والأسعار</a>
         <a href="#tab-overview" class="section-tab-item">نظرة عامة عن العمارة</a>
@@ -112,7 +112,7 @@
     <available-units-table></available-units-table>
 
     <!-- SECTION 2: OVERVIEW -->
-    <section class="project-detail-section" id="tab-overview">
+    <section class="project-detail-section" id="tab-overview" style="display:none;">
       <div class="overview-grid">
         <div class="overview-text-side">
           <span class="section-gold-eyebrow" id="overviewBadge">نظرة عامة</span>
@@ -136,16 +136,16 @@
     </section>
 
     <!-- SECTION 3: AMENITIES COMPONENT (<amenities-grid>) -->
-    <amenities-grid></amenities-grid>
+    <amenities-grid style="display:none;"></amenities-grid>
 
     <!-- SECTION 4: FLOORPLANS COMPONENT (<floorplan-viewer>) -->
-    <floorplan-viewer></floorplan-viewer>
+    <floorplan-viewer style="display:none;"></floorplan-viewer>
 
     <!-- SECTION 5: REAL INTERACTIVE MAP COMPONENT (<interactive-map>) -->
-    <interactive-map></interactive-map>
+    <interactive-map style="display:none;"></interactive-map>
 
     <!-- SECTION 6: CTA BANNER COMPONENT (<booking-banner>) -->
-    <booking-banner></booking-banner>
+    <booking-banner style="display:none;"></booking-banner>
 
   </main>
 

@@ -194,6 +194,83 @@
       </div>
     </section>
 
+    <!-- SECTION 6: DIRECT APPOINTMENT BOOKING AT THE END OF APARTMENT PAGE -->
+    <section class="apt-detail-section" id="aptBookingSection" style="scroll-margin-top:90px;">
+      <div style="background:var(--bg-surface); border:2px solid rgba(212,175,55,0.4); border-radius:22px; padding:34px 30px; box-shadow:0 16px 42px rgba(0,0,0,0.1);">
+        <div class="apt-section-header" style="margin-bottom:22px;">
+          <span class="apt-section-eyebrow">حجز موعد معاينة مباشر</span>
+          <h2 class="apt-section-title" style="margin-bottom:8px;">احجز موعداً لمعاينة هذه الشقة على أرض الواقع</h2>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">
+            سجّل بياناتك الآن وسيتواصل معك فريق المبيعات لتأكيد موعد زيارتك ومعاينة الشقة في الوقت المناسب لك.
+          </p>
+        </div>
+
+        <!-- Selected Apartment Summary Strip -->
+        <div style="background:rgba(212,175,55,0.09); border:1px solid rgba(212,175,55,0.32); border-radius:14px; padding:14px 18px; margin-bottom:24px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+          <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:center;">
+            <div>
+              <span style="font-size:0.75rem; color:var(--text-secondary); display:block;">المشروع السكني</span>
+              <strong id="bookBarProject" style="color:var(--text-primary); font-size:0.98rem;">مشروع الهدوء 1</strong>
+            </div>
+            <div style="width:1px; height:28px; background:var(--border-color);"></div>
+            <div>
+              <span style="font-size:0.75rem; color:var(--text-secondary); display:block;">الشقة المختارة</span>
+              <strong id="bookBarApt" style="color:var(--text-primary); font-size:0.98rem;">شقة A-101 الفاخرة</strong>
+            </div>
+            <div style="width:1px; height:28px; background:var(--border-color);"></div>
+            <div>
+              <span style="font-size:0.75rem; color:var(--text-secondary); display:block;">السعر الإجمالي</span>
+              <strong id="bookBarPrice" style="color:var(--accent-gold); font-size:1.08rem; font-family:'Manrope','IBM Plex Sans Arabic',sans-serif;">145,000 د.أ</strong>
+            </div>
+          </div>
+          <span class="apt-status-pill available" id="bookBarStatus">متاحة للبيع ✓</span>
+        </div>
+
+        <!-- Direct Booking Form -->
+        <form id="aptDirectBookingForm" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label for="aptBookName" style="font-size:0.86rem; font-weight:600; color:var(--text-primary);">الاسم الكامل *</label>
+            <input type="text" id="aptBookName" required placeholder="أدخل اسمك الكامل" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:0.95rem;" />
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label for="aptBookPhone" style="font-size:0.86rem; font-weight:600; color:var(--text-primary);">رقم الهاتف (مع واتساب) *</label>
+            <input type="tel" id="aptBookPhone" required dir="ltr" placeholder="079XXXXXXX" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:0.95rem; text-align:right;" />
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label for="aptBookDate" style="font-size:0.86rem; font-weight:600; color:var(--text-primary);">التاريخ المفضل للمعاينة *</label>
+            <input type="date" id="aptBookDate" required style="padding:12px 14px; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:0.95rem;" />
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label for="aptBookTime" style="font-size:0.86rem; font-weight:600; color:var(--text-primary);">الوقت المفضل للزيارة</label>
+            <select id="aptBookTime" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:0.95rem;">
+              <option value="صباحاً (10:00 - 1:00)">صباحاً (10:00 - 1:00)</option>
+              <option value="ظهراً (1:00 - 4:00)" selected>ظهراً (1:00 - 4:00)</option>
+              <option value="مساءً (4:00 - 8:00)">مساءً (4:00 - 8:00)</option>
+            </select>
+          </div>
+
+          <div style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:6px;">
+            <label for="aptBookNotes" style="font-size:0.86rem; font-weight:600; color:var(--text-primary);">ملاحظات أو استفسارات إضافية (اختياري)</label>
+            <textarea id="aptBookNotes" rows="2" placeholder="أي تفاصيل تود إضافتها حول الموعد أو طريقة الدفع..." style="padding:12px 14px; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:0.95rem; resize:vertical;"></textarea>
+          </div>
+
+          <div style="grid-column: 1 / -1; display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:6px;">
+            <button type="submit" id="aptBookSubmitBtn" class="btn btn-primary btn-gold-solid" style="padding:14px 28px; font-size:1rem; font-weight:700; border-radius:12px; flex:1; min-width:240px; justify-content:center;">
+              <span>📅 تأكيد حجز موعد المعاينة</span>
+            </button>
+            <a href="#" target="_blank" rel="noopener" id="aptBookWhatsappBtn" class="btn btn-secondary" style="padding:14px 22px; font-size:0.95rem; font-weight:700; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+              <span>💬 حجز سريع عبر واتساب</span>
+            </a>
+          </div>
+
+          <div id="aptBookFeedback" style="grid-column: 1 / -1; display:none; padding:14px 18px; border-radius:12px; font-weight:600; font-size:0.95rem;"></div>
+        </form>
+      </div>
+    </section>
+
   </main>
 
   <!-- =====================================================================

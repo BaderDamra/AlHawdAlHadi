@@ -1,4 +1,4 @@
-/**
+﻿/**
  * الحوض الهادي للإسكان - AL HAWD AL HADI HOUSING
  * Interactive Front-End Application (CMS-Driven + Light/Dark Theme Engine + Full UI/UX Enhancements)
  */
@@ -128,8 +128,8 @@
     const vis = cmsData.settings?.sectionVisibility || {};
     toggleEl("hero", vis.hero !== false);
     toggleEl("projects", vis.projects !== false);
-    toggleEl("explorer", vis.explorer !== false);
-    toggleEl("unitDetails", vis.unitDetails !== false);
+    toggleEl("explorer", false);
+    toggleEl("unitDetails", false);
     toggleEl("lifestyle", vis.lifestyle !== false);
     toggleEl("about", vis.about !== false);
     toggleEl("location", vis.location !== false);
