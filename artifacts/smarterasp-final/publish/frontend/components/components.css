@@ -109,17 +109,13 @@ booking-modal {
 }
 
 /* ==========================================================================
-   3. BOOKING MODAL COMPONENT (<booking-modal>)
+   3. LUXURY BOOKING MODAL COMPONENT (<booking-modal>)
    ========================================================================== */
-booking-modal {
-  display: contents;
-}
-
 .booking-modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: rgba(10, 14, 20, 0.75);
+  background: rgba(12, 16, 22, 0.68);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -136,102 +132,375 @@ booking-modal {
 }
 
 .booking-modal-card {
-  background: var(--bg-surface, #FFFFFF);
-  border: 1.5px solid var(--border-card, #E2E8F0);
-  border-radius: 16px;
-  max-width: 620px;
+  position: relative;
+  background: #FAF9F6;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 22px;
+  max-width: 780px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 94vh;
   overflow-y: auto;
-  padding: 32px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  transform: scale(0.94) translateY(12px);
+  overflow-x: hidden;
+  padding: 0;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+  transform: scale(0.95) translateY(12px);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  direction: rtl;
 }
 
 .booking-modal-backdrop.open .booking-modal-card {
   transform: scale(1) translateY(0);
 }
 
-[data-theme="dark"] .booking-modal-card {
-  background: #151A21;
-  border-color: rgba(212, 175, 55, 0.3);
-}
-
-.booking-modal-header {
+/* Top Hero Section inside Modal */
+.booking-modal-hero {
+  position: relative;
+  min-height: 172px;
+  padding: 34px 36px 14px 36px;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-subtle, #E2E8F0);
+  align-items: center;
+  background: radial-gradient(circle at 80% 20%, rgba(223, 195, 141, 0.2), transparent 60%);
 }
 
-.booking-modal-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--text-primary, #1A1E24);
-  margin-top: 4px;
-}
-
+/* Circular Close Button (Top-Left) */
 .booking-modal-close {
-  background: transparent;
-  border: none;
-  font-size: 1.6rem;
-  color: var(--text-muted, #94A3B8);
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  z-index: 6;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #F2EFE9;
+  border: 1px solid #E3DFD7;
+  color: #4A525A;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .booking-modal-close:hover {
-  color: var(--gold-primary, #D4AF37);
+  background: #E8E2D5;
+  color: #182226;
+  transform: scale(1.06);
+}
+
+/* Top-Right Curved Architectural Photo with Gold Arc */
+.booking-modal-corner-art {
+  position: absolute;
+  top: -38px;
+  right: -28px;
+  width: 265px;
+  height: 215px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bm-corner-gold-arc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E2C58E 0%, #CFA861 100%);
+  transform: translate(-9px, 4px);
+}
+
+.bm-corner-img-mask {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #E8E2D5;
+}
+
+.bm-corner-img-mask img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.04);
+}
+
+.bm-corner-fade {
+  position: absolute;
+  left: -15px;
+  right: 0;
+  bottom: -6px;
+  height: 54px;
+  background: linear-gradient(to top, #FAF9F6 10%, rgba(250, 249, 246, 0.7) 55%, transparent 100%);
+}
+
+/* Header Text Block (Positioned to the left of the corner art) */
+.booking-modal-titles {
+  position: relative;
+  z-index: 2;
+  padding-right: 235px;
+  padding-left: 30px;
+  width: 100%;
+  text-align: right;
+}
+
+.bm-eyebrow-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.bm-eyebrow-text {
+  color: #B48E4B;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.bm-eyebrow-line {
+  display: inline-block;
+  width: 38px;
+  height: 2px;
+  background: #C8A464;
+  border-radius: 2px;
+}
+
+.booking-modal-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #182226;
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+
+.booking-modal-subtitle {
+  font-size: 0.95rem;
+  color: #778088;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Form Layout */
+.booking-modal-form {
+  position: relative;
+  z-index: 3;
+  padding: 12px 36px 34px 36px;
 }
 
 .modal-form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 18px 20px;
 }
 
 .booking-modal-form .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
+}
+
+.booking-modal-form .bm-notes-field {
+  margin-top: 18px;
 }
 
 .booking-modal-form label {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: var(--text-secondary, #475569);
+  color: #1C252B;
+  text-align: right;
 }
 
 .booking-modal-form .req {
-  color: #DC4E4E;
+  color: #D9383A;
+  margin-right: 2px;
 }
 
-.select-luxury {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2394A3B8%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: left 14px center;
-  padding-left: 36px;
-}
-
-.modal-submit-row {
-  margin-top: 20px;
-}
-
-.modal-submit-row .btn {
+/* Input Wrapper with Embedded SVG Icons */
+.bm-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
 }
 
-@media (max-width: 640px) {
+.bm-input {
+  width: 100%;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #DFDDD7;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.93rem;
+  color: #1C252B;
+  padding: 0 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.bm-input::placeholder {
+  color: #8C949C;
+}
+
+.bm-input:focus {
+  border-color: #C5A059;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.16);
+}
+
+.bm-input-wrap.has-icon-right .bm-input {
+  padding-right: 42px;
+}
+
+.bm-input-wrap.has-icon-left .bm-input {
+  padding-left: 42px;
+}
+
+.bm-input-wrap.has-chevron-left .bm-input {
+  padding-left: 38px;
+}
+
+.bm-input.ltr-input {
+  direction: ltr;
+  text-align: left;
+  padding-left: 42px;
+  padding-right: 16px;
+  font-family: 'Manrope', 'IBM Plex Sans Arabic', sans-serif;
+}
+
+.bm-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.bm-field-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7D858D;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bm-field-icon.right {
+  right: 14px;
+}
+
+.bm-field-icon.left {
+  left: 14px;
+}
+
+.bm-field-chevron {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6B7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Gold Gradient Submit Button */
+.modal-submit-row {
+  margin-top: 22px;
+}
+
+.bm-submit-btn {
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #B58E4C 0%, #D5B375 50%, #B58E4C 100%);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(181, 142, 76, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.bm-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(181, 142, 76, 0.42);
+  filter: brightness(1.03);
+}
+
+.bm-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.bm-submit-arrow-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Dark Theme Support for Booking Modal */
+[data-theme="dark"] .booking-modal-card {
+  background: #151A21;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+[data-theme="dark"] .bm-corner-fade {
+  background: linear-gradient(to top, #151A21 10%, rgba(21, 26, 33, 0.7) 55%, transparent 100%);
+}
+
+[data-theme="dark"] .booking-modal-close {
+  background: #1F2630;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+}
+
+[data-theme="dark"] .booking-modal-title,
+[data-theme="dark"] .booking-modal-form label {
+  color: #F3F4F6;
+}
+
+[data-theme="dark"] .booking-modal-subtitle {
+  color: #9CA3AF;
+}
+
+[data-theme="dark"] .bm-input {
+  background: #1C232D;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #F3F4F6;
+}
+
+@media (max-width: 680px) {
+  .booking-modal-corner-art {
+    width: 145px;
+    height: 125px;
+    top: -25px;
+    right: -20px;
+    opacity: 0.35;
+  }
+  .booking-modal-titles {
+    padding-right: 0;
+  }
+  .booking-modal-title {
+    font-size: 1.45rem;
+  }
+  .booking-modal-hero {
+    padding: 28px 22px 10px 22px;
+    min-height: auto;
+  }
+  .booking-modal-form {
+    padding: 12px 22px 24px 22px;
+  }
   .modal-form-grid {
     grid-template-columns: 1fr;
-  }
-  .booking-modal-card {
-    padding: 20px;
+    gap: 14px;
   }
 }
