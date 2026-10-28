@@ -34,8 +34,6 @@ class SiteHeader extends HTMLElement {
           <nav class="main-nav" id="mainNavMenu" aria-label="القائمة الرئيسية">
             <a href="${prefix}#hero" class="nav-link ${isHome ? 'active' : ''}">الرئيسية</a>
             <a href="${prefix}#projects" class="nav-link ${!isHome ? 'active' : ''}">المشاريع</a>
-            <a href="${prefix}#explorer" class="nav-link">مستكشف الشقق</a>
-            <a href="${prefix}#lifestyle" class="nav-link">أسلوب الحياة</a>
             <a href="${prefix}#about" class="nav-link">عن الشركة</a>
             <a href="${prefix}#cta-banner" class="nav-link">اتصل بنا</a>
           </nav>
@@ -71,8 +69,6 @@ class SiteHeader extends HTMLElement {
           <ul class="mobile-drawer-nav">
             <li><a href="${prefix}#hero" class="mobile-nav-item">الرئيسية</a></li>
             <li><a href="${prefix}#projects" class="mobile-nav-item">المشاريع السكنية</a></li>
-            <li><a href="${prefix}#explorer" class="mobile-nav-item">مستكشف الشقق</a></li>
-            <li><a href="${prefix}#lifestyle" class="mobile-nav-item">أسلوب الحياة</a></li>
             <li><a href="${prefix}#about" class="mobile-nav-item">عن الشركة</a></li>
             <li><a href="${prefix}#cta-banner" class="mobile-nav-item">اتصل بنا</a></li>
           </ul>
