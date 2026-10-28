@@ -134,10 +134,6 @@ app.UseStaticFiles(new StaticFileOptions
         {
             ctx.Context.Response.Headers.CacheControl = "public, max-age=31536000, immutable";
         }
-        else if (name.EndsWith(".css") || name.EndsWith(".js"))
-        {
-            ctx.Context.Response.Headers.CacheControl = "public, max-age=86400, stale-while-revalidate=604800";
-        }
         else
         {
             ctx.Context.Response.Headers.CacheControl = "no-cache";

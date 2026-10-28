@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -114,160 +114,6 @@
         <button type="button" class="carousel-dot active" data-dot="0" aria-label="1"></button>
         <button type="button" class="carousel-dot" data-dot="1" aria-label="2"></button>
         <button type="button" class="carousel-dot" data-dot="2" aria-label="3"></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 3A: INTERACTIVE UNIT EXPLORER (استكشف وحدتك السكنية)
-       ===================================================================== -->
-  <section class="explorer-section reveal-section" id="explorer" style="display:none;">
-    <div class="container">
-      <!-- Top Row: Right = Headings & Tabs, Left = Featured Living Preview -->
-      <div class="exp-showcase-top">
-        <div class="exp-header-col">
-          <div class="exp-eyebrow-wrap">
-            <span class="exp-eyebrow-text" id="expEyebrow">وحدات متنوعة</span>
-            <span class="exp-eyebrow-arrow">←</span>
-          </div>
-          <h2 class="exp-title" id="expTitle">خيارات سكنية تناسب أسلوب حياتك</h2>
-          <p class="exp-subtitle" id="expSubtitle">
-            اختر نوع الوحدة التي تناسب احتياجاتك من حيث المساحة وعدد الغرف والإطلالة، واستمتع بتصميمات عصرية تلبي تطلعاتك.
-          </p>
-          <div class="exp-category-tabs" id="expCategoryTabs">
-            <!-- Tabs rendered dynamically: شقق (active), دوبلكس, بنتهاوس -->
-          </div>
-        </div>
-
-        <div class="exp-preview-col">
-          <div class="exp-preview-frame">
-            <img src="/images/light/scene-2.webp" alt="معاينة الوحدة السكنية" class="exp-preview-img" id="expMainImage" />
-            <div class="exp-caption-badge" id="expCaptionBadge">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
-              <span id="expImageCaption">تصميم عصري ومساحات رحبة</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Row: Right = Summary Metrics & CTA, Left = Unit Floorplan Cards -->
-      <div class="exp-showcase-bottom">
-        <div class="exp-metrics-col">
-          <div class="exp-metrics-grid" id="expMetricsGrid">
-            <!-- Rendered dynamically: المساحة, عدد الغرف, الإطلالة, التشطيب -->
-          </div>
-          <div class="exp-cta-box">
-            <a href="#booking" class="btn btn-gold exp-cta-btn" id="expCtaBtn">
-              <span id="expCtaText">استعرض الوحدات المتاحة</span>
-              <span class="exp-btn-arrow">←</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="exp-cards-col">
-          <div class="exp-cards-grid" id="expCardsGrid">
-            <!-- Unit Cards rendered dynamically: شقة A, دوبلكس, بنتهاوس -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 3B: SELECTED APARTMENT DETAILS & GALLERY (شقة - A)
-       ===================================================================== -->
-  <section class="unit-details-section reveal-section" id="unitDetails" style="display:none;">
-    <div class="container">
-      <!-- Building / Project Filter Bar -->
-      <div class="unit-selector-bar" id="buildingFilterBar" style="margin-bottom:10px;"></div>
-      <!-- Apartment Model Selector Pills Bar -->
-      <div class="unit-selector-bar" id="unitSelectorBar"></div>
-
-      <div class="unit-details-grid">
-        <!-- Right Column in RTL: Specifications & Actions -->
-        <div class="unit-specs-col">
-          <div class="unit-header-row" style="flex-wrap:wrap; gap:8px;">
-            <span class="unit-status-pill" id="unitBuildingBadge" style="background:rgba(201,165,106,0.16); color:var(--accent-gold); border:1px solid rgba(201,165,106,0.35);">مشروع الهدوء 1</span>
-            <span class="unit-status-pill" id="unitStatusBadge">متاحة</span>
-            <h3 class="unit-name-heading" id="unitTitleHeading" style="width:100%; margin-top:4px;">شقة A-101 الفاخرة</h3>
-          </div>
-
-          <!-- Highlighted Price Box -->
-          <div id="unitPriceBox" style="background:rgba(201,165,106,0.1); border:1px solid rgba(201,165,106,0.35); border-radius:12px; padding:12px 16px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div>
-              <span style="font-size:0.78rem; color:var(--text-secondary); display:block;">السعر الإجمالي للشقة</span>
-              <strong id="unitPriceVal" style="font-size:1.45rem; font-weight:800; color:var(--accent-gold); font-family:'Manrope','IBM Plex Sans Arabic',sans-serif;">145,000 د.أ</strong>
-            </div>
-            <span id="unitPriceNoteVal" style="font-size:0.8rem; color:var(--text-secondary); background:var(--bg-surface); padding:4px 10px; border-radius:99px; border:1px solid var(--border-subtle);">شامل رسوم التسجيل وموقف سيارة</span>
-          </div>
-
-          <!-- 4 Key Metrics -->
-          <div class="unit-metrics-row">
-            <div class="unit-metric-box">
-              <span class="unit-metric-label">المساحة</span>
-              <span class="unit-metric-value" id="unitAreaVal">165 م²</span>
-            </div>
-            <div class="unit-metric-box">
-              <span class="unit-metric-label">الطابق</span>
-              <span class="unit-metric-value" id="unitFloorVal">الطابق الأرضي</span>
-            </div>
-            <div class="unit-metric-box">
-              <span class="unit-metric-label">غرف النوم</span>
-              <span class="unit-metric-value" id="unitBedroomsVal">3 غرف</span>
-            </div>
-            <div class="unit-metric-box">
-              <span class="unit-metric-label">الاتجاه</span>
-              <span class="unit-metric-value" id="unitDirectionVal">أمامية</span>
-            </div>
-          </div>
-
-          <!-- 4 Feature Icons -->
-          <div class="unit-features-row" id="unitFeaturesRow"></div>
-
-          <!-- Action Buttons -->
-          <div class="unit-cta-row" style="flex-wrap:wrap; gap:10px;">
-            <a href="/apartment?id=apt-101&project=proj-1" class="btn-gold" id="unitOpenFullPageBtn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; flex:1; min-width:200px;">
-              <span>استعراض صفحة الشقة الكاملة</span>
-              <span>←</span>
-            </a>
-            <button type="button" class="btn-outline" id="unitBookViewingBtn" style="flex:1; min-width:150px;">
-              <span id="unitBookBtnText">احجز موعد مشاهدة</span>
-            </button>
-            <button type="button" class="btn-outline" id="unitDownloadPlanBtn">
-              <span id="unitDownloadBtnText">تحميل المخطط</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Left Column in RTL: Interior Gallery Carousel -->
-        <div class="unit-gallery-col">
-          <div class="unit-main-photo theme-img-wrap" id="unitMainPhotoWrap" title="اضغط لتكبير الصورة بملء الشاشة">
-            <img src="/images/light/scene-2.webp" alt="التصميم الداخلي" class="img-light" id="unitMainImgLight" />
-            <img src="/images/dark/scene-2.webp" alt="التصميم الداخلي" class="img-dark" id="unitMainImgDark" />
-            <button type="button" class="gallery-zoom-btn" id="openLightboxBtn" aria-label="تكبير الصورة">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
-              </svg>
-            </button>
-            <span class="unit-photo-caption" id="unitPhotoCaption">الصالة الرئيسية وغرفة المعيشة</span>
-          </div>
-
-          <div class="unit-thumbs-bar">
-            <button type="button" class="thumb-arrow-btn" id="unitGalleryPrev" aria-label="الصورة السابقة">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-
-            <div class="unit-thumbs-list" id="unitThumbsList"></div>
-
-            <button type="button" class="thumb-arrow-btn" id="unitGalleryNext" aria-label="الصورة التالية">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -555,17 +401,17 @@
   <!-- =====================================================================
        NATIVE WEB COMPONENTS & APP SCRIPTS
        ===================================================================== -->
-  <script src="/components/theme-toggle.js?v=20261023_3"></script>
-  <script src="/components/site-header.js?v=20261023_3"></script>
-  <script src="/components/site-footer.js?v=20261023_3"></script>
-  <script src="/components/project-card.js?v=20261023_3"></script>
-  <script src="/components/interactive-map.js?v=20261023_3"></script>
-  <script src="/components/gallery-viewer.js?v=20261023_3"></script>
-  <script src="/components/floorplan-viewer.js?v=20261023_3"></script>
-  <script src="/components/amenities-grid.js?v=20261023_3"></script>
-  <script src="/components/available-units-table.js?v=20261023_3"></script>
-  <script src="/components/booking-banner.js?v=20261023_3"></script>
-  <script src="/components/booking-modal.js?v=20261023_3"></script>
-  <script src="/js/app.js?v=20261023_3"></script>
+  <script src="/components/theme-toggle.js?v=20261028_7"></script>
+  <script src="/components/site-header.js?v=20261028_7"></script>
+  <script src="/components/site-footer.js?v=20261028_7"></script>
+  <script src="/components/project-card.js?v=20261028_7"></script>
+  <script src="/components/interactive-map.js?v=20261028_7"></script>
+  <script src="/components/gallery-viewer.js?v=20261028_7"></script>
+  <script src="/components/floorplan-viewer.js?v=20261028_7"></script>
+  <script src="/components/amenities-grid.js?v=20261028_7"></script>
+  <script src="/components/available-units-table.js?v=20261028_7"></script>
+  <script src="/components/booking-banner.js?v=20261028_7"></script>
+  <script src="/components/booking-modal.js?v=20261028_7"></script>
+  <script src="/js/app.js?v=20261028_7"></script>
 </body>
 </html>
