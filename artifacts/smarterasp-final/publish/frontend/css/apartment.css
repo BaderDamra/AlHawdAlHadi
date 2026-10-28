@@ -1,0 +1,577 @@
+/* ==========================================================================
+   AL HAWD AL HADI HOUSING - DEDICATED APARTMENT PAGE STYLES
+   Ultra-Luxury Unit Showcase with Price Cards, Gallery & Specs
+   ========================================================================== */
+
+.apartment-page {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.apartment-container {
+  padding-top: 110px;
+  padding-bottom: 80px;
+}
+
+/* Breadcrumbs */
+.apartment-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  margin-bottom: 24px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.apartment-breadcrumbs a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.apartment-breadcrumbs a:hover {
+  color: var(--accent-gold);
+}
+
+.apartment-breadcrumbs .breadcrumb-separator {
+  color: var(--border-color);
+  font-size: 0.8rem;
+}
+
+.apartment-breadcrumbs .current-crumb {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+/* Hero Showcase Grid */
+.apartment-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .apartment-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* Left: Media Showcase */
+.apartment-media-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.apartment-main-viewer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+}
+
+.apartment-main-viewer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+.apartment-main-viewer:hover img {
+  transform: scale(1.02);
+}
+
+.viewer-badge-caption {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(16, 28, 32, 0.82);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  border: 1px solid rgba(219, 197, 152, 0.3);
+}
+
+.viewer-fullscreen-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(16, 28, 32, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.viewer-fullscreen-btn:hover {
+  background: var(--accent-gold);
+  color: #101c20;
+  transform: scale(1.08);
+}
+
+/* Thumbnails Strip */
+.apartment-thumbnails-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.apt-thumb-item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.apt-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apt-thumb-item.active {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(219, 197, 152, 0.4);
+}
+
+.apt-thumb-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #fff;
+  font-size: 0.68rem;
+  padding: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right: Executive Info & Price Card */
+.apartment-summary-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 28px 26px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+}
+
+.apt-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.apt-building-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--accent-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.apt-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.apt-status-pill.available {
+  background: rgba(56, 158, 95, 0.14);
+  border: 1px solid rgba(56, 158, 95, 0.4);
+  color: #389e5f;
+}
+
+.apt-status-pill.reserved {
+  background: rgba(234, 179, 8, 0.14);
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  color: #d97706;
+}
+
+.apt-status-pill.sold {
+  background: rgba(220, 78, 78, 0.14);
+  border: 1px solid rgba(220, 78, 78, 0.4);
+  color: #dc4e4e;
+}
+
+.apt-main-heading {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.apt-location-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Golden Price Card */
+.apartment-price-card {
+  background: linear-gradient(135deg, rgba(219, 197, 152, 0.12) 0%, rgba(198, 157, 89, 0.05) 100%);
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-label-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price-caption {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.price-big-number {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  font-family: 'Manrope', 'IBM Plex Sans Arabic', sans-serif;
+  line-height: 1.1;
+}
+
+.price-note-text {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* Quick 4 Metrics Grid */
+.apt-quick-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 540px) {
+  .apt-quick-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.apt-spec-box {
+  background: var(--bg-surface-alt, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.apt-spec-box .box-icon {
+  color: var(--accent-gold);
+  margin-bottom: 2px;
+}
+
+.apt-spec-box .box-val {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Manrope', 'IBM Plex Sans Arabic', sans-serif;
+}
+
+.apt-spec-box .box-lbl {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Primary Action Buttons */
+.apt-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apt-action-buttons .btn {
+  width: 100%;
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Section Title Generic */
+.apt-detail-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 36px 32px;
+  margin-bottom: 32px;
+}
+
+.apt-section-header {
+  margin-bottom: 24px;
+}
+
+.apt-section-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.apt-section-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Specifications Matrix */
+.apt-specs-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .apt-specs-matrix {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .apt-specs-matrix {
+    grid-template-columns: 1fr;
+  }
+}
+
+.matrix-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-surface-alt, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-color);
+}
+
+.matrix-item-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.matrix-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.matrix-item-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.matrix-item-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Features Grid */
+.apt-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .apt-features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.apt-feature-card {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: var(--bg-surface-alt, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-color);
+  align-items: center;
+}
+
+.apt-feat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.apt-feat-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.apt-feat-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Floorplan Interactive Card */
+.apt-plan-card {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .apt-plan-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.plan-img-wrap {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-in;
+}
+
+.plan-img-wrap img {
+  max-width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+}
+
+/* Other Units Cards */
+.other-units-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .other-units-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.other-unit-card {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  transition: transform 0.25s, border-color 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.other-unit-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+}
+
+.other-unit-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.other-unit-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.other-unit-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.other-unit-specs {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.other-unit-price-row {
+  margin-top: auto;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.other-unit-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+}

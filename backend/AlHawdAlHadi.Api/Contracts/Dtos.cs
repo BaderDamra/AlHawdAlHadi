@@ -89,15 +89,22 @@ public sealed class GalleryImageDto
 public sealed class ApartmentDto
 {
     public string? Id { get; set; }
+    public string? BuildingId { get; set; } = "proj-1";
+    public string? BuildingName { get; set; } = string.Empty;
     public string Code { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
+    public string? Type { get; set; } = string.Empty;
     public string Status { get; set; } = "available";
     public string StatusText { get; set; } = string.Empty;
     public string Area { get; set; } = string.Empty;
     public string Floor { get; set; } = string.Empty;
     public string Bedrooms { get; set; } = string.Empty;
+    public string? Bathrooms { get; set; } = string.Empty;
     public string Direction { get; set; } = string.Empty;
     public string Price { get; set; } = string.Empty;
+    public string? PriceNote { get; set; } = string.Empty;
+    public string? PlanImage { get; set; } = string.Empty;
+    public string? MainImage { get; set; } = string.Empty;
     public string BookCtaText { get; set; } = string.Empty;
     public string DownloadPlanText { get; set; } = string.Empty;
     public List<ApartmentFeatureDto> Features { get; set; } = [];

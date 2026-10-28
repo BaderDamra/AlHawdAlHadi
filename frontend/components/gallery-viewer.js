@@ -17,14 +17,14 @@ class GalleryViewer extends HTMLElement {
 
   render() {
     const list = this.items || [
-      { id: "g1", title: "واجهة المشروع الرئيسية", imageLight: "/images/projects/01_main_building_gallery.png", imageDark: "/images/projects/01_main_building_gallery.png" },
-      { id: "g2", title: "المدخل الخارجي", imageLight: "/images/projects/02_gallery_thumbnail_exterior_1.png", imageDark: "/images/projects/02_gallery_thumbnail_exterior_1.png" },
-      { id: "g3", title: "الحدائق والمحيط", imageLight: "/images/projects/03_gallery_thumbnail_exterior_2.png", imageDark: "/images/projects/03_gallery_thumbnail_exterior_2.png" },
-      { id: "g4", title: "الواجهة الجانبية", imageLight: "/images/projects/04_gallery_thumbnail_exterior_3.png", imageDark: "/images/projects/04_gallery_thumbnail_exterior_3.png" },
-      { id: "g5", title: "الصالة الرئيسية", imageLight: "/images/projects/05_gallery_thumbnail_interior_1.png", imageDark: "/images/projects/05_gallery_thumbnail_interior_1.png" },
-      { id: "g6", title: "منطقة تناول الطعام", imageLight: "/images/projects/06_gallery_thumbnail_interior_2.png", imageDark: "/images/projects/06_gallery_thumbnail_interior_2.png" },
-      { id: "g7", title: "غرفة الجلوس العائلية", imageLight: "/images/projects/07_gallery_thumbnail_interior_3.png", imageDark: "/images/projects/07_gallery_thumbnail_interior_3.png" },
-      { id: "g8", title: "جولة فيديو للمشروع", imageLight: "/images/projects/08_gallery_thumbnail_video_preview.png", imageDark: "/images/projects/08_gallery_thumbnail_video_preview.png", isVideo: true }
+      { id: "g1", title: "واجهة المشروع الرئيسية", imageLight: "/images/projects/01_main_building_gallery.webp", imageDark: "/images/projects/01_main_building_gallery.webp" },
+      { id: "g2", title: "المدخل الخارجي", imageLight: "/images/projects/02_gallery_thumbnail_exterior_1.webp", imageDark: "/images/projects/02_gallery_thumbnail_exterior_1.webp" },
+      { id: "g3", title: "الحدائق والمحيط", imageLight: "/images/projects/03_gallery_thumbnail_exterior_2.webp", imageDark: "/images/projects/03_gallery_thumbnail_exterior_2.webp" },
+      { id: "g4", title: "الواجهة الجانبية", imageLight: "/images/projects/04_gallery_thumbnail_exterior_3.webp", imageDark: "/images/projects/04_gallery_thumbnail_exterior_3.webp" },
+      { id: "g5", title: "الصالة الرئيسية", imageLight: "/images/projects/05_gallery_thumbnail_interior_1.webp", imageDark: "/images/projects/05_gallery_thumbnail_interior_1.webp" },
+      { id: "g6", title: "منطقة تناول الطعام", imageLight: "/images/projects/06_gallery_thumbnail_interior_2.webp", imageDark: "/images/projects/06_gallery_thumbnail_interior_2.webp" },
+      { id: "g7", title: "غرفة الجلوس العائلية", imageLight: "/images/projects/07_gallery_thumbnail_interior_3.webp", imageDark: "/images/projects/07_gallery_thumbnail_interior_3.webp" },
+      { id: "g8", title: "جولة فيديو للمشروع", imageLight: "/images/projects/08_gallery_thumbnail_video_preview.webp", imageDark: "/images/projects/08_gallery_thumbnail_video_preview.webp", isVideo: true }
     ];
 
     this.items = list;

@@ -431,7 +431,7 @@
     // Top Preview Image & Caption
     const mainImg = document.getElementById("expMainImage");
     if (mainImg && activeUnit) {
-      const targetSrc = activeUnit.mainImage || "/images/light/scene-2.png";
+      const targetSrc = activeUnit.mainImage || "/images/light/scene-2.webp";
       if (!mainImg.src.endsWith(targetSrc) && mainImg.getAttribute("src") !== targetSrc) {
         mainImg.style.opacity = "0.2";
         setTimeout(() => {
@@ -485,7 +485,7 @@
           return `
           <div class="exp-unit-card ${isActive ? "active" : ""}" data-unit-card-id="${u.id}">
             <div class="exp-card-plan-wrap">
-              <img src="${u.planImage || "/images/ui/unit-plan-a.png"}" alt="${u.title}" class="exp-card-plan-img" />
+              <img src="${u.planImage || "/images/ui/unit-plan-a.webp"}" alt="${u.title}" class="exp-card-plan-img" />
             </div>
             <div class="exp-card-info-row">
               <h3 class="exp-card-title">${u.title}</h3>

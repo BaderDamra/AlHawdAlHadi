@@ -37,6 +37,17 @@ foreach ($relative in @('appsettings.Development.json', 'SeedData/default-bookin
     $targetFile = Join-Path $publishRoot $relative
     if (Test-Path -LiteralPath $targetFile) { Remove-Item -LiteralPath $targetFile }
 }
+
+# Optimize publish payload: clean redundant unoptimized PNGs where modern WebP exists
+$pubImages = Join-Path $publishRoot 'frontend/images'
+if (Test-Path -LiteralPath $pubImages) {
+    Get-ChildItem -Path $pubImages -Filter '*.png' -Recurse | ForEach-Object {
+        $webpPath = [System.IO.Path]::ChangeExtension($_.FullName, '.webp')
+        if (Test-Path -LiteralPath $webpPath) {
+            Remove-Item -LiteralPath $_.FullName -Force
+        }
+    }
+}
 $production = @{
     Frontend = @{ RootPath = 'frontend'; AllowedOrigins = @() }
     Admin = @{ Enabled = $true; Username = $credentials.Username; PasswordHash = $credentials.PasswordHash }

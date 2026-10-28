@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">تفاصيل الشقة | الحوض الهادي للإسكان</title>
+  <meta name="description" content="استكشف مواصفات الشقة، السعر، معرض الصور عالي الدقة، المخطط الهندسي، والميزات في الحوض الهادي للإسكان." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/apartment.css" />
+  <link rel="stylesheet" href="/components/components.css" />
+</head>
+<body class="apartment-page">
+
+  <!-- =====================================================================
+       SITE HEADER COMPONENT
+       ===================================================================== -->
+  <site-header page="apartment"></site-header>
+
+  <!-- =====================================================================
+       MAIN APARTMENT CONTAINER
+       ===================================================================== -->
+  <main class="apartment-container container">
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="apartment-breadcrumbs" aria-label="مسار التصفح">
+      <a href="/">الرئيسية</a>
+      <span class="breadcrumb-separator">›</span>
+      <a href="/#projects">المشاريع السكنية</a>
+      <span class="breadcrumb-separator">›</span>
+      <a href="/project.html" id="breadProjectLink">مشروع الهدوء 1</a>
+      <span class="breadcrumb-separator">›</span>
+      <span class="current-crumb" id="breadAptTitle">شقة A-101 الفاخرة</span>
+    </nav>
+
+    <!-- Top Hero Section: Media Gallery + Price Card -->
+    <section class="apartment-hero-grid">
+      <!-- Media Gallery -->
+      <div class="apartment-media-showcase">
+        <div class="apartment-main-viewer" id="aptMainViewer">
+          <img src="/images/light/scene-2.webp" alt="معاينة الشقة" id="aptActiveImage" fetchpriority="high" decoding="async" />
+          <span class="viewer-badge-caption" id="aptViewerCaption">الصالة الرئيسية وغرفة المعيشة</span>
+          <button type="button" class="viewer-fullscreen-btn" id="aptFullscreenBtn" title="عرض ملء الشاشة">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Thumbnails Strip -->
+        <div class="apartment-thumbnails-strip" id="aptThumbsStrip">
+          <!-- Populated by apartment.js -->
+        </div>
+      </div>
+
+      <!-- Executive Info & Price Card -->
+      <div class="apartment-summary-box">
+        <div class="apt-tag-row">
+          <span class="apt-building-pill" id="aptBuildingPill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21V11h6v10"/></svg>
+            <span id="aptBuildingName">مشروع الهدوء 1</span>
+          </span>
+          <span class="apt-status-pill available" id="aptStatusPill">متاحة للبيع</span>
+        </div>
+
+        <h1 class="apt-main-heading" id="aptMainTitle">شقة A-101 الفاخرة مع حديقة</h1>
+
+        <div class="apt-location-sub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="aptLocationText">عمان - عبدون</span>
+          <span>•</span>
+          <span id="aptDirectionText">جنوبية غربية مطلة</span>
+        </div>
+
+        <!-- Golden Price Card -->
+        <div class="apartment-price-card">
+          <div class="price-label-row">
+            <span class="price-caption">السعر الإجمالي للشقة</span>
+            <div class="price-big-number" id="aptPriceText">145,000 د.أ</div>
+            <span class="price-note-text" id="aptPriceNote">شامل رسوم التسجيل وموقف سيارة خاص</span>
+          </div>
+          <div style="text-align:left;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="1.8">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Quick 4 Metrics Grid -->
+        <div class="apt-quick-specs-grid">
+          <div class="apt-spec-box">
+            <span class="box-icon">📐</span>
+            <span class="box-val" id="specArea">165 م²</span>
+            <span class="box-lbl">المساحة</span>
+          </div>
+          <div class="apt-spec-box">
+            <span class="box-icon">🏢</span>
+            <span class="box-val" id="specFloor">الأرضي</span>
+            <span class="box-lbl">الطابق</span>
+          </div>
+          <div class="apt-spec-box">
+            <span class="box-icon">🛏️</span>
+            <span class="box-val" id="specBedrooms">3 غرف</span>
+            <span class="box-lbl">غرف النوم</span>
+          </div>
+          <div class="apt-spec-box">
+            <span class="box-icon">🚿</span>
+            <span class="box-val" id="specBathrooms">3 حمامات</span>
+            <span class="box-lbl">الحمامات</span>
+          </div>
+        </div>
+
+        <!-- Direct Actions -->
+        <div class="apt-action-buttons">
+          <button type="button" class="btn btn-primary btn-gold-solid" id="bookViewingBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>احجز موعد معاينة للشقة</span>
+          </button>
+          <a href="#" target="_blank" rel="noopener" class="btn btn-secondary" id="whatsappInquiryBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>استفسار واتساب فوري مع السعر</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SPECIFICATIONS MATRIX -->
+    <section class="apt-detail-section">
+      <div class="apt-section-header">
+        <span class="apt-section-eyebrow">المواصفات الفنية والهندسية</span>
+        <h2 class="apt-section-title">تفاصيل المساحات والتشطيبات</h2>
+      </div>
+
+      <div class="apt-specs-matrix" id="aptSpecsMatrix">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: APARTMENT FEATURES -->
+    <section class="apt-detail-section">
+      <div class="apt-section-header">
+        <span class="apt-section-eyebrow">الميزات الحصرية</span>
+        <h2 class="apt-section-title">ما يميز هذه الشقة</h2>
+      </div>
+
+      <div class="apt-features-grid" id="aptFeaturesGrid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 4: FLOOR PLAN VIEWER -->
+    <section class="apt-detail-section">
+      <div class="apt-section-header">
+        <span class="apt-section-eyebrow">المخطط المعماري</span>
+        <h2 class="apt-section-title">توزيع الغرف والمساحات الداخلية</h2>
+      </div>
+
+      <div class="apt-plan-card">
+        <div class="plan-img-wrap" id="planZoomWrap" title="انقر لتكبير المخطط">
+          <img src="/images/ui/unit-plan-a.webp" alt="المخطط الهندسي للشقة" id="aptPlanImage" loading="lazy" decoding="async" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <h3 style="font-size:1.2rem; color:var(--text-primary); margin:0;">مخطط مدروس هندسياً لاستغلال أمثل للمساحات</h3>
+          <p style="color:var(--text-secondary); line-height:1.7; font-size:0.92rem; margin:0;">
+            تم تصميم الشقة بأعلى المعايير الهندسية لتوفر خصوصية تامة بين أجنحة النوم وصالات الاستقبال، مع تهوية طبيعية وإنارة شمسية طوال ساعات النهار.
+          </p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+            <a href="/images/ui/unit-plan-a.webp" download class="btn btn-secondary btn-sm" id="downloadPlanBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <span>تحميل المخطط عالي الدقة</span>
+            </a>
+            <button type="button" class="btn btn-outline btn-sm" id="viewPlanFullscreenBtn">
+              <span>تكبير المخطط 🔍</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MORE UNITS IN THIS BUILDING -->
+    <section class="apt-detail-section">
+      <div class="apt-section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+        <div>
+          <span class="apt-section-eyebrow">خيارات إضافية</span>
+          <h2 class="apt-section-title">شقق أخرى متوفرة في نفس المشروع</h2>
+        </div>
+        <a href="/project.html" class="btn btn-secondary btn-sm" id="backToProjectBtn">عرض كافة شقق المشروع ←</a>
+      </div>
+
+      <div class="other-units-grid" id="otherUnitsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       SITE FOOTER & BOOKING MODAL
+       ===================================================================== -->
+  <site-footer></site-footer>
+  <booking-modal></booking-modal>
+
+  <!-- Scripts -->
+  <script src="/components/index.js"></script>
+  <script src="/js/apartment.js"></script>
+</body>
+</html>

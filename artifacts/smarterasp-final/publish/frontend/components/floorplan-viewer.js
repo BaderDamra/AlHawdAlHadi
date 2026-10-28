@@ -15,9 +15,9 @@ class FloorplanViewer extends HTMLElement {
 
   render() {
     const plans = this.plans || {
-      sitePlan: { title: "المخطط العام للموقع", image: "/images/projects/10_architectural_site_plan.png" },
-      floorPlans: { title: "مخططات الطوابق", image: "/images/ui/floorplan-3d-light.png" },
-      unitPlans: { title: "مخططات الشقق", image: "/images/ui/building-interactive-light.png" }
+      sitePlan: { title: "المخطط العام للموقع", image: "/images/projects/10_architectural_site_plan.webp" },
+      floorPlans: { title: "مخططات الطوابق", image: "/images/ui/floorplan-3d-light.webp" },
+      unitPlans: { title: "مخططات الشقق", image: "/images/ui/building-interactive-light.webp" }
     };
 
     this.plans = plans;

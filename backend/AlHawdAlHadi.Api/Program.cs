@@ -2,6 +2,8 @@ using AlHawdAlHadi.Api.Data;
 using AlHawdAlHadi.Api.Infrastructure;
 using AlHawdAlHadi.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -32,6 +34,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ICmsService, CmsService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
+builder.Services.AddMemoryCache();
+
+// High-speed response compression (Brotli + Gzip)
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+});
+builder.Services.Configure<BrotliCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Fastest);
+builder.Services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Fastest);
 
 // ---------------------------------------------------------------------------
 // Web API
@@ -93,20 +106,33 @@ else
 
 app.UseCors("Frontend");
 app.UseAdminAccess();
+app.UseResponseCompression();
 
 var fileProvider = new PhysicalFileProvider(frontendRoot);
+var contentTypeProvider = new FileExtensionContentTypeProvider();
+contentTypeProvider.Mappings[".webp"] = "image/webp";
+contentTypeProvider.Mappings[".svg"] = "image/svg+xml";
+
 app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = fileProvider });
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = fileProvider,
+    ContentTypeProvider = contentTypeProvider,
     OnPrepareResponse = ctx =>
     {
-        // Images are immutable-ish; HTML/CSS/JS are revalidated so CMS edits show instantly.
-        var path = ctx.File.Name;
-        ctx.Context.Response.Headers.CacheControl =
-            path.EndsWith(".png") || path.EndsWith(".jpg") || path.EndsWith(".webp")
-                ? "public, max-age=604800"
-                : "no-cache";
+        var name = ctx.File.Name.ToLowerInvariant();
+        if (name.EndsWith(".webp") || name.EndsWith(".png") || name.EndsWith(".jpg") || name.EndsWith(".jpeg") || name.EndsWith(".svg") || name.EndsWith(".woff2"))
+        {
+            ctx.Context.Response.Headers.CacheControl = "public, max-age=31536000, immutable";
+        }
+        else if (name.EndsWith(".css") || name.EndsWith(".js"))
+        {
+            ctx.Context.Response.Headers.CacheControl = "public, max-age=86400, stale-while-revalidate=604800";
+        }
+        else
+        {
+            ctx.Context.Response.Headers.CacheControl = "no-cache";
+        }
     }
 });
 
@@ -116,6 +142,9 @@ app.MapGet("/admin", () => Results.File(Path.Combine(frontendRoot, "admin.html")
    .ExcludeFromDescription();
 
 app.MapGet("/project", () => Results.File(Path.Combine(frontendRoot, "project.html"), "text/html; charset=utf-8"))
+   .ExcludeFromDescription();
+
+app.MapGet("/apartment", () => Results.File(Path.Combine(frontendRoot, "apartment.html"), "text/html; charset=utf-8"))
    .ExcludeFromDescription();
 
 // Unknown /api/* routes → JSON 404; everything else → index.html

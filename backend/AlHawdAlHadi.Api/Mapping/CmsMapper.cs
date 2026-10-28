@@ -114,9 +114,12 @@ public static class CmsMapper
     // ----- Apartments -----
     public static ApartmentDto ToDto(this Apartment e) => new()
     {
-        Id = e.ClientId, Code = e.Code, Title = e.Title, Status = e.Status, StatusText = e.StatusText, Area = e.Area,
-        Floor = e.Floor, Bedrooms = e.Bedrooms, Direction = e.Direction, Price = e.Price, BookCtaText = e.BookCtaText,
-        DownloadPlanText = e.DownloadPlanText,
+        Id = e.ClientId, BuildingId = string.IsNullOrEmpty(e.BuildingId) ? "proj-1" : e.BuildingId,
+        BuildingName = e.BuildingName, Code = e.Code, Title = e.Title, Type = e.Type,
+        Status = e.Status, StatusText = e.StatusText, Area = e.Area,
+        Floor = e.Floor, Bedrooms = e.Bedrooms, Bathrooms = e.Bathrooms, Direction = e.Direction,
+        Price = e.Price, PriceNote = e.PriceNote, PlanImage = e.PlanImage, MainImage = e.MainImage,
+        BookCtaText = e.BookCtaText, DownloadPlanText = e.DownloadPlanText,
         Features = e.Features.OrderBy(f => f.SortOrder).Select(f => new ApartmentFeatureDto
         {
             Id = f.ClientId, Icon = f.Icon, LabelLight = f.LabelLight, LabelDark = f.LabelDark, GalleryIndex = f.GalleryIndex
@@ -129,10 +132,13 @@ public static class CmsMapper
 
     public static Apartment ToEntity(this ApartmentDto d, int order) => new()
     {
-        ClientId = Cid(d.Id, "unit"), SortOrder = order, Code = d.Code, Title = d.Title,
+        ClientId = Cid(d.Id, "unit"), SortOrder = order, BuildingId = d.BuildingId ?? "proj-1",
+        BuildingName = d.BuildingName ?? string.Empty, Code = d.Code, Title = d.Title, Type = d.Type ?? string.Empty,
         Status = d.Status is ApartmentStatuses.Reserved or ApartmentStatuses.Sold ? d.Status : ApartmentStatuses.Available,
-        StatusText = d.StatusText, Area = d.Area, Floor = d.Floor, Bedrooms = d.Bedrooms, Direction = d.Direction,
-        Price = d.Price, BookCtaText = d.BookCtaText, DownloadPlanText = d.DownloadPlanText,
+        StatusText = d.StatusText, Area = d.Area, Floor = d.Floor, Bedrooms = d.Bedrooms,
+        Bathrooms = d.Bathrooms ?? string.Empty, Direction = d.Direction,
+        Price = d.Price, PriceNote = d.PriceNote ?? string.Empty, PlanImage = d.PlanImage ?? string.Empty,
+        MainImage = d.MainImage ?? string.Empty, BookCtaText = d.BookCtaText, DownloadPlanText = d.DownloadPlanText,
         Features = (d.Features ?? []).Select((f, i) => new ApartmentFeature
         {
             ClientId = Cid(f.Id, "feat"), SortOrder = i, Icon = f.Icon, LabelLight = f.LabelLight,

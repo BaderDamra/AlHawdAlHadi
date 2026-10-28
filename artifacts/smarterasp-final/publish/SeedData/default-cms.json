@@ -71,29 +71,29 @@
         "id": "slide-1",
         "number": "01",
         "title": "مجتمعات سكنية متكاملة في قلب عمان",
-        "imageLight": "/images/light/scene-1.png",
-        "imageDark": "/images/dark/scene-1.png"
+        "imageLight": "/images/light/scene-1.webp",
+        "imageDark": "/images/dark/scene-1.webp"
       },
       {
         "id": "slide-2",
         "number": "02",
         "title": "تصاميم معمارية تجمع بين الحداثة والأصالة",
-        "imageLight": "/images/light/scene-4.png",
-        "imageDark": "/images/dark/scene-4.png"
+        "imageLight": "/images/light/scene-4.webp",
+        "imageDark": "/images/dark/scene-4.webp"
       },
       {
         "id": "slide-3",
         "number": "03",
         "title": "واجهات حجرية فاخرة وإطلالات بانورامية",
-        "imageLight": "/images/light/scene-10.png",
-        "imageDark": "/images/dark/scene-10.png"
+        "imageLight": "/images/light/scene-10.webp",
+        "imageDark": "/images/dark/scene-10.webp"
       },
       {
         "id": "slide-4",
         "number": "04",
         "title": "تراسات خارجية رحبة لحياة مليئة بالهدوء",
-        "imageLight": "/images/light/scene-8.png",
-        "imageDark": "/images/dark/scene-8.png"
+        "imageLight": "/images/light/scene-8.webp",
+        "imageDark": "/images/dark/scene-8.webp"
       }
     ]
   },
@@ -108,13 +108,13 @@
         "title": "مشروع الهدوء 1",
         "locationLight": "عمان - الشميساني",
         "locationDark": "عمان - الشميساني",
-        "unitsCount": "36 شقة",
+        "unitsCount": "4 نماذج شقق معروضة",
         "floorsCountLight": "6 طوابق",
         "floorsCountDark": "6 طوابق",
         "statusText": "مكتمل",
         "statusType": "completed",
-        "imageLight": "/images/light/scene-1.png",
-        "imageDark": "/images/dark/scene-1.png",
+        "imageLight": "/images/light/scene-1.webp",
+        "imageDark": "/images/dark/scene-1.webp",
         "description": "مجمع سكني فاخر مكتمل الخدمات في أرقى أحياء الشميساني، يتميز بواجهات حجرية طبيعية ومساحات خضراء محيطة.",
         "startingArea": "135 م²",
         "projectStatus": "مكتمل وجاهز",
@@ -123,50 +123,50 @@
           {
             "id": "g1",
             "title": "واجهة المشروع الرئيسية",
-            "imageLight": "/images/projects/01_main_building_gallery.png",
-            "imageDark": "/images/projects/01_main_building_gallery.png"
+            "imageLight": "/images/projects/01_main_building_gallery.webp",
+            "imageDark": "/images/projects/01_main_building_gallery.webp"
           },
           {
             "id": "g2",
             "title": "المدخل الخارجي",
-            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.png",
-            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.png"
+            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.webp",
+            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.webp"
           },
           {
             "id": "g3",
             "title": "الحدائق والمحيط",
-            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.png",
-            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.png"
+            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.webp",
+            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.webp"
           },
           {
             "id": "g4",
             "title": "الواجهة الجانبية",
-            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.png",
-            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.png"
+            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.webp",
+            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.webp"
           },
           {
             "id": "g5",
             "title": "الصالة الرئيسية",
-            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.png",
-            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.png"
+            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.webp",
+            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.webp"
           },
           {
             "id": "g6",
             "title": "منطقة تناول الطعام",
-            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.png",
-            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.png"
+            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.webp",
+            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.webp"
           },
           {
             "id": "g7",
             "title": "غرفة الجلوس العائلية",
-            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.png",
-            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.png"
+            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.webp",
+            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.webp"
           },
           {
             "id": "g8",
             "title": "جولة فيديو للمشروع",
-            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.png",
-            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.png",
+            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.webp",
+            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.webp",
             "isVideo": true
           }
         ],
@@ -174,8 +174,8 @@
           "badge": "نظرة عامة",
           "title": "حياة استثنائية في قلب دير غبار",
           "text": "مشروع الهدوء 2 هو امتداد لنجاحنا في تقديم مجتمعات سكنية حديثة تلبي أسلوب الحياة العصري. يتميز المشروع بتصميم معماري أنيق وتشطيبات عالية الجودة، ويوفر مساحات متنوعة تلائم احتياجات جميع السكان، ضمن بيئة متكاملة تجمع بين الراحة والخصوصية وقربه من أهم المرافق الحيوية.",
-          "imageLight": "/images/projects/09_living_room_overview.png",
-          "imageDark": "/images/projects/09_living_room_overview.png",
+          "imageLight": "/images/projects/09_living_room_overview.webp",
+          "imageDark": "/images/projects/09_living_room_overview.webp",
           "imageCaption": "تصميم داخلي نموذجي",
           "highlights": [
             {
@@ -282,21 +282,21 @@
         "floorplans": {
           "sitePlan": {
             "title": "المخطط العام للموقع",
-            "image": "/images/projects/10_architectural_site_plan.png"
+            "image": "/images/projects/10_architectural_site_plan.webp"
           },
           "floorPlans": {
             "title": "مخططات الطوابق",
-            "image": "/images/ui/floorplan-3d-light.png"
+            "image": "/images/ui/floorplan-3d-light.webp"
           },
           "unitPlans": {
             "title": "مخططات الشقق",
-            "image": "/images/ui/building-interactive-light.png"
+            "image": "/images/ui/building-interactive-light.webp"
           }
         },
         "location": {
           "title": "الموقع والمعالم القريبة",
           "subtitle": "موقع استراتيجي بالقرب من أهم الخدمات",
-          "mapImage": "/images/projects/11_location_map.png",
+          "mapImage": "/images/projects/11_location_map.webp",
           "landmarks": [
             {
               "id": "lm-11",
@@ -336,7 +336,7 @@
         "ctaBanner": {
           "title": "جاهز لزيارة مشروع الهدوء 1؟",
           "subtitle": "احجز موعدك الآن واكتشف الراحة في قلب الشميساني.",
-          "image": "/images/projects/12_footer_building_banner.png",
+          "image": "/images/projects/12_footer_building_banner.webp",
           "ctaText": "احجز موعد مشاهدة",
           "contactText": "تواصل معنا"
         }
@@ -346,13 +346,13 @@
         "title": "مشروع الهدوء 2",
         "locationLight": "عمان - دير غبار",
         "locationDark": "عمان - دير غبار",
-        "unitsCount": "48 شقة سكنية",
+        "unitsCount": "3 نماذج شقق معروضة",
         "floorsCountLight": "6 طوابق",
         "floorsCountDark": "6 طوابق",
         "statusText": "متاح الآن",
         "statusType": "available",
-        "imageLight": "/images/projects/01_main_building_gallery.png",
-        "imageDark": "/images/projects/01_main_building_gallery.png",
+        "imageLight": "/images/projects/01_main_building_gallery.webp",
+        "imageDark": "/images/projects/01_main_building_gallery.webp",
         "description": "تحفة معمارية عصرية تضم شققاً ذكية بمساحات متنوعة وتراسات بانورامية مطلة، جاهزة للتسليم الفوري.",
         "startingArea": "120 م²",
         "projectStatus": "جاهز للسكن",
@@ -361,50 +361,50 @@
           {
             "id": "g1",
             "title": "واجهة المشروع الرئيسية",
-            "imageLight": "/images/projects/01_main_building_gallery.png",
-            "imageDark": "/images/projects/01_main_building_gallery.png"
+            "imageLight": "/images/projects/01_main_building_gallery.webp",
+            "imageDark": "/images/projects/01_main_building_gallery.webp"
           },
           {
             "id": "g2",
             "title": "المدخل الخارجي",
-            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.png",
-            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.png"
+            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.webp",
+            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.webp"
           },
           {
             "id": "g3",
             "title": "الحدائق والمحيط",
-            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.png",
-            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.png"
+            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.webp",
+            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.webp"
           },
           {
             "id": "g4",
             "title": "الواجهة الجانبية",
-            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.png",
-            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.png"
+            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.webp",
+            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.webp"
           },
           {
             "id": "g5",
             "title": "الصالة الرئيسية",
-            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.png",
-            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.png"
+            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.webp",
+            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.webp"
           },
           {
             "id": "g6",
             "title": "منطقة تناول الطعام",
-            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.png",
-            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.png"
+            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.webp",
+            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.webp"
           },
           {
             "id": "g7",
             "title": "غرفة الجلوس العائلية",
-            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.png",
-            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.png"
+            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.webp",
+            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.webp"
           },
           {
             "id": "g8",
             "title": "جولة فيديو للمشروع",
-            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.png",
-            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.png",
+            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.webp",
+            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.webp",
             "isVideo": true
           }
         ],
@@ -412,8 +412,8 @@
           "badge": "نظرة عامة",
           "title": "حياة استثنائية في قلب دير غبار",
           "text": "مشروع الهدوء 2 هو امتداد لنجاحنا في تقديم مجتمعات سكنية حديثة تلبي أسلوب الحياة العصري. يتميز المشروع بتصميم معماري أنيق وتشطيبات عالية الجودة، ويوفر مساحات متنوعة تلائم احتياجات جميع السكان، ضمن بيئة متكاملة تجمع بين الراحة والخصوصية وقربه من أهم المرافق الحيوية.",
-          "imageLight": "/images/projects/09_living_room_overview.png",
-          "imageDark": "/images/projects/09_living_room_overview.png",
+          "imageLight": "/images/projects/09_living_room_overview.webp",
+          "imageDark": "/images/projects/09_living_room_overview.webp",
           "imageCaption": "تصميم داخلي نموذجي",
           "highlights": [
             {
@@ -520,21 +520,21 @@
         "floorplans": {
           "sitePlan": {
             "title": "المخطط العام للموقع",
-            "image": "/images/projects/10_architectural_site_plan.png"
+            "image": "/images/projects/10_architectural_site_plan.webp"
           },
           "floorPlans": {
             "title": "مخططات الطوابق",
-            "image": "/images/ui/floorplan-3d-light.png"
+            "image": "/images/ui/floorplan-3d-light.webp"
           },
           "unitPlans": {
             "title": "مخططات الشقق",
-            "image": "/images/ui/building-interactive-light.png"
+            "image": "/images/ui/building-interactive-light.webp"
           }
         },
         "location": {
           "title": "الموقع والمعالم القريبة",
           "subtitle": "موقع استراتيجي بالقرب من أهم الخدمات",
-          "mapImage": "/images/projects/11_location_map.png",
+          "mapImage": "/images/projects/11_location_map.webp",
           "landmarks": [
             {
               "id": "lm-1",
@@ -582,7 +582,7 @@
         "ctaBanner": {
           "title": "جاهز لزيارة مشروع الهدوء 2؟",
           "subtitle": "احجز موعدك الآن واكتشف بنفسك أسلوب الحياة الراقي في بيئة متكاملة.",
-          "image": "/images/projects/12_footer_building_banner.png",
+          "image": "/images/projects/12_footer_building_banner.webp",
           "ctaText": "احجز موعد مشاهدة",
           "contactText": "تواصل معنا"
         }
@@ -592,13 +592,13 @@
         "title": "مشروع الهدوء 3",
         "locationLight": "عمان - دابوق",
         "locationDark": "عمان - دابوق",
-        "unitsCount": "120 شقة",
+        "unitsCount": "3 نماذج شقق معروضة",
         "floorsCountLight": "6 طوابق",
         "floorsCountDark": "4 طوابق",
         "statusText": "قيد الإنشاء",
         "statusType": "construction",
-        "imageLight": "/images/light/scene-4.png",
-        "imageDark": "/images/dark/scene-4.png",
+        "imageLight": "/images/light/scene-4.webp",
+        "imageDark": "/images/dark/scene-4.webp",
         "description": "أكبر مجتمع سكني مسور في منطقة دابوق، يضم حدائق مركزية ومسبحاً ونادياً صحياً متكاملاً.",
         "startingArea": "145 م²",
         "projectStatus": "قيد الإنشاء",
@@ -607,50 +607,50 @@
           {
             "id": "g1",
             "title": "واجهة المشروع الرئيسية",
-            "imageLight": "/images/projects/01_main_building_gallery.png",
-            "imageDark": "/images/projects/01_main_building_gallery.png"
+            "imageLight": "/images/projects/01_main_building_gallery.webp",
+            "imageDark": "/images/projects/01_main_building_gallery.webp"
           },
           {
             "id": "g2",
             "title": "المدخل الخارجي",
-            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.png",
-            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.png"
+            "imageLight": "/images/projects/02_gallery_thumbnail_exterior_1.webp",
+            "imageDark": "/images/projects/02_gallery_thumbnail_exterior_1.webp"
           },
           {
             "id": "g3",
             "title": "الحدائق والمحيط",
-            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.png",
-            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.png"
+            "imageLight": "/images/projects/03_gallery_thumbnail_exterior_2.webp",
+            "imageDark": "/images/projects/03_gallery_thumbnail_exterior_2.webp"
           },
           {
             "id": "g4",
             "title": "الواجهة الجانبية",
-            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.png",
-            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.png"
+            "imageLight": "/images/projects/04_gallery_thumbnail_exterior_3.webp",
+            "imageDark": "/images/projects/04_gallery_thumbnail_exterior_3.webp"
           },
           {
             "id": "g5",
             "title": "الصالة الرئيسية",
-            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.png",
-            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.png"
+            "imageLight": "/images/projects/05_gallery_thumbnail_interior_1.webp",
+            "imageDark": "/images/projects/05_gallery_thumbnail_interior_1.webp"
           },
           {
             "id": "g6",
             "title": "منطقة تناول الطعام",
-            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.png",
-            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.png"
+            "imageLight": "/images/projects/06_gallery_thumbnail_interior_2.webp",
+            "imageDark": "/images/projects/06_gallery_thumbnail_interior_2.webp"
           },
           {
             "id": "g7",
             "title": "غرفة الجلوس العائلية",
-            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.png",
-            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.png"
+            "imageLight": "/images/projects/07_gallery_thumbnail_interior_3.webp",
+            "imageDark": "/images/projects/07_gallery_thumbnail_interior_3.webp"
           },
           {
             "id": "g8",
             "title": "جولة فيديو للمشروع",
-            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.png",
-            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.png",
+            "imageLight": "/images/projects/08_gallery_thumbnail_video_preview.webp",
+            "imageDark": "/images/projects/08_gallery_thumbnail_video_preview.webp",
             "isVideo": true
           }
         ],
@@ -658,8 +658,8 @@
           "badge": "نظرة عامة",
           "title": "حياة استثنائية في قلب دير غبار",
           "text": "مشروع الهدوء 2 هو امتداد لنجاحنا في تقديم مجتمعات سكنية حديثة تلبي أسلوب الحياة العصري. يتميز المشروع بتصميم معماري أنيق وتشطيبات عالية الجودة، ويوفر مساحات متنوعة تلائم احتياجات جميع السكان، ضمن بيئة متكاملة تجمع بين الراحة والخصوصية وقربه من أهم المرافق الحيوية.",
-          "imageLight": "/images/projects/09_living_room_overview.png",
-          "imageDark": "/images/projects/09_living_room_overview.png",
+          "imageLight": "/images/projects/09_living_room_overview.webp",
+          "imageDark": "/images/projects/09_living_room_overview.webp",
           "imageCaption": "تصميم داخلي نموذجي",
           "highlights": [
             {
@@ -766,21 +766,21 @@
         "floorplans": {
           "sitePlan": {
             "title": "المخطط العام للموقع",
-            "image": "/images/projects/10_architectural_site_plan.png"
+            "image": "/images/projects/10_architectural_site_plan.webp"
           },
           "floorPlans": {
             "title": "مخططات الطوابق",
-            "image": "/images/ui/floorplan-3d-light.png"
+            "image": "/images/ui/floorplan-3d-light.webp"
           },
           "unitPlans": {
             "title": "مخططات الشقق",
-            "image": "/images/ui/building-interactive-light.png"
+            "image": "/images/ui/building-interactive-light.webp"
           }
         },
         "location": {
           "title": "الموقع والمعالم القريبة",
           "subtitle": "موقع استراتيجي بالقرب من أهم الخدمات",
-          "mapImage": "/images/projects/11_location_map.png",
+          "mapImage": "/images/projects/11_location_map.webp",
           "landmarks": [
             {
               "id": "lm-31",
@@ -820,7 +820,7 @@
         "ctaBanner": {
           "title": "جاهز لزيارة مشروع الهدوء 3؟",
           "subtitle": "احجز موعدك الآن في أحدث مشاريعنا في دابوق.",
-          "image": "/images/projects/12_footer_building_banner.png",
+          "image": "/images/projects/12_footer_building_banner.webp",
           "ctaText": "احجز موعد مشاهدة",
           "contactText": "تواصل معنا"
         }
@@ -875,8 +875,8 @@
         "bedrooms": "3 غرف",
         "featureBadge": "إطلالة على المدينة",
         "featureIcon": "landmark",
-        "planImage": "/images/ui/unit-plan-a.png",
-        "mainImage": "/images/light/scene-2.png",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-2.webp",
         "caption": "تصميم عصري ومساحات رحبة",
         "metrics": {
           "area": "165 م²",
@@ -893,8 +893,8 @@
         "bedrooms": "3 غرف",
         "featureBadge": "شرقية جنوبية",
         "featureIcon": "view",
-        "planImage": "/images/ui/unit-plan-a.png",
-        "mainImage": "/images/light/scene-9.png",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-9.webp",
         "caption": "مطبخ عصري مفتوح ومنطقة طعام واسعة",
         "metrics": {
           "area": "145 م²",
@@ -911,8 +911,8 @@
         "bedrooms": "2 غرف",
         "featureBadge": "غربية مطلة",
         "featureIcon": "sun",
-        "planImage": "/images/ui/unit-plan-a.png",
-        "mainImage": "/images/light/scene-6.png",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-6.webp",
         "caption": "غرفة ماستر بإطلالة ساحرة ومساحة مريحة",
         "metrics": {
           "area": "120 م²",
@@ -929,8 +929,8 @@
         "bedrooms": "4 غرف",
         "featureBadge": "حديقة خاصة",
         "featureIcon": "tree",
-        "planImage": "/images/ui/unit-plan-duplex.png",
-        "mainImage": "/images/light/scene-1.png",
+        "planImage": "/images/ui/unit-plan-duplex.webp",
+        "mainImage": "/images/light/scene-1.webp",
         "caption": "دوبلكس فسيح مع مدخل وحديقة مستقلة",
         "metrics": {
           "area": "220 م²",
@@ -947,8 +947,8 @@
         "bedrooms": "4 غرف",
         "featureBadge": "إطلالة بانورامية",
         "featureIcon": "sun",
-        "planImage": "/images/ui/unit-plan-penthouse.png",
-        "mainImage": "/images/light/scene-4.png",
+        "planImage": "/images/ui/unit-plan-penthouse.webp",
+        "mainImage": "/images/light/scene-4.webp",
         "caption": "إطلالة بانورامية ساحرة على أفق المدينة",
         "metrics": {
           "area": "280 م²",
@@ -960,218 +960,972 @@
     ],
     "apartments": [
       {
-        "id": "unit-A",
-        "code": "A",
-        "title": "شقة - A",
+        "id": "apt-101",
+        "buildingId": "proj-1",
+        "buildingName": "مشروع الهدوء 1",
+        "code": "A-101",
+        "title": "شقة A-101 الفاخرة مع حديقة",
+        "type": "شقة أرضية مع حديقة وتراس",
         "status": "available",
-        "statusText": "متاحة",
+        "statusText": "متاحة للبيع",
         "area": "165 م²",
-        "floor": "4",
-        "bedrooms": "3",
-        "direction": "أمامية",
+        "floor": "الطابق الأرضي",
+        "bedrooms": "3 غرف",
+        "bathrooms": "3 حمامات",
+        "direction": "جنوبية غربية مطلة",
         "price": "145,000 د.أ",
-        "bookCtaText": "احجز موعد مشاهدة",
-        "downloadPlanText": "تحميل المخطط",
+        "priceNote": "شامل رسوم التسجيل وموقف سيارة",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-2.webp",
+        "bookCtaText": "احجز موعد مشاهدة للشقة",
+        "downloadPlanText": "تحميل المخطط الهندسي",
         "features": [
           {
             "id": "feat-1",
             "icon": "sofa",
-            "labelLight": "صالة واسعة",
-            "labelDark": "صالة واسعة",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
             "galleryIndex": 0
           },
           {
             "id": "feat-2",
-            "icon": "balcony",
-            "labelLight": "مطبخ مقفلة",
-            "labelDark": "شرفة مطلة",
-            "galleryIndex": 4
-          },
-          {
-            "id": "feat-3",
             "icon": "kitchen",
-            "labelLight": "مطبخ حديث",
-            "labelDark": "مطبخ حديث",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
             "galleryIndex": 1
           },
           {
-            "id": "feat-4",
+            "id": "feat-3",
             "icon": "bath",
-            "labelLight": "3 حمامات",
-            "labelDark": "3 حمامات",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
             "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
           }
         ],
         "gallery": [
           {
             "id": "gal-1",
             "title": "الصالة الرئيسية وغرفة المعيشة",
-            "imageLight": "/images/light/scene-2.png",
-            "imageDark": "/images/dark/scene-2.png"
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
           },
           {
             "id": "gal-2",
             "title": "المطبخ العصري ومنطقة الطعام",
-            "imageLight": "/images/light/scene-9.png",
-            "imageDark": "/images/dark/scene-9.png"
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
           },
           {
             "id": "gal-3",
             "title": "الحمام الرئيسي الفاخر",
-            "imageLight": "/images/light/scene-5.png",
-            "imageDark": "/images/dark/scene-5.png"
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
           },
           {
             "id": "gal-4",
             "title": "غرفة النوم الرئيسية (الماستر)",
-            "imageLight": "/images/light/scene-6.png",
-            "imageDark": "/images/dark/scene-6.png"
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
           },
           {
             "id": "gal-5",
-            "title": "التراس الخارجي البانورامي",
-            "imageLight": "/images/light/scene-8.png",
-            "imageDark": "/images/dark/scene-8.png"
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
           }
         ]
       },
       {
-        "id": "unit-B",
-        "code": "B",
-        "title": "شقة - B",
+        "id": "apt-102",
+        "buildingId": "proj-1",
+        "buildingName": "مشروع الهدوء 1",
+        "code": "B-102",
+        "title": "شقة B-102 إطلالة بانورامية",
+        "type": "شقة طابق أول مع بلكونة واسعة",
         "status": "available",
-        "statusText": "متاحة",
-        "area": "145 م²",
-        "floor": "4",
-        "bedrooms": "3",
-        "direction": "شرقية - جنوبية",
-        "price": "128,000 د.أ",
-        "bookCtaText": "احجز موعد مشاهدة",
-        "downloadPlanText": "تحميل المخطط",
+        "statusText": "متاحة للبيع",
+        "area": "150 م²",
+        "floor": "الطابق الأول",
+        "bedrooms": "3 غرف",
+        "bathrooms": "3 حمامات",
+        "direction": "شمالية غربية",
+        "price": "135,000 د.أ",
+        "priceNote": "شامل المطبخ والتدفئة المركزية",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-6.webp",
+        "bookCtaText": "احجز موعد مشاهدة للشقة",
+        "downloadPlanText": "تحميل المخطط الهندسي",
         "features": [
           {
-            "id": "feat-b1",
+            "id": "feat-1",
             "icon": "sofa",
-            "labelLight": "صالة واسعة",
-            "labelDark": "صالة واسعة",
-            "galleryIndex": 2
-          },
-          {
-            "id": "feat-b2",
-            "icon": "balcony",
-            "labelLight": "شرفة مطلة",
-            "labelDark": "شرفة مطلة",
-            "galleryIndex": 3
-          },
-          {
-            "id": "feat-b3",
-            "icon": "kitchen",
-            "labelLight": "مطبخ حديث",
-            "labelDark": "مطبخ حديث",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
             "galleryIndex": 0
           },
           {
-            "id": "feat-b4",
-            "icon": "bath",
-            "labelLight": "3 حمامات",
-            "labelDark": "3 حمامات",
+            "id": "feat-2",
+            "icon": "kitchen",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
             "galleryIndex": 1
+          },
+          {
+            "id": "feat-3",
+            "icon": "bath",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
           }
         ],
         "gallery": [
           {
-            "id": "gal-b1",
-            "title": "المطبخ العصري المفتوح ومنطقة الطعام",
-            "imageLight": "/images/light/scene-9.png",
-            "imageDark": "/images/dark/scene-9.png"
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
           },
           {
-            "id": "gal-b2",
-            "title": "غرفة النوم الرئيسية",
-            "imageLight": "/images/light/scene-6.png",
-            "imageDark": "/images/dark/scene-6.png"
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
           },
           {
-            "id": "gal-b3",
-            "title": "الصالة البانورامية",
-            "imageLight": "/images/light/scene-2.png",
-            "imageDark": "/images/dark/scene-2.png"
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
           },
           {
-            "id": "gal-b4",
-            "title": "الحمام الفاخر",
-            "imageLight": "/images/light/scene-5.png",
-            "imageDark": "/images/dark/scene-5.png"
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
           }
         ]
       },
       {
-        "id": "unit-C",
-        "code": "C",
-        "title": "شقة - C",
-        "status": "reserved",
-        "statusText": "محجوزة",
-        "area": "120 م²",
-        "floor": "4",
-        "bedrooms": "2",
-        "direction": "غربية مطلة",
-        "price": "108,000 د.أ",
-        "bookCtaText": "احجز موعد مشاهدة",
-        "downloadPlanText": "تحميل المخطط",
+        "id": "apt-103",
+        "buildingId": "proj-1",
+        "buildingName": "مشروع الهدوء 1",
+        "code": "D-103",
+        "title": "دوبلكس D-103 مع حديقة مستقلة",
+        "type": "دوبلكس طابقين مع مدخل خاص",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "220 م²",
+        "floor": "أرضي وشبه أرضي",
+        "bedrooms": "4 غرف",
+        "bathrooms": "4 حمامات",
+        "direction": "مطلة على 3 واجهات",
+        "price": "210,000 د.أ",
+        "priceNote": "إمكانية التقسيط المباشر مع الشركة",
+        "planImage": "/images/ui/unit-plan-duplex.webp",
+        "mainImage": "/images/light/scene-1.webp",
+        "bookCtaText": "احجز موعد مشاهدة للدوبلكس",
+        "downloadPlanText": "تحميل مخطط الدوبلكس",
         "features": [
           {
-            "id": "feat-c1",
-            "icon": "sofa",
-            "labelLight": "صالة مشرقة",
-            "labelDark": "صالة مشرقة",
-            "galleryIndex": 1
+            "id": "feat-1",
+            "icon": "tree",
+            "labelLight": "مدخل وحديقة مستقلة",
+            "labelDark": "مدخل وحديقة مستقلة",
+            "galleryIndex": 4
           },
           {
-            "id": "feat-c2",
-            "icon": "balcony",
-            "labelLight": "تراس خاص",
-            "labelDark": "تراس خاص",
+            "id": "feat-2",
+            "icon": "architecture",
+            "labelLight": "تصميم طابقين راقٍ",
+            "labelDark": "تصميم طابقين راقٍ",
             "galleryIndex": 0
           },
           {
-            "id": "feat-c3",
+            "id": "feat-3",
+            "icon": "sofa",
+            "labelLight": "صالونات استقبال ومعيشة",
+            "labelDark": "صالونات استقبال ومعيشة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-4",
             "icon": "kitchen",
-            "labelLight": "مطبخ أمريكي",
-            "labelDark": "مطبخ أمريكي",
+            "labelLight": "مطبخ مع جزيرة طعام",
+            "labelDark": "مطبخ مع جزيرة طعام",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-5",
+            "icon": "bath",
+            "labelLight": "4 حمامات مجهزة",
+            "labelDark": "4 حمامات مجهزة",
             "galleryIndex": 2
           },
           {
-            "id": "feat-c4",
-            "icon": "bath",
-            "labelLight": "2 حمامات",
-            "labelDark": "2 حمامات",
-            "galleryIndex": 3
+            "id": "feat-6",
+            "icon": "heating",
+            "labelLight": "تدفئة أرضية متكاملة",
+            "labelDark": "تدفئة أرضية متكاملة",
+            "galleryIndex": 0
           }
         ],
         "gallery": [
           {
-            "id": "gal-c1",
-            "title": "غرفة النوم الماستر مع شرفة",
-            "imageLight": "/images/light/scene-6.png",
-            "imageDark": "/images/dark/scene-6.png"
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
           },
           {
-            "id": "gal-c2",
-            "title": "صالة المعيشة العصرية",
-            "imageLight": "/images/light/scene-2.png",
-            "imageDark": "/images/dark/scene-2.png"
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
           },
           {
-            "id": "gal-c3",
-            "title": "المطبخ الحديث",
-            "imageLight": "/images/light/scene-9.png",
-            "imageDark": "/images/dark/scene-9.png"
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
           },
           {
-            "id": "gal-c4",
-            "title": "الحمام الرخامي",
-            "imageLight": "/images/light/scene-5.png",
-            "imageDark": "/images/dark/scene-5.png"
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-104",
+        "buildingId": "proj-1",
+        "buildingName": "مشروع الهدوء 1",
+        "code": "P-104",
+        "title": "بنتهاوس P-104 روف مع تراس 360°",
+        "type": "بنتهاوس فاخر بإطلالة أفقية كاملة",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "280 م²",
+        "floor": "طابق الروف الأخير",
+        "bedrooms": "4 غرف",
+        "bathrooms": "5 حمامات",
+        "direction": "إطلالة بانورامية 360 درجة",
+        "price": "275,000 د.أ",
+        "priceNote": "تشطيبات سوبر ديلوكس خاصة فندقية",
+        "planImage": "/images/ui/unit-plan-penthouse.webp",
+        "mainImage": "/images/light/scene-4.webp",
+        "bookCtaText": "احجز موعد مشاهدة للبنتهاوس",
+        "downloadPlanText": "تحميل مخطط البنتهاوس",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sun",
+            "labelLight": "تراس بانورامي 360°",
+            "labelDark": "تراس بانورامي 360°",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-2",
+            "icon": "sofa",
+            "labelLight": "صالة ملكية مزدوجة",
+            "labelDark": "صالة ملكية مزدوجة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-3",
+            "icon": "kitchen",
+            "labelLight": "مطبخ إيطالي فاخر",
+            "labelDark": "مطبخ إيطالي فاخر",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-4",
+            "icon": "bath",
+            "labelLight": "جاكوزي وحمام ماستر",
+            "labelDark": "جاكوزي وحمام ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-5",
+            "icon": "elevator",
+            "labelLight": "مصعد ببطاقة خاصة",
+            "labelDark": "مصعد ببطاقة خاصة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "star",
+            "labelLight": "إطلالة أفقية كاملة",
+            "labelDark": "إطلالة أفقية كاملة",
+            "galleryIndex": 4
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-201",
+        "buildingId": "proj-2",
+        "buildingName": "مشروع الهدوء 2",
+        "code": "A-201",
+        "title": "شقة A-201 دير غبار النموذجية",
+        "type": "شقة عائلية فاخرة طابق ثاني",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "135 م²",
+        "floor": "الطابق الثاني",
+        "bedrooms": "3 غرف",
+        "bathrooms": "3 حمامات",
+        "direction": "جنوبية مشمسة",
+        "price": "128,000 د.أ",
+        "priceNote": "موقع هادئ وإطلالة مفتوحة",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-2.webp",
+        "bookCtaText": "احجز موعد مشاهدة للشقة",
+        "downloadPlanText": "تحميل المخطط الهندسي",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sofa",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-2",
+            "icon": "kitchen",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-3",
+            "icon": "bath",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-202",
+        "buildingId": "proj-2",
+        "buildingName": "مشروع الهدوء 2",
+        "code": "B-202",
+        "title": "شقة B-202 عائلية رحبة (4 غرف)",
+        "type": "شقة 4 غرف نوم ماستر",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "155 م²",
+        "floor": "الطابق الثالث",
+        "bedrooms": "4 غرف",
+        "bathrooms": "4 حمامات",
+        "direction": "غربية مطلة",
+        "price": "142,000 د.أ",
+        "priceNote": "شامل موقفين سيارات ومستودع",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-9.webp",
+        "bookCtaText": "احجز موعد مشاهدة للشقة",
+        "downloadPlanText": "تحميل المخطط الهندسي",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sofa",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-2",
+            "icon": "kitchen",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-3",
+            "icon": "bath",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-203",
+        "buildingId": "proj-2",
+        "buildingName": "مشروع الهدوء 2",
+        "code": "P-203",
+        "title": "بنتهاوس P-203 دير غبار الراقي",
+        "type": "بنتهاوس روف مع تراس معلق",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "240 م²",
+        "floor": "طابق الروف",
+        "bedrooms": "4 غرف",
+        "bathrooms": "4 حمامات",
+        "direction": "شمالية غربية",
+        "price": "245,000 د.أ",
+        "priceNote": "تراس بانورامي واسع 65 م²",
+        "planImage": "/images/ui/unit-plan-penthouse.webp",
+        "mainImage": "/images/light/scene-8.webp",
+        "bookCtaText": "احجز موعد مشاهدة للبنتهاوس",
+        "downloadPlanText": "تحميل مخطط البنتهاوس",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sun",
+            "labelLight": "تراس بانورامي 360°",
+            "labelDark": "تراس بانورامي 360°",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-2",
+            "icon": "sofa",
+            "labelLight": "صالة ملكية مزدوجة",
+            "labelDark": "صالة ملكية مزدوجة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-3",
+            "icon": "kitchen",
+            "labelLight": "مطبخ إيطالي فاخر",
+            "labelDark": "مطبخ إيطالي فاخر",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-4",
+            "icon": "bath",
+            "labelLight": "جاكوزي وحمام ماستر",
+            "labelDark": "جاكوزي وحمام ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-5",
+            "icon": "elevator",
+            "labelLight": "مصعد ببطاقة خاصة",
+            "labelDark": "مصعد ببطاقة خاصة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "star",
+            "labelLight": "إطلالة أفقية كاملة",
+            "labelDark": "إطلالة أفقية كاملة",
+            "galleryIndex": 4
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-301",
+        "buildingId": "proj-3",
+        "buildingName": "مشروع الهدوء 3",
+        "code": "S-301",
+        "title": "استوديو S-301 أم أذينة الفاخر",
+        "type": "استوديو عصري تشطيب فندقي",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "65 م²",
+        "floor": "الطابق الأول",
+        "bedrooms": "1 غرفة",
+        "bathrooms": "1 حمام",
+        "direction": "شرقية مشمسة",
+        "price": "78,000 د.أ",
+        "priceNote": "فرصة استثمارية بعائد إيجاري مميز",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-6.webp",
+        "bookCtaText": "احجز موعد مشاهدة للاستوديو",
+        "downloadPlanText": "تحميل المخطط الهندسي",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sofa",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-2",
+            "icon": "kitchen",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-3",
+            "icon": "bath",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-302",
+        "buildingId": "proj-3",
+        "buildingName": "مشروع الهدوء 3",
+        "code": "A-302",
+        "title": "شقة A-302 الملكية (أم أذينة)",
+        "type": "شقة 3 غرف ماستر وتشطيب خاص",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "175 م²",
+        "floor": "الطابق الثالث",
+        "bedrooms": "3 غرف",
+        "bathrooms": "4 حمامات",
+        "direction": "جنوبية غربية",
+        "price": "168,000 د.أ",
+        "priceNote": "شامل التكييف المركزي ونظام المنزل الذكي",
+        "planImage": "/images/ui/unit-plan-a.webp",
+        "mainImage": "/images/light/scene-2.webp",
+        "bookCtaText": "احجز موعد مشاهدة للشقة",
+        "downloadPlanText": "تحميل المخطط الهندسي",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "sofa",
+            "labelLight": "صالون استقبال رحب",
+            "labelDark": "صالون استقبال رحب",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-2",
+            "icon": "kitchen",
+            "labelLight": "مطبخ عصري راكب",
+            "labelDark": "مطبخ عصري راكب",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-3",
+            "icon": "bath",
+            "labelLight": "3 حمامات ماستر",
+            "labelDark": "3 حمامات ماستر",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-4",
+            "icon": "balcony",
+            "labelLight": "حديقة وتراس خاص",
+            "labelDark": "حديقة وتراس خاص",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-5",
+            "icon": "smarthome",
+            "labelLight": "نظام منزل ذكي",
+            "labelDark": "نظام منزل ذكي",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-6",
+            "icon": "parking",
+            "labelLight": "موقف سيارة مغطى",
+            "labelDark": "موقف سيارة مغطى",
+            "galleryIndex": 0
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
+          }
+        ]
+      },
+      {
+        "id": "apt-303",
+        "buildingId": "proj-3",
+        "buildingName": "مشروع الهدوء 3",
+        "code": "D-303",
+        "title": "دوبلكس D-303 أم أذينة الفخم",
+        "type": "دوبلكس طابقين مع إطلالة بانورامية",
+        "status": "available",
+        "statusText": "متاحة للبيع",
+        "area": "230 م²",
+        "floor": "طابق رابع ورووف",
+        "bedrooms": "4 غرف",
+        "bathrooms": "4 حمامات",
+        "direction": "واجهات زجاجية واسعة",
+        "price": "235,000 د.أ",
+        "priceNote": "تشطيبات إيطالية حصرية",
+        "planImage": "/images/ui/unit-plan-duplex.webp",
+        "mainImage": "/images/light/scene-1.webp",
+        "bookCtaText": "احجز موعد مشاهدة للدوبلكس",
+        "downloadPlanText": "تحميل مخطط الدوبلكس",
+        "features": [
+          {
+            "id": "feat-1",
+            "icon": "tree",
+            "labelLight": "مدخل وحديقة مستقلة",
+            "labelDark": "مدخل وحديقة مستقلة",
+            "galleryIndex": 4
+          },
+          {
+            "id": "feat-2",
+            "icon": "architecture",
+            "labelLight": "تصميم طابقين راقٍ",
+            "labelDark": "تصميم طابقين راقٍ",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-3",
+            "icon": "sofa",
+            "labelLight": "صالونات استقبال ومعيشة",
+            "labelDark": "صالونات استقبال ومعيشة",
+            "galleryIndex": 0
+          },
+          {
+            "id": "feat-4",
+            "icon": "kitchen",
+            "labelLight": "مطبخ مع جزيرة طعام",
+            "labelDark": "مطبخ مع جزيرة طعام",
+            "galleryIndex": 1
+          },
+          {
+            "id": "feat-5",
+            "icon": "bath",
+            "labelLight": "4 حمامات مجهزة",
+            "labelDark": "4 حمامات مجهزة",
+            "galleryIndex": 2
+          },
+          {
+            "id": "feat-6",
+            "icon": "heating",
+            "labelLight": "تدفئة أرضية متكاملة",
+            "labelDark": "تدفئة أرضية متكاملة",
+            "galleryIndex": 0
+          }
+        ],
+        "gallery": [
+          {
+            "id": "gal-1",
+            "title": "الصالة الرئيسية وغرفة المعيشة",
+            "imageLight": "/images/light/scene-2.webp",
+            "imageDark": "/images/dark/scene-2.webp"
+          },
+          {
+            "id": "gal-2",
+            "title": "المطبخ العصري ومنطقة الطعام",
+            "imageLight": "/images/light/scene-9.webp",
+            "imageDark": "/images/dark/scene-9.webp"
+          },
+          {
+            "id": "gal-3",
+            "title": "الحمام الرئيسي الفاخر",
+            "imageLight": "/images/light/scene-5.webp",
+            "imageDark": "/images/dark/scene-5.webp"
+          },
+          {
+            "id": "gal-4",
+            "title": "غرفة النوم الرئيسية (الماستر)",
+            "imageLight": "/images/light/scene-6.webp",
+            "imageDark": "/images/dark/scene-6.webp"
+          },
+          {
+            "id": "gal-5",
+            "title": "التراس الخارجي والإطلالة البانورامية",
+            "imageLight": "/images/light/scene-8.webp",
+            "imageDark": "/images/dark/scene-8.webp"
           }
         ]
       }
@@ -1180,8 +1934,8 @@
   "lifestyleSection": {
     "title": "أسلوب حياة متكامل",
     "subtitle": "كل ما تحتاجه لحياة مريحة ضمن مجتمع سكني متكامل",
-    "imageLight": "/images/light/scene-3.png",
-    "imageDark": "/images/dark/scene-3.png",
+    "imageLight": "/images/light/scene-3.webp",
+    "imageDark": "/images/dark/scene-3.webp",
     "amenities": [
       {
         "id": "am-1",
@@ -1242,8 +1996,8 @@
     "description": "في الحوض الهادي للإسكان، نؤمن أن المنزل أكثر من مجرد مكان للسكن، بل هو أساس لحياة أفضل. نطور مشاريعنا لنقدم بيئة سكنية وفق أعلى معايير الجودة وبمواقع مختارة بعناية.",
     "ctaText": "تعرف على الشركة",
     "ctaHref": "#cta-banner",
-    "imageLight": "/images/light/scene-7.png",
-    "imageDark": "/images/dark/scene-7.png",
+    "imageLight": "/images/light/scene-7.webp",
+    "imageDark": "/images/dark/scene-7.webp",
     "stats": [
       {
         "id": "stat-1",
@@ -1343,8 +2097,8 @@
     "title": "منزلك القادم أقرب مما تتخيل.",
     "subtitle": "اختر الشقة المناسبة لك وفريقنا سيساعدك في كل التفاصيل وترتيب موعد لمشاهدة.",
     "buttonText": "احجز موعد مشاهدة",
-    "imageLight": "/images/light/scene-8.png",
-    "imageDark": "/images/dark/scene-8.png",
+    "imageLight": "/images/light/scene-8.webp",
+    "imageDark": "/images/dark/scene-8.webp",
     "quickContacts": [
       {
         "id": "qc-1",

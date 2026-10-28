@@ -145,7 +145,9 @@
 
     const unitsComp = document.querySelector("available-units-table");
     if (unitsComp && typeof unitsComp.setUnits === "function") {
-      unitsComp.setUnits(p.availableUnits);
+      const allApts = cmsData?.explorerSection?.apartments || [];
+      const bldApts = allApts.filter((a) => a.buildingId === p.id);
+      unitsComp.setUnits(bldApts.length ? bldApts : p.availableUnits, p.id);
     }
 
     const planComp = document.querySelector("floorplan-viewer");
@@ -392,9 +394,9 @@
   // Floorplans Logic
   function renderFloorplans() {
     const plans = currentProject.floorplans || {
-      sitePlan: { title: "المخطط العام للموقع", image: "/images/projects/10_architectural_site_plan.png" },
-      floorPlans: { title: "مخططات الطوابق", image: "/images/ui/floorplan-3d-light.png" },
-      unitPlans: { title: "مخططات الشقق", image: "/images/ui/building-interactive-light.png" }
+      sitePlan: { title: "المخطط العام للموقع", image: "/images/projects/10_architectural_site_plan.webp" },
+      floorPlans: { title: "مخططات الطوابق", image: "/images/ui/floorplan-3d-light.webp" },
+      unitPlans: { title: "مخططات الشقق", image: "/images/ui/building-interactive-light.webp" }
     };
 
     const target = plans[activePlanType] || plans.sitePlan;

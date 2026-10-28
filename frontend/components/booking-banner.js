@@ -19,7 +19,7 @@ class BookingBanner extends HTMLElement {
     const d = {
       title: raw.title || this.getAttribute("title") || "جاهز لزيارة مشروع الهدوء 2؟",
       subtitle: raw.subtitle || this.getAttribute("subtitle") || "احجز موعدك الآن واكتشف بنفسك أسلوب الحياة الذي تستحقه في بيئة متكاملة.",
-      image: raw.image || this.getAttribute("image") || "/images/projects/12_footer_building_banner.png",
+      image: raw.image || this.getAttribute("image") || "/images/projects/12_footer_building_banner.webp",
       primaryText: raw.ctaText || raw.primaryText || this.getAttribute("primary-text") || "احجز موعد معاينة",
       contactText: raw.contactText || "تواصل معنا",
       whatsappNumber: raw.whatsappNumber || "962790000000"

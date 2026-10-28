@@ -33,15 +33,22 @@ public static class ApartmentStatuses
 
 public class Apartment : OrderedEntity
 {
+    [MaxLength(50)] public string BuildingId { get; set; } = "proj-1";
+    [MaxLength(100)] public string BuildingName { get; set; } = string.Empty;
     [MaxLength(10)] public string Code { get; set; } = string.Empty;
     [MaxLength(100)] public string Title { get; set; } = string.Empty;
+    [MaxLength(100)] public string Type { get; set; } = string.Empty;
     [MaxLength(20)] public string Status { get; set; } = ApartmentStatuses.Available;
     [MaxLength(50)] public string StatusText { get; set; } = string.Empty;
     [MaxLength(50)] public string Area { get; set; } = string.Empty;
     [MaxLength(20)] public string Floor { get; set; } = string.Empty;
     [MaxLength(20)] public string Bedrooms { get; set; } = string.Empty;
+    [MaxLength(20)] public string Bathrooms { get; set; } = string.Empty;
     [MaxLength(100)] public string Direction { get; set; } = string.Empty;
     [MaxLength(50)] public string Price { get; set; } = string.Empty;
+    [MaxLength(100)] public string PriceNote { get; set; } = string.Empty;
+    [MaxLength(500)] public string PlanImage { get; set; } = string.Empty;
+    [MaxLength(500)] public string MainImage { get; set; } = string.Empty;
     [MaxLength(100)] public string BookCtaText { get; set; } = string.Empty;
     [MaxLength(100)] public string DownloadPlanText { get; set; } = string.Empty;
 

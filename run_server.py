@@ -8,9 +8,13 @@ import hashlib
 import secrets
 import threading
 import subprocess
+import mimetypes
 from datetime import datetime, timezone
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs, unquote
+
+mimetypes.add_type("image/webp", ".webp")
+mimetypes.add_type("font/woff2", ".woff2")
 
 PORT = 3000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -377,9 +381,16 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
-        self.send_header("Pragma", "no-cache")
-        self.send_header("Expires", "0")
+
+        raw_path = self.path.split("?")[0].lower()
+        if raw_path.endswith((".webp", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".woff2", ".woff", ".ttf")):
+            self.send_header("Cache-Control", "public, max-age=31536000, immutable")
+        elif raw_path.endswith((".css", ".js")):
+            self.send_header("Cache-Control", "public, max-age=86400")
+        else:
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
         super().end_headers()
 
     def do_OPTIONS(self):
@@ -429,6 +440,15 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
             with open(os.path.join(FRONTEND_DIR, "project.html"), "rb") as f:
+                self.wfile.write(f.read())
+            return
+
+        # Routing for /apartment or /apartment.html
+        if path == "/apartment" or path == "/apartment/" or path == "/apartment.html":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            with open(os.path.join(FRONTEND_DIR, "apartment.html"), "rb") as f:
                 self.wfile.write(f.read())
             return
 

@@ -37,8 +37,8 @@ class ProjectCard extends HTMLElement {
       floorsCountLight: this.getAttribute("floors-count") || "6 طوابق",
       statusText: this.getAttribute("status-text") || "متاح الآن",
       statusType: this.getAttribute("status-type") || "available",
-      imageLight: this.getAttribute("image-light") || "/images/light/scene-2.png",
-      imageDark: this.getAttribute("image-dark") || "/images/dark/scene-2.png"
+      imageLight: this.getAttribute("image-light") || "/images/light/scene-2.webp",
+      imageDark: this.getAttribute("image-dark") || "/images/dark/scene-2.webp"
     };
 
     const projectId = this.getProjectId();

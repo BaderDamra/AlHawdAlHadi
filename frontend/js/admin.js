@@ -198,9 +198,9 @@
         <div class="img-slot">
           <div class="img-slot-preview">
             <span class="img-slot-badge">☀️ الوضع النهاري (Light Mode)</span>
-            <img src="${lightVal || "/images/light/scene-1.png"}" alt="Light" data-preview-light="${targetKey}" />
+            <img src="${lightVal || "/images/light/scene-1.webp"}" alt="Light" data-preview-light="${targetKey}" />
           </div>
-          <input type="text" class="input" dir="ltr" value="${lightVal || ""}" data-input-light="${targetKey}" placeholder="/images/light/scene-1.png" />
+          <input type="text" class="input" dir="ltr" value="${lightVal || ""}" data-input-light="${targetKey}" placeholder="/images/light/scene-1.webp" />
           <button type="button" class="btn btn-secondary btn-sm" data-pick-mode="light" data-pick-key="${targetKey}">
             اختر صورة نهارية / زوج متطابق
           </button>
@@ -208,9 +208,9 @@
         <div class="img-slot">
           <div class="img-slot-preview">
             <span class="img-slot-badge">🌙 الوضع الليلي (Dark Mode)</span>
-            <img src="${darkVal || "/images/dark/scene-1.png"}" alt="Dark" data-preview-dark="${targetKey}" />
+            <img src="${darkVal || "/images/dark/scene-1.webp"}" alt="Dark" data-preview-dark="${targetKey}" />
           </div>
-          <input type="text" class="input" dir="ltr" value="${darkVal || ""}" data-input-dark="${targetKey}" placeholder="/images/dark/scene-1.png" />
+          <input type="text" class="input" dir="ltr" value="${darkVal || ""}" data-input-dark="${targetKey}" placeholder="/images/dark/scene-1.webp" />
           <button type="button" class="btn btn-secondary btn-sm" data-pick-mode="dark" data-pick-key="${targetKey}">
             اختر صورة ليلية / زوج متطابق
           </button>
@@ -669,7 +669,7 @@
                 <div class="field">
                   <label>صورة النظرة العامة (معاينة ورفع مباشر):</label>
                   <div style="display:flex; gap:12px; align-items:center; background:var(--cms-surface-alt); padding:8px 12px; border-radius:8px; border:1px solid var(--cms-border);">
-                    <img src="${p.overview?.imageLight || "/images/projects/09_living_room_overview.png"}" alt="نظرة عامة" style="width:75px; height:50px; object-fit:cover; border-radius:6px; border:1px solid var(--cms-border);" />
+                    <img src="${p.overview?.imageLight || "/images/projects/09_living_room_overview.webp"}" alt="نظرة عامة" style="width:75px; height:50px; object-fit:cover; border-radius:6px; border:1px solid var(--cms-border);" />
                     <div style="flex:1;">
                       <div style="display:flex; gap:6px;">
                         <label class="btn btn-primary btn-xs" style="cursor:pointer;" title="رفع صورة من جهازك">
@@ -727,7 +727,7 @@
                   <div style="display:flex; gap:14px; align-items:center; background:var(--cms-surface-alt, #151A21); border:1px solid var(--cms-border); border-radius:8px; padding:10px 14px; transition:border-color 0.2s ease;">
                     <!-- Thumbnail Preview -->
                     <div style="width:80px; height:56px; flex-shrink:0; border-radius:6px; overflow:hidden; border:1.5px solid var(--cms-border); background:#000;">
-                      <img src="${g.imageLight || g.imageDark || '/images/projects/01_main_building_gallery.png'}" alt="${g.title || 'صورة المعرض'}" style="width:100%; height:100%; object-fit:cover;" />
+                      <img src="${g.imageLight || g.imageDark || '/images/projects/01_main_building_gallery.webp'}" alt="${g.title || 'صورة المعرض'}" style="width:100%; height:100%; object-fit:cover;" />
                     </div>
 
                     <!-- Title / Description input -->
@@ -795,7 +795,7 @@
                 <div style="background:var(--cms-surface-alt); border:1px solid var(--cms-border); border-radius:8px; padding:12px;">
                   <strong style="font-size:0.86rem; color:var(--cms-text-primary); display:block; margin-bottom:8px;">المخطط العام للموقع (Site Plan)</strong>
                   <div style="height:100px; border-radius:6px; overflow:hidden; border:1px solid var(--cms-border); margin-bottom:10px; background:#000;">
-                    <img src="${p.floorplans?.sitePlan?.image || "/images/projects/10_architectural_site_plan.png"}" alt="Site Plan" style="width:100%; height:100%; object-fit:cover;" />
+                    <img src="${p.floorplans?.sitePlan?.image || "/images/projects/10_architectural_site_plan.webp"}" alt="Site Plan" style="width:100%; height:100%; object-fit:cover;" />
                   </div>
                   <div style="display:flex; gap:6px;">
                     <label class="btn btn-primary btn-xs" style="flex:1; cursor:pointer;">
@@ -810,7 +810,7 @@
                 <div style="background:var(--cms-surface-alt); border:1px solid var(--cms-border); border-radius:8px; padding:12px;">
                   <strong style="font-size:0.86rem; color:var(--cms-text-primary); display:block; margin-bottom:8px;">مخططات الطوابق (Floor Plans)</strong>
                   <div style="height:100px; border-radius:6px; overflow:hidden; border:1px solid var(--cms-border); margin-bottom:10px; background:#000;">
-                    <img src="${p.floorplans?.floorPlans?.image || "/images/ui/floorplan-3d-light.png"}" alt="Floor Plans" style="width:100%; height:100%; object-fit:cover;" />
+                    <img src="${p.floorplans?.floorPlans?.image || "/images/ui/floorplan-3d-light.webp"}" alt="Floor Plans" style="width:100%; height:100%; object-fit:cover;" />
                   </div>
                   <div style="display:flex; gap:6px;">
                     <label class="btn btn-primary btn-xs" style="flex:1; cursor:pointer;">
@@ -825,7 +825,7 @@
                 <div style="background:var(--cms-surface-alt); border:1px solid var(--cms-border); border-radius:8px; padding:12px;">
                   <strong style="font-size:0.86rem; color:var(--cms-text-primary); display:block; margin-bottom:8px;">مخططات الشقق (Unit Plans)</strong>
                   <div style="height:100px; border-radius:6px; overflow:hidden; border:1px solid var(--cms-border); margin-bottom:10px; background:#000;">
-                    <img src="${p.floorplans?.unitPlans?.image || "/images/ui/building-interactive-light.png"}" alt="Unit Plans" style="width:100%; height:100%; object-fit:cover;" />
+                    <img src="${p.floorplans?.unitPlans?.image || "/images/ui/building-interactive-light.webp"}" alt="Unit Plans" style="width:100%; height:100%; object-fit:cover;" />
                   </div>
                   <div style="display:flex; gap:6px;">
                     <label class="btn btn-primary btn-xs" style="flex:1; cursor:pointer;">
@@ -860,7 +860,7 @@
                 <div class="field">
                   <label>صورة خريطة المشروع الثابتة (رفع ومعاينة مباشرة):</label>
                   <div style="display:flex; gap:10px; align-items:center; background:var(--cms-surface-alt); padding:6px 12px; border-radius:8px; border:1px solid var(--cms-border);">
-                    <img src="${p.location?.mapImage || "/images/projects/11_location_map.png"}" alt="خريطة" style="width:65px; height:42px; object-fit:cover; border-radius:6px; border:1px solid var(--cms-border);" />
+                    <img src="${p.location?.mapImage || "/images/projects/11_location_map.webp"}" alt="خريطة" style="width:65px; height:42px; object-fit:cover; border-radius:6px; border:1px solid var(--cms-border);" />
                     <label class="btn btn-primary btn-xs" style="cursor:pointer;">
                       ⬆️ رفع خريطة
                       <input type="file" accept="image/*" style="display:none;" data-upload-loc-map="${i}" />
@@ -1574,8 +1574,8 @@
           bedrooms: "3 غرف",
           featureBadge: "إطلالة على المدينة",
           featureIcon: "landmark",
-          planImage: "/images/ui/unit-plan-a.png",
-          mainImage: "/images/light/scene-2.png",
+          planImage: "/images/ui/unit-plan-a.webp",
+          mainImage: "/images/light/scene-2.webp",
           caption: "تصميم عصري ومساحات رحبة"
         },
         {
@@ -1586,8 +1586,8 @@
           bedrooms: "4 غرف",
           featureBadge: "حديقة خاصة",
           featureIcon: "tree",
-          planImage: "/images/ui/unit-plan-duplex.png",
-          mainImage: "/images/light/scene-1.png",
+          planImage: "/images/ui/unit-plan-duplex.webp",
+          mainImage: "/images/light/scene-1.webp",
           caption: "دوبلكس فسيح مع مدخل وحديقة مستقلة"
         },
         {
@@ -1598,8 +1598,8 @@
           bedrooms: "4 غرف",
           featureBadge: "إطلالة بانورامية",
           featureIcon: "sun",
-          planImage: "/images/ui/unit-plan-penthouse.png",
-          mainImage: "/images/light/scene-4.png",
+          planImage: "/images/ui/unit-plan-penthouse.webp",
+          mainImage: "/images/light/scene-4.webp",
           caption: "إطلالة بانورامية ساحرة على أفق المدينة"
         }
       ];
@@ -1829,9 +1829,9 @@
               <div style="background:var(--cms-surface); border:1px solid var(--cms-border); border-radius:10px; padding:14px;">
                 <strong style="color:var(--cms-gold); font-size:0.9rem; display:block; margin-bottom:8px;">📐 صورة المخطط الهندسي (Floor Plan):</strong>
                 <div style="height:140px; border-radius:8px; overflow:hidden; border:1px solid var(--cms-border); margin-bottom:10px; background:#111; display:flex; align-items:center; justify-content:center; padding:8px;">
-                  <img src="${u.planImage || "/images/ui/unit-plan-a.png"}" alt="Floorplan" style="max-height:100%; max-width:100%; object-fit:contain;" />
+                  <img src="${u.planImage || "/images/ui/unit-plan-a.webp"}" alt="Floorplan" style="max-height:100%; max-width:100%; object-fit:contain;" />
                 </div>
-                <input class="input" style="margin-bottom:8px;" dir="ltr" value="${u.planImage || ""}" data-bind="explorerSection.units.${i}.planImage" placeholder="/images/ui/unit-plan-a.png" />
+                <input class="input" style="margin-bottom:8px;" dir="ltr" value="${u.planImage || ""}" data-bind="explorerSection.units.${i}.planImage" placeholder="/images/ui/unit-plan-a.webp" />
                 <div style="display:flex; gap:8px;">
                   <label class="btn btn-primary btn-sm" style="flex:1; cursor:pointer; text-align:center;">
                     ⬆️ رفع مخطط جديد
@@ -1845,9 +1845,9 @@
               <div style="background:var(--cms-surface); border:1px solid var(--cms-border); border-radius:10px; padding:14px;">
                 <strong style="color:var(--cms-gold); font-size:0.9rem; display:block; margin-bottom:8px;">📸 صورة المعاينة المعمارية للوحدة (Main Living Photo):</strong>
                 <div style="height:140px; border-radius:8px; overflow:hidden; border:1px solid var(--cms-border); margin-bottom:10px; background:#111;">
-                  <img src="${u.mainImage || "/images/light/scene-2.png"}" alt="Main View" style="width:100%; height:100%; object-fit:cover;" />
+                  <img src="${u.mainImage || "/images/light/scene-2.webp"}" alt="Main View" style="width:100%; height:100%; object-fit:cover;" />
                 </div>
-                <input class="input" style="margin-bottom:8px;" dir="ltr" value="${u.mainImage || ""}" data-bind="explorerSection.units.${i}.mainImage" placeholder="/images/light/scene-2.png" />
+                <input class="input" style="margin-bottom:8px;" dir="ltr" value="${u.mainImage || ""}" data-bind="explorerSection.units.${i}.mainImage" placeholder="/images/light/scene-2.webp" />
                 <div style="display:flex; gap:8px;">
                   <label class="btn btn-primary btn-sm" style="flex:1; cursor:pointer; text-align:center;">
                     ⬆️ رفع صورة جديدة
@@ -1938,11 +1938,16 @@
 
     const aptSubtabsEl = document.getElementById("apartmentsSubtabs");
     if (aptSubtabsEl) {
+      const projMap = {};
+      (cms.projectsSection?.projects || []).forEach((p) => {
+        projMap[p.id] = p.title;
+      });
+
       aptSubtabsEl.innerHTML = apts
         .map(
           (apt, idx) => `
         <button type="button" class="subtab-pill ${idx === selectedApartmentIdx ? "active" : ""}" data-apt-tab="${idx}">
-          <span>🏠 ${apt.title} (${apt.area})</span>
+          <span>🏠 [${projMap[apt.buildingId] || apt.buildingId || "مشروع 1"}] ${apt.title || apt.code} — <b style="color:var(--cms-gold);">${apt.price || "غير محدد"}</b></span>
         </button>
       `
         )
@@ -1965,50 +1970,105 @@
         const i = selectedApartmentIdx;
         const apt = apts[i];
 
+        const projMap = {};
+        (cms.projectsSection?.projects || []).forEach((p) => {
+          projMap[p.id] = p.title;
+        });
+
         aptsEl.innerHTML = `
           <div class="subcard">
-            <div class="subcard-top">
-              <strong style="color:var(--cms-gold); font-size:1.1rem;">تحرير مواصفات ومعرض: ${apt.title} (الرمز: ${apt.code || apt.id})</strong>
-              <button type="button" class="btn btn-danger btn-xs" data-del-apt="${i}">حذف هذه الشقة</button>
+            <div class="subcard-top" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <strong style="color:var(--cms-gold); font-size:1.1rem;">تحرير مواصفات ومعرض الشقة: ${apt.title} (الرمز: ${apt.code || apt.id})</strong>
+                <span class="badge subtle" style="margin-right:8px;">${projMap[apt.buildingId] || apt.buildingId || "مشروع 1"}</span>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <a href="/apartment?id=${apt.id || apt.code}&project=${apt.buildingId || 'proj-1'}" target="_blank" class="btn btn-secondary btn-xs" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                  <span>🔗 معاينة صفحة الشقة</span>
+                </a>
+                <button type="button" class="btn btn-danger btn-xs" data-del-apt="${i}">حذف هذه الشقة</button>
+              </div>
             </div>
+
             <div class="grid-4">
               <div class="field">
-                <label>عنوان الشقة (مثال: شقة - A)</label>
+                <label>العمارة / المجمع السكني التابع له</label>
+                <select class="select" data-bind="explorerSection.apartments.${i}.buildingId">
+                  ${(cms.projectsSection?.projects || []).map((p) => `
+                    <option value="${p.id}" ${(apt.buildingId || "proj-1") === p.id ? "selected" : ""}>
+                      ${p.title} (${p.id})
+                    </option>
+                  `).join("")}
+                </select>
+              </div>
+              <div class="field">
+                <label>رمز / رقم الشقة (مثال: A-101)</label>
+                <input class="input" value="${apt.code || ""}" data-bind="explorerSection.apartments.${i}.code" placeholder="A-101" />
+              </div>
+              <div class="field">
+                <label>عنوان الشقة (مثال: شقة فاخرة A-101)</label>
                 <input class="input" value="${apt.title || ""}" data-bind="explorerSection.apartments.${i}.title" />
+              </div>
+              <div class="field">
+                <label>نوع الشقة (طابقية / دوبلكس / روف)</label>
+                <input class="input" value="${apt.type || ""}" data-bind="explorerSection.apartments.${i}.type" placeholder="شقة طابقية فاخرة" />
+              </div>
+            </div>
+
+            <div class="grid-4" style="background:rgba(219,197,152,0.06); padding:12px; border-radius:10px; border:1px solid rgba(219,197,152,0.25); margin-top:10px;">
+              <div class="field">
+                <label style="color:var(--cms-gold); font-weight:700;">سعر الشقة (مع العملة)</label>
+                <input class="input" style="border-color:var(--cms-gold); font-weight:700; font-size:1.05rem;" value="${apt.price || ""}" data-bind="explorerSection.apartments.${i}.price" placeholder="مثال: 145,000 د.أ" />
+              </div>
+              <div class="field">
+                <label>ملاحظة السعر / شروط الدفع</label>
+                <input class="input" value="${apt.priceNote || ""}" data-bind="explorerSection.apartments.${i}.priceNote" placeholder="مثال: شامل رسوم التسجيل / دفعة 25%" />
               </div>
               <div class="field">
                 <label>حالة التوفر</label>
                 <select class="select" data-bind="explorerSection.apartments.${i}.status">
-                  <option value="available" ${apt.status === "available" ? "selected" : ""}>🟢 متاحة</option>
+                  <option value="available" ${apt.status === "available" ? "selected" : ""}>🟢 متاحة للبيع</option>
                   <option value="reserved" ${apt.status === "reserved" ? "selected" : ""}>⚪ محجوزة</option>
-                  <option value="sold" ${apt.status === "sold" ? "selected" : ""}>🔴 مباعة</option>
+                  <option value="sold" ${apt.status === "sold" ? "selected" : ""}>🔴 تم البيع</option>
                 </select>
               </div>
               <div class="field">
-                <label>نص شارة الحالة (مثال: متاحة)</label>
-                <input class="input" value="${apt.statusText || ""}" data-bind="explorerSection.apartments.${i}.statusText" />
-              </div>
-              <div class="field">
-                <label>المساحة (المؤشر 1: المساحة)</label>
-                <input class="input" value="${apt.area || ""}" data-bind="explorerSection.apartments.${i}.area" />
+                <label>نص شارة الحالة</label>
+                <input class="input" value="${apt.statusText || ""}" data-bind="explorerSection.apartments.${i}.statusText" placeholder="متاحة" />
               </div>
             </div>
-            <div class="grid-4">
+
+            <div class="grid-4" style="margin-top:10px;">
               <div class="field">
-                <label>الطابق (المؤشر 2: الطابق)</label>
-                <input class="input" value="${apt.floor || ""}" data-bind="explorerSection.apartments.${i}.floor" />
+                <label>المساحة (م²)</label>
+                <input class="input" value="${apt.area || ""}" data-bind="explorerSection.apartments.${i}.area" placeholder="185 م²" />
               </div>
               <div class="field">
-                <label>عدد غرف النوم (المؤشر 3)</label>
-                <input class="input" value="${apt.bedrooms || ""}" data-bind="explorerSection.apartments.${i}.bedrooms" />
+                <label>الطابق</label>
+                <input class="input" value="${apt.floor || ""}" data-bind="explorerSection.apartments.${i}.floor" placeholder="الطابق الأول" />
               </div>
               <div class="field">
-                <label>الاتجاه (المؤشر 4: الاتجاه)</label>
-                <input class="input" value="${apt.direction || ""}" data-bind="explorerSection.apartments.${i}.direction" />
+                <label>غرف النوم</label>
+                <input class="input" value="${apt.bedrooms || ""}" data-bind="explorerSection.apartments.${i}.bedrooms" placeholder="3 نوم (1 ماستر)" />
               </div>
               <div class="field">
-                <label>السعر التقريبي</label>
-                <input class="input" value="${apt.price || ""}" data-bind="explorerSection.apartments.${i}.price" />
+                <label>الحمامات</label>
+                <input class="input" value="${apt.bathrooms || ""}" data-bind="explorerSection.apartments.${i}.bathrooms" placeholder="3 حمامات" />
+              </div>
+            </div>
+
+            <div class="grid-3" style="margin-top:10px;">
+              <div class="field">
+                <label>الاتجاه والإطلالة</label>
+                <input class="input" value="${apt.direction || ""}" data-bind="explorerSection.apartments.${i}.direction" placeholder="جنوبي شرقي - إطلالة مفتوحة" />
+              </div>
+              <div class="field">
+                <label>رابط الصورة الرئيسية للشقة</label>
+                <input class="input" value="${apt.mainImage || ""}" data-bind="explorerSection.apartments.${i}.mainImage" placeholder="/images/living-room.webp" />
+              </div>
+              <div class="field">
+                <label>رابط المخطط الهندسي (Floor Plan)</label>
+                <input class="input" value="${apt.planImage || ""}" data-bind="explorerSection.apartments.${i}.planImage" placeholder="/images/floorplan-apt-a.webp" />
               </div>
             </div>
 
@@ -2078,8 +2138,8 @@
             cms.explorerSection.apartments[idx].gallery.push({
               id: `gal-${Date.now()}`,
               title: "غرفة داخلية جديدة",
-              imageLight: "/images/light/scene-2.png",
-              imageDark: "/images/dark/scene-2.png"
+              imageLight: "/images/light/scene-2.webp",
+              imageDark: "/images/dark/scene-2.webp"
             });
             markDirty(true);
             renderExplorerPanel();
@@ -2987,11 +3047,20 @@
 
   function bindDynamicInputs() {
     document.querySelectorAll("[data-bind]").forEach((el) => {
-      el.addEventListener("input", () => {
+      const handleUpdate = () => {
         const val = el.type === "number" ? Number(el.value) : el.value;
         setDeepValue(cms, el.dataset.bind, val);
+        if (el.dataset.bind && el.dataset.bind.endsWith(".buildingId")) {
+          const proj = (cms.projectsSection?.projects || []).find((p) => p.id === val);
+          if (proj) {
+            const nameBind = el.dataset.bind.replace(/\.buildingId$/, ".buildingName");
+            setDeepValue(cms, nameBind, proj.title);
+          }
+        }
         markDirty(true);
-      });
+      };
+      el.addEventListener("input", handleUpdate);
+      el.addEventListener("change", handleUpdate);
     });
 
     document.querySelectorAll("[data-input-light]").forEach((inp) => {
@@ -3373,8 +3442,8 @@
         id: `slide-${Date.now()}`,
         number: nextNum,
         title: "شريحة عرض جديدة",
-        imageLight: "/images/light/scene-1.png",
-        imageDark: "/images/dark/scene-1.png"
+        imageLight: "/images/light/scene-1.webp",
+        imageDark: "/images/dark/scene-1.webp"
       });
       markDirty(true);
       renderHeroPanel();
@@ -3392,8 +3461,8 @@
         floorsCountDark: "5 طوابق",
         statusText: "متاح الآن",
         statusType: "available",
-        imageLight: "/images/light/scene-10.png",
-        imageDark: "/images/dark/scene-10.png",
+        imageLight: "/images/light/scene-10.webp",
+        imageDark: "/images/dark/scene-10.webp",
         description: "مشروع سكني فاخر بتصاميم عصرية وتشطيبات فندقية."
       });
       selectedProjectIdx = cms.projectsSection.projects.length - 1;
@@ -3414,8 +3483,8 @@
         bedrooms: "3 غرف",
         featureBadge: "إطلالة مميزة",
         featureIcon: "landmark",
-        planImage: "/images/ui/unit-plan-a.png",
-        mainImage: "/images/light/scene-2.png",
+        planImage: "/images/ui/unit-plan-a.webp",
+        mainImage: "/images/light/scene-2.webp",
         caption: "تصميم عصري وتشطيبات فندقية راقية"
       });
       selectedShowcaseUnitIdx = cms.explorerSection.units.length - 1;
@@ -3427,23 +3496,31 @@
 
     document.getElementById("addApartmentBtn")?.addEventListener("click", () => {
       cms.explorerSection.apartments = cms.explorerSection.apartments || [];
-      const nextCode = String.fromCharCode(65 + cms.explorerSection.apartments.length);
+      const nextLetter = String.fromCharCode(65 + (cms.explorerSection.apartments.length % 26));
+      const firstProj = cms.projectsSection?.projects?.[0] || { id: "proj-1", title: "مشروع الحوض الهادي 1" };
       cms.explorerSection.apartments.push({
-        id: `unit-${nextCode}`,
-        code: nextCode,
-        title: `شقة - ${nextCode}`,
+        id: `apt-${Date.now()}`,
+        buildingId: firstProj.id,
+        buildingName: firstProj.title,
+        code: `${nextLetter}-10${cms.explorerSection.apartments.length + 1}`,
+        title: `شقة فاخرة ${nextLetter}-10${cms.explorerSection.apartments.length + 1}`,
+        type: "شقة طابقية فاخرة",
         status: "available",
-        statusText: "متاحة",
-        area: "165 م²",
-        floor: "4",
-        bedrooms: "3",
-        direction: "أمامية",
-        price: "145,000 د.أ",
+        statusText: "متاحة للبيع",
+        area: "175 م²",
+        floor: "الطابق الثاني",
+        bedrooms: "3 غرف نوم (1 ماستر)",
+        bathrooms: "3 حمامات",
+        direction: "واجهة أمامية جنوبية",
+        price: "140,000 د.أ",
+        priceNote: "شامل رسوم التسجيل",
+        planImage: "/images/floorplan-apt-a.webp",
+        mainImage: "/images/living-room.webp",
         bookCtaText: "احجز موعد مشاهدة",
         downloadPlanText: "تحميل المخطط",
         features: [
           { id: "feat-1", icon: "sofa", labelLight: "صالة واسعة", labelDark: "صالة واسعة", galleryIndex: 0 },
-          { id: "feat-2", icon: "balcony", labelLight: "مطبخ مستقل", labelDark: "شرفة مطلة", galleryIndex: 1 },
+          { id: "feat-2", icon: "balcony", labelLight: "بلكونة واسعة", labelDark: "بلكونة واسعة", galleryIndex: 1 },
           { id: "feat-3", icon: "kitchen", labelLight: "مطبخ حديث", labelDark: "مطبخ حديث", galleryIndex: 2 },
           { id: "feat-4", icon: "bath", labelLight: "3 حمامات", labelDark: "3 حمامات", galleryIndex: 3 }
         ],
@@ -3451,8 +3528,8 @@
           {
             id: `gal-${Date.now()}`,
             title: "الصالة الرئيسية وغرفة المعيشة",
-            imageLight: "/images/light/scene-2.png",
-            imageDark: "/images/dark/scene-2.png"
+            imageLight: "/images/living-room.webp",
+            imageDark: "/images/living-room.webp"
           }
         ]
       });
@@ -3460,7 +3537,7 @@
       markDirty(true);
       renderExplorerPanel();
       bindDynamicInputs();
-      showToast("تمت إضافة نموذج شقة جديد بنجاح!");
+      showToast("تمت إضافة شقة جديدة بنجاح!");
     });
 
     document.getElementById("addExpCategoryBtn")?.addEventListener("click", () => {

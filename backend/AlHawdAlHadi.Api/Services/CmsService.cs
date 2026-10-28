@@ -6,6 +6,7 @@ using AlHawdAlHadi.Api.Data.Entities;
 using AlHawdAlHadi.Api.Infrastructure;
 using AlHawdAlHadi.Api.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AlHawdAlHadi.Api.Services;
 
@@ -32,15 +33,21 @@ public interface ICmsService
 /// <item>Remaining scalar section texts → <c>PageSections.ContentJson</c>.</item>
 /// </list>
 /// </summary>
-public sealed class CmsService(AppDbContext db, IWebHostEnvironment env, ILogger<CmsService> logger) : ICmsService
+public sealed class CmsService(AppDbContext db, IWebHostEnvironment env, ILogger<CmsService> logger, IMemoryCache cache) : ICmsService
 {
     private const string SettingsKey = "settings";
     private const string NavigationKey = "navigation";
+    private const string CacheKey = "CMS_FULL_DOCUMENT";
 
     private static JsonSerializerOptions Json => JsonDefaults.Options;
 
     public async Task<JsonObject> GetDocumentAsync(CancellationToken ct = default)
     {
+        if (cache.TryGetValue(CacheKey, out JsonObject? cachedDoc) && cachedDoc != null)
+        {
+            return (JsonObject)cachedDoc.DeepClone();
+        }
+
         var settings = await db.SiteSettings.AsNoTracking().FirstOrDefaultAsync(ct) ?? new SiteSettings();
         var sections = await db.PageSections.AsNoTracking().OrderBy(s => s.SortOrder).ToListAsync(ct);
 
@@ -104,11 +111,13 @@ public sealed class CmsService(AppDbContext db, IWebHostEnvironment env, ILogger
             doc[section.Key] = content;
         }
 
-        return doc;
+        cache.Set(CacheKey, doc, TimeSpan.FromHours(24));
+        return (JsonObject)doc.DeepClone();
     }
 
     public async Task SaveDocumentAsync(JsonObject document, CancellationToken ct = default)
     {
+        cache.Remove(CacheKey);
         ArgumentNullException.ThrowIfNull(document);
 
         var strategy = db.Database.CreateExecutionStrategy();
