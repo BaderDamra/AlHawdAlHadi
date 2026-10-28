@@ -1,4 +1,4 @@
-﻿/**
+/**
  * الحوض الهادي للإسكان - AL HAWD AL HADI HOUSING
  * Interactive Front-End Application (CMS-Driven + Light/Dark Theme Engine + Full UI/UX Enhancements)
  */
@@ -1235,13 +1235,13 @@
     };
 
     document.getElementById("headerBookBtn")?.addEventListener("click", () => {
-      openBooking(`شقة - ${selectedUnitId.replace("unit-", "")} (الطابق ${selectedFloor})`);
+      openBooking();
     });
     document.getElementById("unitBookViewingBtn")?.addEventListener("click", () => {
-      openBooking(`شقة - ${selectedUnitId.replace("unit-", "")} (الطابق ${selectedFloor})`);
+      openBooking();
     });
     document.getElementById("ctaBannerBookBtn")?.addEventListener("click", () => {
-      openBooking(`شقة - ${selectedUnitId.replace("unit-", "")} (الطابق ${selectedFloor})`);
+      openBooking();
     });
     document.getElementById("closeBookingModal")?.addEventListener("click", () => {
       document.getElementById("bookingModal")?.classList.remove("open");
@@ -1284,7 +1284,7 @@
 
     document.getElementById("fpModalBookBtn")?.addEventListener("click", () => {
       document.getElementById("floorplanModal")?.classList.remove("open");
-      openBooking(`شقة - ${selectedUnitId.replace("unit-", "")} (الطابق ${selectedFloor})`);
+      openBooking();
     });
 
     // Submit Booking Form to CMS API

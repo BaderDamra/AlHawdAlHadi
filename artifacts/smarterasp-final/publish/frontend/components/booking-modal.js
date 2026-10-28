@@ -4,11 +4,128 @@
  */
 class BookingModal extends HTMLElement {
   connectedCallback() {
+    this.cmsProjects = [];
+    this.cmsApartments = [];
+    this.pendingUnitPrefill = null;
     this.render();
     this.setupEvents();
     this.loadProjectsFromCms();
     if (new URLSearchParams(window.location.search).get("book") === "1") {
       setTimeout(() => this.openModal(), 150);
+    }
+  }
+
+  formatUnitOption(u) {
+    const rawCode = String(u.code || u.unitNo || u.id || "101")
+      .replace(/^شقة\s*[-–]?\s*/i, "")
+      .trim();
+    const rawFloor = String(u.floor || "").trim();
+    const floorLabel = rawFloor
+      ? rawFloor.startsWith("الطابق") || rawFloor.startsWith("طابق")
+        ? rawFloor
+        : `الطابق ${rawFloor}`
+      : "";
+
+    const baseText = floorLabel
+      ? `شقة - ${rawCode} (${floorLabel})`
+      : u.title
+        ? `شقة - ${rawCode} (${u.title})`
+        : `شقة - ${rawCode}`;
+
+    const status = String(u.status || "available").toLowerCase();
+    const statusTag =
+      status === "sold"
+        ? " — (مباعة)"
+        : status === "reserved"
+          ? " — (محجوزة)"
+          : u.area
+            ? ` • ${u.area}`
+            : "";
+
+    return {
+      value: baseText,
+      label: `${baseText}${statusTag}`,
+      code: rawCode,
+      id: String(u.id || ""),
+      status
+    };
+  }
+
+  populateUnitsForSelectedProject(preferredUnit = null) {
+    const projectSelect = this.querySelector("#modalProjectSelect");
+    const unitSelect = this.querySelector("#modalUnitInput");
+    if (!projectSelect || !unitSelect) return;
+
+    const selectedOpt = projectSelect.options[projectSelect.selectedIndex];
+    const selectedProjId = selectedOpt?.dataset?.projectId || "";
+    const selectedProjTitle = projectSelect.value;
+
+    const proj =
+      this.cmsProjects.find((p) => selectedProjId && p.id === selectedProjId) ||
+      this.cmsProjects.find(
+        (p) =>
+          p.title === selectedProjTitle ||
+          selectedProjTitle.includes(p.title)
+      ) ||
+      this.cmsProjects[0];
+
+    let units = [];
+    if (proj && this.cmsApartments.length > 0) {
+      units = this.cmsApartments.filter((a) => a.buildingId === proj.id);
+    }
+    if (units.length === 0 && proj && Array.isArray(proj.availableUnits)) {
+      units = proj.availableUnits;
+    }
+
+    // Fallback default units if CMS hasn't loaded yet
+    if (units.length === 0) {
+      units = [
+        { code: "101", floor: "الأرضي", area: "155 م²", status: "available" },
+        { code: "102", floor: "الأول", area: "165 م²", status: "available" },
+        { code: "201", floor: "الثاني", area: "175 م²", status: "available" },
+        { code: "301", floor: "الثالث", area: "190 م²", status: "available" },
+        { code: "401", floor: "4", area: "210 م²", status: "available" }
+      ];
+    }
+
+    // Sort so available units come first, then reserved, then sold
+    const orderMap = { available: 0, reserved: 1, sold: 2 };
+    const sortedUnits = [...units].sort((a, b) => {
+      const sA = orderMap[String(a.status || "available").toLowerCase()] ?? 0;
+      const sB = orderMap[String(b.status || "available").toLowerCase()] ?? 0;
+      return sA - sB;
+    });
+
+    const formatted = sortedUnits.map((u) => this.formatUnitOption(u));
+
+    unitSelect.innerHTML =
+      formatted
+        .map(
+          (item) =>
+            `<option value="${item.value}" data-unit-code="${item.code}" data-unit-id="${item.id}" ${
+              item.status === "sold" ? "disabled" : ""
+            }>${item.label}</option>`
+        )
+        .join("") +
+      `<option value="معاينة عامة للمشروع (بدون شقة محددة)">معاينة عامة للمشروع (بدون شقة محددة)</option>`;
+
+    const targetUnit = preferredUnit || this.pendingUnitPrefill;
+    if (targetUnit) {
+      const cleanTarget = String(targetUnit).trim();
+      const match = Array.from(unitSelect.options).find(
+        (o) =>
+          o.value === cleanTarget ||
+          o.textContent.includes(cleanTarget) ||
+          (o.dataset.unitCode && cleanTarget.includes(o.dataset.unitCode)) ||
+          (o.dataset.unitId && cleanTarget === o.dataset.unitId)
+      );
+      if (match && !match.disabled) {
+        unitSelect.value = match.value;
+      }
+      this.pendingUnitPrefill = null;
+    } else {
+      const firstEnabled = Array.from(unitSelect.options).find((o) => !o.disabled);
+      if (firstEnabled) unitSelect.value = firstEnabled.value;
     }
   }
 
@@ -18,25 +135,40 @@ class BookingModal extends HTMLElement {
       if (!res.ok) return;
       const cms = await res.json();
       const projects = cms?.projectsSection?.projects || [];
+      const apartments = cms?.explorerSection?.apartments || [];
+      this.cmsProjects = projects;
+      this.cmsApartments = apartments;
+
       const selectEl = this.querySelector("#modalProjectSelect");
       if (selectEl && projects.length > 0) {
         const currentVal = selectEl.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageProjId = urlParams.get("project") || urlParams.get("building") || urlParams.get("id");
+
         selectEl.innerHTML = projects
           .map((p) => {
             const loc = (p.locationLight || "").replace(/^عمان\s*-\s*/, "").trim();
             const label = loc ? `${p.title} (${loc})` : p.title;
-            return `<option value="${p.title}">${label}</option>`;
+            return `<option value="${p.title}" data-project-id="${p.id || ""}">${label}</option>`;
           })
           .join("");
-        if (currentVal) {
+
+        const byPageId = pageProjId
+          ? Array.from(selectEl.options).find((o) => o.dataset.projectId === pageProjId)
+          : null;
+        if (byPageId) {
+          selectEl.value = byPageId.value;
+        } else if (currentVal) {
           const match = Array.from(selectEl.options).find(
             (o) => o.value === currentVal || o.textContent.includes(currentVal)
           );
           if (match) selectEl.value = match.value;
         }
       }
+
+      this.populateUnitsForSelectedProject();
     } catch (_) {
-      // Keep default options on error
+      this.populateUnitsForSelectedProject();
     }
   }
 
@@ -44,15 +176,14 @@ class BookingModal extends HTMLElement {
     const modal = this.querySelector("#bookingModalBackdrop");
     if (!modal) return;
 
-    if (prefill.unit) {
-      const uInput = this.querySelector("#modalUnitInput");
-      if (uInput) uInput.value = prefill.unit;
-    }
     if (prefill.project) {
       const pInput = this.querySelector("#modalProjectSelect");
       if (pInput) {
         const match = Array.from(pInput.options).find(
-          (o) => o.value === prefill.project || o.textContent.includes(prefill.project)
+          (o) =>
+            o.value === prefill.project ||
+            o.textContent.includes(prefill.project) ||
+            o.dataset.projectId === prefill.project
         );
         if (match) {
           pInput.value = match.value;
@@ -65,6 +196,11 @@ class BookingModal extends HTMLElement {
         }
       }
     }
+
+    if (prefill.unit) {
+      this.pendingUnitPrefill = prefill.unit;
+    }
+    this.populateUnitsForSelectedProject(prefill.unit || null);
 
     modal.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -162,9 +298,9 @@ class BookingModal extends HTMLElement {
                     </svg>
                   </span>
                   <select class="bm-input bm-select" id="modalProjectSelect">
-                    <option value="مشروع الهدوء 2">مشروع الهدوء 2 (دير غبار)</option>
-                    <option value="مشروع الهدوء 1">مشروع الهدوء 1 (الشميساني)</option>
-                    <option value="مشروع الهدوء 3">مشروع الهدوء 3 (عبدون)</option>
+                    <option value="مشروع الهدوء 2" data-project-id="proj-2">مشروع الهدوء 2 (دير غبار)</option>
+                    <option value="مشروع الهدوء 1" data-project-id="proj-1">مشروع الهدوء 1 (الشميساني)</option>
+                    <option value="مشروع الهدوء 3" data-project-id="proj-3">مشروع الهدوء 3 (عبدون)</option>
                   </select>
                   <span class="bm-field-chevron" aria-hidden="true">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -174,10 +310,10 @@ class BookingModal extends HTMLElement {
                 </div>
               </div>
 
-              <!-- 4. Apartment Number (Left in RTL) -->
+              <!-- 4. Apartment Number Dropdown (Left in RTL) -->
               <div class="field">
                 <label for="modalUnitInput">رقم الشقة (اختياري)</label>
-                <div class="bm-input-wrap has-icon-right">
+                <div class="bm-input-wrap has-icon-right has-chevron-left">
                   <span class="bm-field-icon right" aria-hidden="true">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                       <rect x="5" y="2" width="14" height="20" rx="2"></rect>
@@ -189,7 +325,14 @@ class BookingModal extends HTMLElement {
                       <line x1="15" y1="14" x2="15.01" y2="14"></line>
                     </svg>
                   </span>
-                  <input type="text" class="bm-input" id="modalUnitInput" placeholder="شقة - 101 (الطابق 4)" />
+                  <select class="bm-input bm-select" id="modalUnitInput">
+                    <option value="شقة - 101 (الطابق الأرضي)">شقة - 101 (الطابق الأرضي)</option>
+                  </select>
+                  <span class="bm-field-chevron" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
                 </div>
               </div>
 
@@ -271,6 +414,13 @@ class BookingModal extends HTMLElement {
     const closeBtn = this.querySelector("#modalCloseBtn");
     const backdrop = this.querySelector("#bookingModalBackdrop");
     const form = this.querySelector("#bookingModalForm");
+    const projectSelect = this.querySelector("#modalProjectSelect");
+
+    if (projectSelect) {
+      projectSelect.addEventListener("change", () => {
+        this.populateUnitsForSelectedProject();
+      });
+    }
 
     if (closeBtn) closeBtn.onclick = () => this.closeModal();
     if (backdrop) {
