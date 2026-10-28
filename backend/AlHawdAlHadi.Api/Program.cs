@@ -29,7 +29,8 @@ builder.Services.AddSingleton(frontendPaths);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        sql => sql.EnableRetryOnFailure(maxRetryCount: 5)));
+        sql => sql.EnableRetryOnFailure(maxRetryCount: 5))
+    .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
 
 builder.Services.AddScoped<ICmsService, CmsService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
@@ -83,7 +84,15 @@ var app = builder.Build();
 // ---------------------------------------------------------------------------
 // Database migration + seed
 // ---------------------------------------------------------------------------
-await DbInitializer.InitializeAsync(app.Services);
+try
+{
+    await DbInitializer.InitializeAsync(app.Services);
+}
+catch (Exception ex)
+{
+    var startupLogger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+    startupLogger.LogError(ex, "Database initialization encountered an error on startup.");
+}
 
 // ---------------------------------------------------------------------------
 // HTTP pipeline

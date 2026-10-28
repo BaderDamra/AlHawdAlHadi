@@ -32,10 +32,11 @@ public static class DbInitializer
         var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger("DbInitializer");
 
         await db.Database.MigrateAsync(ct);
+        await EnsureSchemaUpgradedAsync(db, ct);
 
-        if (!await db.SiteSettings.AnyAsync(ct))
+        if (!await db.SiteSettings.AnyAsync(ct) || !await db.Apartments.AnyAsync(a => a.ClientId == "apt-101", ct))
         {
-            logger.LogInformation("Seeding default CMS content...");
+            logger.LogInformation("Seeding / upgrading default multi-building CMS content...");
             var cms = sp.GetRequiredService<ICmsService>();
             await cms.SaveDocumentAsync(await CmsService.LoadDefaultDocumentAsync(env, ct), ct);
         }
@@ -47,10 +48,27 @@ public static class DbInitializer
                 Number = s.Number,
                 Title = s.Title,
                 Category = s.Category,
-                LightUrl = $"/images/light/scene-{s.Number}.png",
-                DarkUrl = $"/images/dark/scene-{s.Number}.png"
+                LightUrl = $"/images/light/scene-{s.Number}.webp",
+                DarkUrl = $"/images/dark/scene-{s.Number}.webp"
             }));
             await db.SaveChangesAsync(ct);
+        }
+        else
+        {
+            var pngScenes = await db.MediaScenes
+                .Where(s => s.LightUrl.EndsWith(".png") || s.DarkUrl.EndsWith(".png"))
+                .ToListAsync(ct);
+            if (pngScenes.Count > 0)
+            {
+                foreach (var s in pngScenes)
+                {
+                    if (s.LightUrl.StartsWith("/images/light/scene-") && s.LightUrl.EndsWith(".png"))
+                        s.LightUrl = s.LightUrl[..^4] + ".webp";
+                    if (s.DarkUrl.StartsWith("/images/dark/scene-") && s.DarkUrl.EndsWith(".png"))
+                        s.DarkUrl = s.DarkUrl[..^4] + ".webp";
+                }
+                await db.SaveChangesAsync(ct);
+            }
         }
 
         if (env.IsDevelopment() && !await db.Bookings.AnyAsync(ct))
@@ -69,6 +87,40 @@ public static class DbInitializer
                 await db.SaveChangesAsync(ct);
             }
         }
+    }
+
+    private static async Task EnsureSchemaUpgradedAsync(AppDbContext db, CancellationToken ct)
+    {
+        const string upgradeSql = """
+            IF COL_LENGTH('dbo.Apartments', 'BuildingId') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [BuildingId] NVARCHAR(100) NOT NULL CONSTRAINT [DF_Apartments_BuildingId] DEFAULT N'proj-1';
+            IF COL_LENGTH('dbo.Apartments', 'BuildingName') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [BuildingName] NVARCHAR(200) NOT NULL CONSTRAINT [DF_Apartments_BuildingName] DEFAULT N'';
+            IF COL_LENGTH('dbo.Apartments', 'Type') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [Type] NVARCHAR(200) NOT NULL CONSTRAINT [DF_Apartments_Type] DEFAULT N'';
+            IF COL_LENGTH('dbo.Apartments', 'Bathrooms') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [Bathrooms] NVARCHAR(100) NOT NULL CONSTRAINT [DF_Apartments_Bathrooms] DEFAULT N'';
+            IF COL_LENGTH('dbo.Apartments', 'PriceNote') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [PriceNote] NVARCHAR(200) NOT NULL CONSTRAINT [DF_Apartments_PriceNote] DEFAULT N'';
+            IF COL_LENGTH('dbo.Apartments', 'PlanImage') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [PlanImage] NVARCHAR(500) NOT NULL CONSTRAINT [DF_Apartments_PlanImage] DEFAULT N'';
+            IF COL_LENGTH('dbo.Apartments', 'MainImage') IS NULL
+                ALTER TABLE [dbo].[Apartments] ADD [MainImage] NVARCHAR(500) NOT NULL CONSTRAINT [DF_Apartments_MainImage] DEFAULT N'';
+
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Code] NVARCHAR(50) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Title] NVARCHAR(200) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Status] NVARCHAR(50) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [StatusText] NVARCHAR(100) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Area] NVARCHAR(100) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Floor] NVARCHAR(100) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Bedrooms] NVARCHAR(100) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Direction] NVARCHAR(200) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [Price] NVARCHAR(100) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [BookCtaText] NVARCHAR(200) NOT NULL;
+            ALTER TABLE [dbo].[Apartments] ALTER COLUMN [DownloadPlanText] NVARCHAR(200) NOT NULL;
+            """;
+
+        await db.Database.ExecuteSqlRawAsync(upgradeSql, ct);
     }
 
     /// <summary>Shape of SeedData/default-bookings.json (legacy string ids are ignored).</summary>

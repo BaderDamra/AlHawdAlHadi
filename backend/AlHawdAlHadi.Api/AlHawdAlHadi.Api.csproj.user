@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>$(MSBuildProjectDirectory)\Properties\PublishProfiles\SmarterASP.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\user\Documents\الحوض الهادي\backend\AlHawdAlHadi.Api\Properties\PublishProfiles\SmarterASP.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
