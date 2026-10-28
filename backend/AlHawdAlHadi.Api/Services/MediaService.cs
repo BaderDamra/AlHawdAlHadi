@@ -4,6 +4,9 @@ using AlHawdAlHadi.Api.Data;
 using AlHawdAlHadi.Api.Data.Entities;
 using AlHawdAlHadi.Api.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.Processing;
 
 namespace AlHawdAlHadi.Api.Services;
 
@@ -19,7 +22,8 @@ public sealed class MediaValidationException(string message) : Exception(message
 
 public sealed partial class MediaService(AppDbContext db, FrontendPaths paths, ILogger<MediaService> logger) : IMediaService
 {
-    public const long MaxBytes = 15 * 1024 * 1024; // 15 MB
+    public const long MaxBytes = 25 * 1024 * 1024; // 25 MB input allowed before auto-compression
+    public const int MaxDimensionPx = 1920;        // Full HD+ / 2K max dimension without visual quality loss
 
     // SVG intentionally excluded: it can embed scripts (stored XSS).
     private static readonly Dictionary<string, (string Ext, byte[][] Signatures)> Allowed = new(StringComparer.OrdinalIgnoreCase)
@@ -65,7 +69,7 @@ public sealed partial class MediaService(AppDbContext db, FrontendPaths paths, I
     public async Task<MediaUploadDto> SaveFormFileAsync(IFormFile file, CancellationToken ct = default)
     {
         if (file.Length == 0) throw new MediaValidationException("الملف فارغ");
-        if (file.Length > MaxBytes) throw new MediaValidationException("حجم الصورة يتجاوز 15 ميجابايت");
+        if (file.Length > MaxBytes) throw new MediaValidationException("حجم الصورة يتجاوز الحد المسموح (25 ميجابايت)");
 
         await using var ms = new MemoryStream();
         await file.CopyToAsync(ms, ct);
@@ -90,31 +94,94 @@ public sealed partial class MediaService(AppDbContext db, FrontendPaths paths, I
         if (!Allowed.TryGetValue(contentType, out var spec))
             throw new MediaValidationException("نوع الصورة غير مدعوم (PNG, JPG, WEBP, GIF فقط)");
         if (bytes.Length == 0) throw new MediaValidationException("الملف فارغ");
-        if (bytes.Length > MaxBytes) throw new MediaValidationException("حجم الصورة يتجاوز 15 ميجابايت");
+        if (bytes.Length > MaxBytes) throw new MediaValidationException("حجم الصورة يتجاوز الحد المسموح (25 ميجابايت)");
         if (!spec.Signatures.Any(sig => bytes.AsSpan().StartsWith(sig)))
             throw new MediaValidationException("محتوى الملف لا يطابق نوع الصورة");
+
+        var finalBytes = bytes;
+        var finalExt = spec.Ext;
+        var finalContentType = contentType.ToLowerInvariant();
+
+        // Automatically resize oversized dimensions (up to 1920px) and compress to WebP without visual quality loss
+        if (!string.Equals(spec.Ext, "gif", StringComparison.OrdinalIgnoreCase))
+        {
+            try
+            {
+                using var image = Image.Load(bytes);
+                image.Mutate(x => x.AutoOrient());
+
+                bool needsResize = image.Width > MaxDimensionPx || image.Height > MaxDimensionPx;
+                if (needsResize)
+                {
+                    image.Mutate(x => x.Resize(new ResizeOptions
+                    {
+                        Mode = ResizeMode.Max,
+                        Size = new Size(MaxDimensionPx, MaxDimensionPx),
+                        Sampler = KnownResamplers.Lanczos3
+                    }));
+                }
+
+                await using var webpStream = new MemoryStream();
+                var encoder = new WebpEncoder
+                {
+                    Quality = 85,
+                    FileFormat = WebpFileFormatType.Lossy,
+                    Method = WebpEncodingMethod.BestQuality
+                };
+                await image.SaveAsync(webpStream, encoder, ct);
+                var bestWebpBytes = webpStream.ToArray();
+
+                // For smaller graphics / CAD floorplans, also test Lossless WebP and pick whichever is smaller
+                if (bytes.Length < 1500 * 1024)
+                {
+                    await using var losslessStream = new MemoryStream();
+                    var losslessEncoder = new WebpEncoder
+                    {
+                        FileFormat = WebpFileFormatType.Lossless,
+                        Method = WebpEncodingMethod.Default
+                    };
+                    await image.SaveAsync(losslessStream, losslessEncoder, ct);
+                    if (losslessStream.Length > 0 && losslessStream.Length < bestWebpBytes.Length)
+                    {
+                        bestWebpBytes = losslessStream.ToArray();
+                    }
+                }
+
+                // Always use WebP if we resized, or if WebP achieved smaller byte size than original
+                if (needsResize || bestWebpBytes.Length < bytes.Length)
+                {
+                    finalBytes = bestWebpBytes;
+                    finalExt = "webp";
+                    finalContentType = "image/webp";
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "ImageSharp optimization skipped for {Name}; storing original bytes.", originalName);
+            }
+        }
 
         var baseName = UnsafeChars().Replace(Path.GetFileNameWithoutExtension(originalName ?? "image"), "-");
         if (baseName.Length > 40) baseName = baseName[..40];
         if (string.IsNullOrWhiteSpace(baseName.Trim('-'))) baseName = "asset";
 
-        var finalName = $"{baseName}-{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}.{spec.Ext}";
+        var finalName = $"{baseName}-{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}.{finalExt}";
         Directory.CreateDirectory(paths.UploadsDirectory);
-        await File.WriteAllBytesAsync(Path.Combine(paths.UploadsDirectory, finalName), bytes, ct);
+        await File.WriteAllBytesAsync(Path.Combine(paths.UploadsDirectory, finalName), finalBytes, ct);
 
         var asset = new MediaAsset
         {
             FileName = finalName,
             OriginalName = originalName ?? finalName,
             Url = $"/images/uploads/{finalName}",
-            ContentType = contentType.ToLowerInvariant(),
-            SizeBytes = bytes.Length,
+            ContentType = finalContentType,
+            SizeBytes = finalBytes.Length,
             UploadedAt = DateTime.UtcNow
         };
         db.MediaAssets.Add(asset);
         await db.SaveChangesAsync(ct);
 
-        logger.LogInformation("Uploaded media asset {File} ({Bytes} bytes)", finalName, bytes.Length);
+        logger.LogInformation("Uploaded & optimized media asset {File} ({OrigBytes} -> {FinalBytes} bytes)", finalName, bytes.Length, finalBytes.Length);
         return new MediaUploadDto(asset.Id, asset.FileName, asset.Url, asset.SizeBytes, asset.UploadedAt);
     }
 }

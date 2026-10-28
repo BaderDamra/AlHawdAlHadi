@@ -689,27 +689,41 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                     final_bytes = raw_bytes
                     final_ext = ext
 
+                    orig_dims = ""
+                    final_dims = ""
                     try:
                         from PIL import Image, ImageOps
                         img = Image.open(io.BytesIO(raw_bytes))
+                        orig_dims = f"{img.width}×{img.height}"
+                        final_dims = orig_dims
                         is_animated = getattr(img, "is_animated", False)
                         if not is_animated and ext in ("png", "jpg", "jpeg", "webp"):
                             img = ImageOps.exif_transpose(img)
+                            orig_dims = f"{img.width}×{img.height}"
+                            max_dim = 1920
+                            resized = False
+                            if img.width > max_dim or img.height > max_dim:
+                                img.thumbnail((max_dim, max_dim), Image.Resampling.LANCZOS)
+                                resized = True
+                            final_dims = f"{img.width}×{img.height}"
+
                             buf_webp = io.BytesIO()
-                            img.save(buf_webp, format="WEBP", quality=95, method=6, exact=True)
+                            img.save(buf_webp, format="WEBP", quality=85, method=6)
                             webp_bytes = buf_webp.getvalue()
 
-                            buf_lossless = io.BytesIO()
-                            img.save(buf_lossless, format="WEBP", lossless=True, method=6)
-                            lossless_bytes = buf_lossless.getvalue()
+                            # Also check lossless WebP for floorplan diagrams / graphics
+                            candidates = [(webp_bytes, "webp")]
+                            if len(raw_bytes) < 1500 * 1024:
+                                buf_lossless = io.BytesIO()
+                                img.save(buf_lossless, format="WEBP", lossless=True, method=4)
+                                candidates.append((buf_lossless.getvalue(), "webp"))
 
-                            candidate_bytes = webp_bytes
-                            if len(lossless_bytes) <= len(webp_bytes) * 1.15 and len(lossless_bytes) < len(raw_bytes):
-                                candidate_bytes = lossless_bytes
+                            if not resized:
+                                candidates.append((raw_bytes, ext))
 
-                            if len(candidate_bytes) < len(raw_bytes):
-                                final_bytes = candidate_bytes
-                                final_ext = "webp"
+                            best_bytes, best_ext = min(candidates, key=lambda x: len(x[0]))
+                            final_bytes = best_bytes
+                            final_ext = best_ext
                     except Exception as pil_err:
                         print("Pillow optimization skipped:", pil_err)
 
@@ -728,7 +742,9 @@ class AlHawdHandler(SimpleHTTPRequestHandler):
                         "filename": clean_name,
                         "originalBytes": orig_bytes_len,
                         "compressedBytes": len(final_bytes),
-                        "savedPercent": saved_pct
+                        "savedPercent": saved_pct,
+                        "originalDimensions": orig_dims,
+                        "finalDimensions": final_dims
                     }
                     self.send_json(200, res)
                     return
